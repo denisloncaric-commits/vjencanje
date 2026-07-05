@@ -29,6 +29,167 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─── Seal / Letter opener ─── */
+.seal-overlay {
+  position:fixed; inset:0; z-index:1000;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background: linear-gradient(160deg, #fdf5f2, #f5e6e0, #fdf5f2);
+  cursor:pointer;
+  transition:opacity 1s ease, transform 1s ease;
+  overflow:hidden;
+}
+
+.seal-overlay.opened {
+  opacity:0; transform:scale(1.1);
+  pointer-events:none;
+}
+
+.seal-overlay.hidden {
+  display:none;
+}
+
+.seal-paper {
+  position:relative;
+  width:clamp(280px,60vw,460px);
+  padding:clamp(40px,8vw,70px) clamp(30px,6vw,60px);
+  background:linear-gradient(135deg,#fef8f5,#f8ede8,#fef8f5);
+  border:1px solid rgba(201,169,107,0.2);
+  box-shadow:
+    0 20px 60px rgba(139,74,90,0.12),
+    0 4px 12px rgba(0,0,0,0.05),
+    inset 0 0 40px rgba(201,169,107,0.04);
+  text-align:center;
+  transition:transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.seal-overlay:hover .seal-paper {
+  transform:translateY(-4px);
+}
+
+.seal-paper::before {
+  content:''; position:absolute; inset:8px;
+  border:1px solid rgba(201,169,107,0.12);
+  pointer-events:none;
+}
+
+.seal-paper::after {
+  content:''; position:absolute; top:0; left:10%; right:10%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,107,0.3),transparent);
+}
+
+.seal-ornament-top {
+  font-size:clamp(0.8rem,1.5vw,1rem);
+  color:var(--gold); letter-spacing:6px; margin-bottom:12px;
+}
+
+.seal-invite-text {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(1.8rem,4vw,2.6rem);
+  color:var(--burgundy);
+  margin-bottom:4px;
+}
+
+.seal-names {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(2.5rem,6vw,3.8rem);
+  color:var(--burgundy);
+  margin:4px 0;
+  text-shadow:0 1px 10px rgba(139,74,90,0.08);
+}
+
+.seal-and {
+  font-size:clamp(0.9rem,1.8vw,1.2rem);
+  color:var(--gold); letter-spacing:6px; margin:2px 0;
+}
+
+.seal-date {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(0.55rem,1vw,0.65rem);
+  letter-spacing:4px; text-transform:uppercase;
+  color:var(--text-light); margin-top:12px;
+}
+
+.seal-wax {
+  position:relative;
+  display:inline-flex; align-items:center; justify-content:center;
+  width:clamp(60px,10vw,80px); height:clamp(60px,10vw,80px);
+  margin-top:20px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #b8434a, #8b2630 60%, #6e1a22);
+  box-shadow:
+    0 4px 15px rgba(139,38,48,0.3),
+    inset 0 -2px 6px rgba(0,0,0,0.2),
+    inset 0 2px 6px rgba(255,255,255,0.1);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.seal-overlay:hover .seal-wax {
+  transform:scale(1.04);
+  box-shadow:0 6px 20px rgba(139,38,48,0.35);
+}
+
+.seal-wax::after {
+  content:''; position:absolute; inset:4px;
+  border-radius:50%;
+  border:1.5px solid rgba(201,169,107,0.25);
+}
+
+.seal-wax-inner {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(1.2rem,2.5vw,1.8rem);
+  color:rgba(201,169,107,0.8);
+  text-shadow:0 1px 3px rgba(0,0,0,0.2);
+  letter-spacing:1px;
+}
+
+.seal-ribbon {
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  bottom:clamp(-14px,-2vw,-20px);
+  width:clamp(40px,8vw,60px); height:clamp(28px,4vw,38px);
+  background:linear-gradient(180deg,var(--gold-light),var(--gold),var(--gold-light));
+  clip-path:polygon(50% 100%, 0 0, 100% 0);
+  opacity:0.7;
+}
+
+.seal-click-hint {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(0.55rem,0.9vw,0.65rem);
+  letter-spacing:3px; text-transform:uppercase;
+  color:var(--text-light);
+  margin-top:clamp(20px,4vw,30px);
+  animation:pulseHint 2s ease-in-out infinite;
+}
+
+@keyframes pulseHint {
+  0%,100% { opacity:0.4; transform:translateY(0); }
+  50% { opacity:0.9; transform:translateY(4px); }
+}
+
+/* Opening animation */
+.seal-overlay.breaking .seal-wax {
+  animation:waxBreak 0.6s ease forwards;
+}
+
+.seal-overlay.breaking .seal-paper {
+  animation:paperRip 0.5s ease forwards;
+}
+
+@keyframes waxBreak {
+  0% { transform:scale(1); opacity:1; }
+  20% { transform:scale(1.15); opacity:0.9; }
+  40% { transform:scale(0.9); opacity:0.7; }
+  60% { transform:scale(1.05) rotate(5deg); opacity:0.4; }
+  100% { transform:scale(2) rotate(15deg); opacity:0; }
+}
+
+@keyframes paperRip {
+  0% { transform:scale(1); opacity:1; }
+  40% { transform:scale(1.02); opacity:0.8; }
+  100% { transform:scale(1.2); opacity:0; }
+}
+
 /* ─── Petals ─── */
 #petals { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
 .petal {
@@ -470,6 +631,23 @@ footer p { font-family:'Montserrat',sans-serif; font-size:0.7rem; color:var(--te
 <body>
 
 <div id="petals"></div>
+
+<!-- ─── Seal opener ─── -->
+<div class="seal-overlay" id="sealOverlay" onclick="openInvitation()">
+  <div class="seal-paper">
+    <div class="seal-ornament-top">&#x2736;</div>
+    <p class="seal-invite-text">Pozivnica</p>
+    <p class="seal-names">Denis &amp; Ivana</p>
+    <p class="seal-and">&#x2726;</p>
+    <p class="seal-date">10.10.2026. &middot; Karlovac</p>
+    <div class="seal-wax">
+      <span class="seal-wax-inner">D&amp;I</span>
+      <div class="seal-ribbon"></div>
+    </div>
+    <p class="seal-click-hint">&#x271E; Otvori pozivnicu</p>
+  </div>
+</div>
+
 <a href="#" class="admin-link" onclick="openAdmin()">&#x2691;</a>
 
 <nav class="nav-dots" id="navDots"></nav>
@@ -707,6 +885,30 @@ function doPost(e) {
 </footer>
 
 <script>
+// ─── Seal opener ───
+function openInvitation(){
+  const seal = document.getElementById('sealOverlay');
+  if(seal.classList.contains('opened')) return;
+  seal.classList.add('breaking');
+  setTimeout(() => {
+    seal.classList.remove('breaking');
+    seal.classList.add('opened');
+    setTimeout(() => seal.classList.add('hidden'), 1000);
+    document.body.style.overflow = '';
+  }, 700);
+}
+
+// Prevent scroll while seal is closed
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.style.overflow = 'hidden';
+  const seal = document.getElementById('sealOverlay');
+  if(seal) {
+    seal.addEventListener('click', () => {
+      document.body.style.overflow = '';
+    }, { once: true });
+  }
+});
+
 // ─── Petals ───
 (function(){
   const count = window.innerWidth<600 ? 15 : 30;
