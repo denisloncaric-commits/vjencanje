@@ -14,9 +14,18 @@
   --cream: #fcf5f0;
   --gold: #c9a96b;
   --gold-light: #e8d5a8;
+  --gold-shimmer: #f0e2c0;
   --text: #5a3e3e;
   --text-light: #b07d8a;
   --card-bg: #fefaf8;
+  --shadow-sm: 0 2px 12px rgba(139,74,90,0.06);
+  --shadow-md: 0 8px 30px rgba(139,74,90,0.08);
+  --shadow-lg: 0 20px 60px rgba(139,74,90,0.1);
+}
+
+@keyframes shimmerGold {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
@@ -39,6 +48,14 @@ body {
   overflow:hidden;
 }
 
+.seal-overlay::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(201,169,107,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(212,146,158,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+
 .seal-overlay.opened {
   opacity:0; transform:scale(1.1);
   pointer-events:none;
@@ -51,8 +68,8 @@ body {
 .seal-paper {
   position:relative;
   width:clamp(280px,60vw,460px);
-  padding:clamp(40px,8vw,70px) clamp(30px,6vw,60px);
-  background:linear-gradient(135deg,#fef8f5,#f8ede8,#fef8f5);
+  padding:clamp(44px,8vw,74px) clamp(30px,6vw,60px);
+  background:linear-gradient(135deg,#fefaf5,#f9ede8,#fefaf5);
   border:1px solid rgba(201,169,107,0.2);
   box-shadow:
     0 20px 60px rgba(139,74,90,0.12),
@@ -77,6 +94,23 @@ body {
   height:1px;
   background:linear-gradient(90deg,transparent,rgba(201,169,107,0.3),transparent);
 }
+
+.seal-corner { position:absolute; width:30px; height:30px; opacity:0.15; }
+.seal-corner::before,.seal-corner::after {
+  content:''; position:absolute; background:var(--gold);
+}
+.seal-corner-tl { top:12px; left:12px; }
+.seal-corner-tl::before { top:0; left:0; width:18px; height:1px; }
+.seal-corner-tl::after { top:0; left:0; width:1px; height:18px; }
+.seal-corner-tr { top:12px; right:12px; }
+.seal-corner-tr::before { top:0; right:0; width:18px; height:1px; }
+.seal-corner-tr::after { top:0; right:0; width:1px; height:18px; }
+.seal-corner-bl { bottom:12px; left:12px; }
+.seal-corner-bl::before { bottom:0; left:0; width:18px; height:1px; }
+.seal-corner-bl::after { bottom:0; left:0; width:1px; height:18px; }
+.seal-corner-br { bottom:12px; right:12px; }
+.seal-corner-br::before { bottom:0; right:0; width:18px; height:1px; }
+.seal-corner-br::after { bottom:0; right:0; width:1px; height:18px; }
 
 .seal-ornament-top {
   font-size:clamp(0.8rem,1.5vw,1rem);
@@ -237,6 +271,15 @@ body {
   pointer-events:none;
 }
 
+.hero-border-top, .hero-border-bottom {
+  position:absolute; left:5%; right:5%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,107,0.3),transparent);
+  z-index:2;
+}
+.hero-border-top { top:30px; }
+.hero-border-bottom { bottom:70px; }
+
 .hero-floral { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
 .hero-floral .bloom {
   position:absolute; border-radius:50%;
@@ -254,6 +297,16 @@ body {
   opacity:0; animation:fadeInDown 1.2s ease forwards; animation-delay:0.4s;
 }
 
+.gold-shimmer {
+  background:linear-gradient(90deg,
+    var(--gold-light) 0%, var(--gold-shimmer) 25%, var(--gold) 50%,
+    var(--gold-shimmer) 75%, var(--gold-light) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmerGold 4s ease-in-out infinite;
+}
+
 .hero-title {
   font-family:'Great Vibes',cursive;
   font-size:clamp(3.5rem,12vw,7rem); font-weight:400;
@@ -267,22 +320,37 @@ body {
   opacity:0; animation:fadeIn 1.2s ease forwards; animation-delay:1.2s;
 }
 
+.hero-and::before, .hero-and::after {
+  content:' \2726 '; font-size:0.6rem; opacity:0.5;
+}
+
 .hero-subtitle {
   font-family:'Montserrat',sans-serif;
-  font-size:0.85rem; font-weight:300; letter-spacing:10px; text-transform:uppercase;
-  color:var(--text-light); margin-top:12px;
+  font-size:0.7rem; font-weight:300; letter-spacing:12px; text-transform:uppercase;
+  color:var(--text-light); margin-top:16px; position:relative;
   opacity:0; animation:fadeInUp 1.2s ease forwards; animation-delay:1.6s;
 }
 
+.hero-subtitle::before, .hero-subtitle::after {
+  content:''; display:inline-block; width:40px; height:1px;
+  background:var(--gold-light); margin:0 16px; vertical-align:middle;
+}
+
 .hero-date {
-  font-size:0.95rem; font-weight:400; letter-spacing:4px;
+  font-size:0.95rem; font-weight:400; letter-spacing:5px;
   color:var(--burgundy); margin-top:20px;
   opacity:0; animation:fadeIn 1.5s ease forwards; animation-delay:2.2s;
 }
 
+.hero-date span {
+  display:inline-block;
+  border:1px solid rgba(201,169,107,0.15);
+  padding:8px 24px;
+}
+
 .hero-actions {
   display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
-  margin-top:30px;
+  margin-top:40px;
   opacity:0; animation:fadeInUp 1s ease forwards; animation-delay:2.8s;
 }
 
@@ -291,31 +359,32 @@ body {
   padding:12px 28px;
   font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:500;
   letter-spacing:2px; text-transform:uppercase; text-decoration:none;
-  border-radius:2px; transition:all 0.3s ease;
+  border-radius:50px; transition:all 0.3s ease;
   cursor:pointer; border:none;
 }
 
 .hero-btn-primary {
-  background:var(--burgundy); color:#fff;
-  box-shadow:0 2px 15px rgba(139,74,90,0.25);
+  background:linear-gradient(135deg,var(--burgundy),#7a3f4e); color:#fff;
+  box-shadow:0 4px 20px rgba(139,74,90,0.3);
 }
-.hero-btn-primary:hover { background:#7a3f4e; transform:translateY(-1px); box-shadow:0 4px 20px rgba(139,74,90,0.3); }
+.hero-btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(139,74,90,0.35); }
 
 .hero-btn-secondary {
-  background:transparent; color:var(--burgundy);
-  border:1px solid rgba(139,74,90,0.25);
+  background:rgba(255,255,255,0.6); color:var(--burgundy);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(139,74,90,0.15);
 }
-.hero-btn-secondary:hover { border-color:var(--burgundy); background:rgba(139,74,90,0.04); }
+.hero-btn-secondary:hover { border-color:var(--burgundy); background:rgba(255,255,255,0.85); transform:translateY(-2px); }
 
 .scroll-indicator {
-  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+  position:absolute; bottom:35px; left:50%; transform:translateX(-50%);
   z-index:2; opacity:0;
   animation:fadeIn 1.5s ease forwards 3.2s, bounce 2s ease infinite 3.7s;
 }
 .scroll-indicator span {
-  display:block; width:18px; height:18px;
-  border:2px solid var(--rose); border-left:none; border-top:none;
-  transform:rotate(45deg); margin:-6px;
+  display:block; width:16px; height:16px;
+  border:1.5px solid var(--rose); border-left:none; border-top:none;
+  transform:rotate(45deg); margin:-5px;
 }
 
 /* ─── Section shared ─── */
@@ -331,52 +400,83 @@ body {
   color:var(--text-light); text-align:center; margin-bottom:40px;
 }
 .divider {
-  text-align:center; padding:30px 20px;
+  text-align:center; padding:35px 20px;
   position:relative;
 }
 .divider-line {
-  display:inline-block; width:80px; height:1px;
+  display:inline-block; width:40px; height:1px;
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  vertical-align:middle;
 }
-.divider-flower { color:var(--gold); font-size:0.85rem; letter-spacing:4px; margin-top:6px; }
+.divider-flower {
+  display:inline-block;
+  color:var(--gold); font-size:0.7rem; letter-spacing:6px; margin:0 14px;
+  vertical-align:middle;
+}
+.divider-line-right {
+  display:inline-block; width:40px; height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  vertical-align:middle;
+}
+.divider-line-left {
+  display:inline-block; width:40px; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold));
+  vertical-align:middle;
+}
 
 .reveal { opacity:0; transform:translateY(40px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
 /* ─── Countdown ─── */
 .countdown-section { background:var(--cream); text-align:center; }
+.countdown-section .section-subtitle { font-size:0.65rem; letter-spacing:6px; }
 .countdown {
-  display:flex; justify-content:center; gap:clamp(16px,5vw,40px); flex-wrap:wrap;
+  display:flex; justify-content:center; gap:clamp(20px,5vw,48px); flex-wrap:wrap;
 }
-.countdown-item { text-align:center; }
+.countdown-item { text-align:center; position:relative; }
+.countdown-item::after {
+  content:''; position:absolute; right:-14px; top:30%;
+  width:1px; height:40%;
+  background:linear-gradient(180deg,transparent,var(--gold-light),transparent);
+}
+.countdown-item:last-child::after { display:none; }
 .countdown-number {
-  font-family:'Montserrat',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:300;
-  color:var(--burgundy); display:block; min-width:54px;
+  font-family:'Montserrat',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:200;
+  color:var(--burgundy); display:block; min-width:60px;
   position:relative;
 }
 .countdown-number::after {
-  content:''; position:absolute; bottom:-4px; left:20%; right:20%;
-  height:1px; background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
+  content:''; position:absolute; bottom:-4px; left:50%; transform:translateX(-50%);
+  width:30px; height:1px; background:var(--gold-light);
 }
 .countdown-label {
-  font-family:'Montserrat',sans-serif; font-size:0.6rem;
-  letter-spacing:3px; text-transform:uppercase; color:var(--text-light); margin-top:6px;
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  letter-spacing:4px; text-transform:uppercase; color:var(--text-light); margin-top:8px;
 }
 
 /* ─── Quote ─── */
 .quote-section {
   background:linear-gradient(180deg,var(--cream),#fdf5f2);
   text-align:center;
+  position:relative;
 }
+.quote-section::before, .quote-section::after {
+  content:''; position:absolute; left:5%; right:5%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,107,0.2),transparent);
+}
+.quote-section::before { top:0; }
+.quote-section::after { bottom:0; }
 .quote-text {
   font-size:clamp(1.15rem,3vw,1.5rem); font-style:italic; font-weight:400;
   color:var(--burgundy); max-width:580px; margin:0 auto; line-height:1.7;
-  position:relative;
+  position:relative; padding:0 20px;
 }
-.quote-text::before { content:'\201C'; font-size:3em; color:var(--gold-light); position:absolute; left:-10px; top:-20px; font-style:normal; opacity:0.5; }
+.quote-text::before { content:'\201C'; font-size:4em; color:var(--gold-light); position:absolute; left:-5px; top:-25px; font-style:normal; opacity:0.3; font-family:'Playfair Display',serif; }
+.quote-text::after { content:'\201D'; font-size:4em; color:var(--gold-light); position:absolute; right:-5px; bottom:-40px; font-style:normal; opacity:0.3; font-family:'Playfair Display',serif; }
 .quote-author {
-  font-family:'Montserrat',sans-serif; font-size:0.75rem; font-style:normal;
-  color:var(--text-light); margin-top:16px; letter-spacing:2px;
+  font-family:'Montserrat',sans-serif; font-size:0.7rem; font-style:normal;
+  color:var(--text-light); margin-top:20px; letter-spacing:3px; text-transform:uppercase;
 }
 
 /* ─── Story ─── */
@@ -388,31 +488,39 @@ body {
 
 /* ─── Gallery ─── */
 .gallery-section { background:#fdf5f2; text-align:center; }
+.gallery-frame {
+  max-width:780px; margin:0 auto; padding:14px;
+  background:#fff; box-shadow:var(--shadow-md);
+}
 .gallery-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px; max-width:750px; margin:0 auto;
+  gap:6px; background:#fff;
 }
 .gallery-grid img {
-  width:100%; height:240px; object-fit:cover; border-radius:2px;
-  transition:all 0.5s ease;
+  width:100%; height:240px; object-fit:cover;
+  transition:all 0.6s ease;
   opacity:0; transform:translateY(25px);
-  box-shadow:0 2px 8px rgba(139,74,90,0.06);
+  filter:brightness(0.97);
 }
 .gallery-grid img.visible { opacity:1; transform:translateY(0); }
-.gallery-grid img:hover { transform:scale(1.03); box-shadow:0 12px 40px rgba(139,74,90,0.12); }
+.gallery-grid img:hover {
+  filter:brightness(1.03); transform:scale(1.02);
+  z-index:2; position:relative;
+  box-shadow:0 8px 30px rgba(139,74,90,0.15);
+}
 
 /* ─── Details ─── */
 .details-section { background:var(--cream); text-align:center; }
 .details-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px; max-width:850px; margin:0 auto;
+  gap:16px; max-width:850px; margin:0 auto;
 }
 .detail-card {
-  padding:32px 20px;
+  padding:36px 22px 32px;
   background:var(--card-bg);
-  border:1px solid rgba(212,146,158,0.15);
+  border:1px solid rgba(212,146,158,0.12);
   transition:all 0.4s ease;
   opacity:0; transform:translateY(25px);
   position:relative; overflow:hidden;
@@ -423,21 +531,42 @@ body {
   background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
   opacity:0; transition:opacity 0.4s;
 }
+.detail-card::after {
+  content:''; position:absolute; bottom:12px; left:30%; right:30%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,107,0.1),transparent);
+}
 .detail-card.visible { opacity:1; transform:translateY(0); }
-.detail-card:hover { border-color:var(--rose); box-shadow:0 8px 30px rgba(212,146,158,0.1); }
+.detail-card:hover { border-color:var(--rose); transform:translateY(-3px); box-shadow:var(--shadow-md); }
 .detail-card:hover::before { opacity:1; }
-.detail-icon { font-size:2rem; margin-bottom:10px; display:block; }
+.detail-card .card-ornament {
+  position:absolute; top:8px; right:10px;
+  font-size:0.6rem; color:rgba(201,169,107,0.1);
+}
+.detail-icon { font-size:2rem; margin-bottom:12px; display:block; }
 .detail-card h3 { font-size:1.1rem; font-weight:500; color:var(--burgundy); margin-bottom:6px; letter-spacing:1px; }
 .detail-card p { font-size:0.9rem; font-weight:400; color:var(--text); line-height:1.6; }
 .detail-card .sub { font-size:0.78rem; color:var(--text-light); margin-top:5px; }
 
 /* ─── Info bar ─── */
-.info-bar { background:#fdf5f2; text-align:center; padding:40px 20px; }
+.info-bar { background:#fdf5f2; text-align:center; padding:50px 20px; position:relative; }
+.info-bar::before, .info-bar::after {
+  content:''; position:absolute; left:5%; right:5%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,107,0.15),transparent);
+}
+.info-bar::before { top:0; }
+.info-bar::after { bottom:0; }
 .info-bar-inner {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:14px 45px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:16px 50px;
   max-width:750px; margin:0 auto;
 }
-.info-bar-item { font-size:0.9rem; color:var(--text); }
+.info-bar-item {
+  font-size:0.85rem; color:var(--text);
+  padding:0 16px;
+  border-right:1px solid rgba(212,146,158,0.15);
+}
+.info-bar-item:last-child { border-right:none; }
 .info-bar-item strong { color:var(--burgundy); font-weight:500; }
 
 .venue-image {
@@ -446,36 +575,42 @@ body {
 
 /* ─── RSVP ─── */
 .rsvp-section { background:#fdf5f2; text-align:center; }
+.rsvp-form-wrap {
+  max-width:480px; margin:0 auto;
+  background:#fff; padding:40px 36px;
+  box-shadow:var(--shadow-sm);
+  border:1px solid rgba(201,169,107,0.08);
+}
 .rsvp-form {
-  max-width:450px; margin:0 auto; text-align:left;
+  text-align:left;
 }
 .rsvp-form label {
   display:block; font-family:'Montserrat',sans-serif;
-  font-size:0.65rem; letter-spacing:2px; text-transform:uppercase;
+  font-size:0.6rem; letter-spacing:2px; text-transform:uppercase;
   color:var(--text-light); margin-bottom:5px;
 }
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
-  width:100%; padding:14px 16px; margin-bottom:18px;
-  background:#fff; border:1px solid #e8d0d5;
-  color:var(--text); font-family:'Playfair Display',serif; font-size:0.95rem;
-  outline:none; transition:border-color 0.3s; border-radius:2px;
+  width:100%; padding:13px 16px; margin-bottom:16px;
+  background:#fcfaf8; border:1px solid #e8d0d5;
+  color:var(--text); font-family:'Playfair Display',serif; font-size:0.9rem;
+  outline:none; transition:all 0.3s; border-radius:2px;
   -webkit-appearance:none; appearance:none;
 }
 .rsvp-form input:focus,
 .rsvp-form select:focus,
-.rsvp-form textarea:focus { border-color:var(--rose); }
-.rsvp-form select { cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23d4929e'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:10px; }
+.rsvp-form textarea:focus { border-color:var(--gold); background:#fff; box-shadow:0 0 0 3px rgba(201,169,107,0.06); }
+.rsvp-form select { cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a96b'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:10px; }
 .rsvp-form textarea { min-height:70px; resize:vertical; }
-.rsvp-form .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.rsvp-form .row-3 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.rsvp-form .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.rsvp-form .row-3 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .rsvp-btn {
   width:100%; padding:15px; border:none;
   background:linear-gradient(135deg,var(--burgundy),var(--rose-dark));
   color:#fff; font-family:'Montserrat',sans-serif; font-size:0.7rem;
   font-weight:500; letter-spacing:3px; text-transform:uppercase;
-  cursor:pointer; transition:all 0.3s ease; border-radius:2px;
+  cursor:pointer; transition:all 0.3s ease; border-radius:50px;
   position:relative; overflow:hidden;
 }
 .rsvp-btn::after {
@@ -483,15 +618,16 @@ body {
   background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));
   pointer-events:none;
 }
-.rsvp-btn:hover { transform:translateY(-1px); box-shadow:0 4px 20px rgba(139,74,90,0.25); }
+.rsvp-btn:hover { transform:translateY(-1px); box-shadow:0 6px 25px rgba(139,74,90,0.25); }
 .rsvp-btn:active { transform:translateY(0); }
 .rsvp-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
 
-.rsvp-success { display:none; padding:50px 20px; text-align:center; max-width:450px; margin:0 auto; }
+.rsvp-success { display:none; padding:50px 20px; text-align:center; max-width:480px; margin:0 auto; background:#fff; padding:40px 36px; box-shadow:var(--shadow-sm); }
 .rsvp-success h3 { font-family:'Great Vibes',cursive; font-size:2rem; color:var(--burgundy); margin-bottom:8px; }
+.rsvp-success .success-icon { font-size:2.4rem; color:var(--gold); margin-bottom:12px; display:block; }
 .rsvp-success p { color:var(--text); font-size:1rem; line-height:1.7; }
 
-.rsvp-status { margin-top:16px; padding:12px; text-align:center; font-family:'Montserrat',sans-serif; font-size:0.8rem; border:1px solid #e8d0d5; display:none; border-radius:2px; }
+.rsvp-status { margin-top:12px; padding:12px; text-align:center; font-family:'Montserrat',sans-serif; font-size:0.75rem; border:1px solid #e8d0d5; display:none; border-radius:2px; }
 .rsvp-status.error { border-color:var(--rose); color:var(--burgundy); display:block; }
 
 /* ─── Map ─── */
@@ -503,9 +639,15 @@ body {
 .map-card a:hover { border-bottom-color:var(--rose); }
 
 /* ─── Footer ─── */
-footer { padding:35px 20px; text-align:center; background:var(--cream); }
+footer { padding:50px 20px 40px; text-align:center; background:var(--cream); position:relative; }
+footer::before {
+  content:''; position:absolute; top:0; left:10%; right:10%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,107,0.2),transparent);
+}
+footer .footer-ornament { font-size:0.7rem; color:var(--gold); letter-spacing:6px; margin-bottom:10px; }
 footer .names { font-family:'Great Vibes',cursive; font-size:1.5rem; color:var(--burgundy); margin-bottom:4px; }
-footer p { font-family:'Montserrat',sans-serif; font-size:0.7rem; color:var(--text-light); letter-spacing:2px; }
+footer p { font-family:'Montserrat',sans-serif; font-size:0.65rem; color:var(--text-light); letter-spacing:2px; }
 
 /* ─── Admin ─── */
 .admin-link {
@@ -600,21 +742,33 @@ footer p { font-family:'Montserrat',sans-serif; font-size:0.7rem; color:var(--te
 /* ─── Mobile ─── */
 @media (max-width:600px) {
   .hero-title { font-size:3rem; }
-  .hero-subtitle { font-size:0.75rem; letter-spacing:6px; }
+  .hero-subtitle { font-size:0.65rem; letter-spacing:6px; }
+  .hero-subtitle::before, .hero-subtitle::after { width:20px; margin:0 8px; }
+  .hero-date span { padding:6px 16px; font-size:0.85rem; }
   .section { padding:60px 16px 55px; }
-  .details-grid { grid-template-columns:1fr 1fr; gap:12px; }
-  .detail-card { padding:22px 14px; }
-  .gallery-grid { grid-template-columns:1fr 1fr; gap:8px; }
-  .gallery-grid img { height:160px; }
+  .details-grid { grid-template-columns:1fr 1fr; gap:10px; }
+  .detail-card { padding:20px 12px; }
+  .gallery-frame { padding:8px; }
+  .gallery-grid { grid-template-columns:1fr 1fr; gap:4px; }
+  .gallery-grid img { height:150px; }
+  .rsvp-form-wrap { padding:24px 20px; }
   .rsvp-form .row { grid-template-columns:1fr; gap:0; }
   .rsvp-form .row-3 { grid-template-columns:1fr; gap:0; }
+  .rsvp-success { padding:24px 20px; }
   .map-card { padding:25px 20px; }
   .admin-guest-item { flex-direction:column; text-align:center; align-items:center; }
-  .quote-text { font-size:1.05rem; }
-  .quote-text::before { left:-2px; font-size:2.5em; top:-15px; }
-  .countdown { gap:12px; }
-  .countdown-number { min-width:42px; font-size:1.8rem; }
-  .hero-btn { padding:11px 22px; font-size:0.65rem; }
+  .quote-text { font-size:1rem; padding:0 10px; }
+  .quote-text::before { left:0; font-size:2.5em; top:-20px; }
+  .quote-text::after { font-size:2.5em; bottom:-30px; }
+  .countdown { gap:4px; }
+  .countdown-item::after { display:none; }
+  .countdown-number { min-width:38px; font-size:1.6rem; }
+  .countdown-number::after { width:20px; }
+  .hero-btn { padding:10px 20px; font-size:0.6rem; }
+  .info-bar-item { border-right:none; font-size:0.78rem; }
+  .gallery-grid img:hover { transform:none; box-shadow:none; }
+  .detail-card:hover { transform:none; }
+  .seal-paper { padding:30px 20px; }
 }
 
 @media (max-width:400px) {
@@ -635,6 +789,10 @@ footer p { font-family:'Montserrat',sans-serif; font-size:0.7rem; color:var(--te
 <!-- ─── Seal opener ─── -->
 <div class="seal-overlay" id="sealOverlay" onclick="openInvitation()">
   <div class="seal-paper">
+    <div class="seal-corner seal-corner-tl"></div>
+    <div class="seal-corner seal-corner-tr"></div>
+    <div class="seal-corner seal-corner-bl"></div>
+    <div class="seal-corner seal-corner-br"></div>
     <div class="seal-ornament-top">&#x2736;</div>
     <p class="seal-invite-text">Pozivnica</p>
     <p class="seal-names">Denis &amp; Ivana</p>
@@ -655,40 +813,59 @@ footer p { font-family:'Montserrat',sans-serif; font-size:0.7rem; color:var(--te
 <!-- ─── Setup overlay ─── -->
 <div class="setup-overlay" id="setupOverlay">
   <div class="setup-box">
-    <h2>Povezivanje Google tablice</h2>
+    <h2>&#x2726; Google tablica za RSVP</h2>
     <p style="text-align:center;color:var(--text);margin-bottom:16px;font-size:0.9rem;">
-      Da bi RSVP podaci bili centralno spremljeni:
+      Sve potvrde dolaska spremaju se u tvoju Google tablicu.
     </p>
     <ol>
+      <li><strong>Kreiraj tablicu</strong> na <a href="https://sheets.new" target="_blank" style="color:var(--rose);">sheets.new</a></li>
+      <li>Prvi red (headeri): <code>id, firstName, lastName, email, status, adults, children, message, timestamp</code></li>
+      <li>Preimenuj list u <strong>RSVP</strong></li>
       <li>Otvori <a href="https://script.google.com" target="_blank" style="color:var(--rose);">script.google.com</a>, novi projekt</li>
-      <li>Zamijeni kod sa:</li>
+      <li><strong>Zamijeni kod s ovim:</strong></li>
     </ol>
     <code>function doGet(e) {
   const s = SpreadsheetApp.openById('ID').getSheetByName('RSVP');
   const d = s.getDataRange().getValues();
-  if (d.length<2) return ContentService.createTextOutput('[]').setMimeType(ContentService.MimeType.JSON);
-  const h = d[0]; const r = d.slice(1).map(r=>{let o={};h.forEach((hi,i)=>o[hi]=r[i]);return o;});
-  return ContentService.createTextOutput(JSON.stringify(r)).setMimeType(ContentService.MimeType.JSON);
+  if (d.length&lt;2) return ContentService
+    .createTextOutput(JSON.stringify({data:[]}))
+    .setMimeType(ContentService.MimeType.JSON);
+  const h = d[0];
+  const data = d.slice(1).map(r => {
+    let o = {};
+    h.forEach((hi, i) => o[hi] = r[i]);
+    return o;
+  });
+  return ContentService
+    .createTextOutput(JSON.stringify({data}))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 function doPost(e) {
   const s = SpreadsheetApp.openById('ID').getSheetByName('RSVP');
   const b = JSON.parse(e.postData.contents);
-  s.appendRow([b.id,b.firstName,b.lastName,b.email,b.status,b.adults,b.children,b.message,b.timestamp]);
-  return ContentService.createTextOutput(JSON.stringify({ok:1})).setMimeType(ContentService.MimeType.JSON);
+  s.appendRow([
+    b.id, b.firstName, b.lastName, b.email,
+    b.status, b.adults, b.children,
+    b.message || '', b.timestamp
+  ]);
+  return ContentService
+    .createTextOutput(JSON.stringify({ok: true}))
+    .setMimeType(ContentService.MimeType.JSON);
 }</code>
-    <ol start="3">
-      <li>Kreiraj Google tablicu, prvi red: <code>id,firstName,lastName,email,status,adults,children,message,timestamp</code></li>
-      <li>Kopiraj ID tablice iz URL-a</li>
-      <li>Zamijeni <code>ID</code> u kodu, spremi, Deploy &rarr; New deployment &rarr; Web app</li>
-      <li>Execute as: <strong>Me</strong>, Access: <strong>Anyone</strong></li>
-      <li>Zalijepi URL dolje:</li>
+    <ol start="6">
+      <li>Kopiraj <strong>ID tablice</strong> iz URL-a (npr. <code>1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms</code>)</li>
+      <li>Zamijeni <code style="display:inline;font-size:0.75rem;padding:2px 6px;">'ID'</code> u kodu sa svojim ID-jem</li>
+      <li>Spremi (Ctrl+S) &rarr; <strong>Deploy &rarr; New deployment &rarr; Web app</strong></li>
+      <li><strong>Execute as:</strong> Me &nbsp;|&nbsp; <strong>Access:</strong> Anyone</li>
+      <li>Kopiraj URL web appa i zalijepi dolje:</li>
     </ol>
-    <label style="font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);">Apps Script URL</label>
-    <input type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec">
-    <button class="setup-btn" onclick="saveSetup()">Spremi</button>
+    <label style="font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);">Apps Script Web App URL</label>
+    <input type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/abcdef/exec">
+    <button class="setup-btn" onclick="saveSetup()">&#x2713; Spremi</button>
     <p id="setupStatus" style="font-size:0.8rem;color:#6a9b6a;display:none;"></p>
     <button class="setup-btn" onclick="closeSetup()" style="background:transparent;color:var(--text-light);border:1px solid #e8d0d5;">Preskoči</button>
   </div>
+</div>
 </div>
 
 <!-- ─── Admin Panel ─── -->
@@ -713,12 +890,13 @@ function doPost(e) {
   <div class="hero-floral">
     <div class="bloom"></div><div class="bloom"></div><div class="bloom"></div><div class="bloom"></div>
   </div>
+  <div class="hero-border-top"></div>
   <div class="hero-overlay">
     <div class="hero-ornament">&#x2736;</div>
-    <h1 class="hero-title">Denis &amp; Ivana</h1>
+    <h1 class="hero-title">Denis <span class="gold-shimmer">&amp;</span> Ivana</h1>
     <p class="hero-and">&#x2726;</p>
-    <p class="hero-subtitle">Vjenčanje</p>
-    <p class="hero-date">10. 10. 2026. &middot; Karlovac</p>
+    <p class="hero-subtitle">&nbsp; Vjenčanje &nbsp;</p>
+    <p class="hero-date"><span>10.10.2026. &middot; Karlovac</span></p>
     <div class="hero-actions">
       <a href="#rsvp" class="hero-btn hero-btn-primary">&#x2709; Potvrdi dolazak</a>
       <a href="https://maps.google.com/?q=Nacionalno+svetiste+sv+Josipa+Karlovac" target="_blank" class="hero-btn hero-btn-secondary">&#x1F4CD; Misa</a>
@@ -750,7 +928,7 @@ function doPost(e) {
   </div>
 </section>
 
-<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+<div class="divider"><span class="divider-line-left"></span><span class="divider-flower">&#x2736;</span><span class="divider-line-right"></span></div>
 
 <!-- ─── Quote ─── -->
 <section class="quote-section section" id="sec-quote">
@@ -760,7 +938,7 @@ function doPost(e) {
   <p class="quote-author reveal">— Antoine de Saint-Exupéry</p>
 </section>
 
-<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+<div class="divider"><span class="divider-line-left"></span><span class="divider-flower">&#x2736;</span><span class="divider-line-right"></span></div>
 
 <!-- ─── Story ─── -->
 <section class="story-section section" id="sec-story">
@@ -771,7 +949,7 @@ function doPost(e) {
   </div>
 </section>
 
-<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+<div class="divider"><span class="divider-line-left"></span><span class="divider-flower">&#x2736;</span><span class="divider-line-right"></span></div>
 
 <!-- ─── Gallery ─── -->
 <section class="gallery-section section" id="sec-gallery">
@@ -786,31 +964,35 @@ function doPost(e) {
   </div>
 </section>
 
-<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+<div class="divider"><span class="divider-line-left"></span><span class="divider-flower">&#x2736;</span><span class="divider-line-right"></span></div>
 
 <!-- ─── Details ─── -->
 <section class="details-section section" id="sec-details">
   <h2 class="section-title reveal">Detalji vjenčanja</h2>
   <div class="details-grid">
     <div class="detail-card">
+      <span class="card-ornament">&#x2736;</span>
       <span class="detail-icon">&#x1F48D;</span>
       <h3>Vjenčanje</h3>
       <p>Subota, 10.10.2026.</p>
       <p class="sub">u 19:00 sati</p>
     </div>
     <div class="detail-card">
+      <span class="card-ornament">&#x2736;</span>
       <span class="detail-icon">&#x26EA;</span>
       <h3>Misa</h3>
       <p>Nacionalno svetište sv. Josipa</p>
       <p class="sub">Karlovac &middot; 19:00</p>
     </div>
     <div class="detail-card">
+      <span class="card-ornament">&#x2736;</span>
       <span class="detail-icon">&#x1F37D;</span>
       <h3>Večera</h3>
       <p>Restoran Zrinski</p>
       <p class="sub">Dom HV, Karlovac</p>
     </div>
     <div class="detail-card">
+      <span class="card-ornament">&#x2736;</span>
       <span class="detail-icon">&#x1F389;</span>
       <h3>Proslava</h3>
       <p>Pjesma i ples do jutra</p>
@@ -830,44 +1012,47 @@ function doPost(e) {
 
 <img class="venue-image" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=80" alt="" loading="lazy">
 
-<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+<div class="divider"><span class="divider-line-left"></span><span class="divider-flower">&#x2736;</span><span class="divider-line-right"></span></div>
 
 <!-- ─── RSVP ─── -->
 <section class="rsvp-section section" id="rsvp">
   <h2 class="section-title reveal">Potvrdite dolazak</h2>
   <p class="section-subtitle reveal">Molimo potvrdite do 1. rujna 2026.</p>
 
-  <form class="rsvp-form reveal" id="rsvpForm" onsubmit="submitRSVP(event)">
-    <div class="row">
-      <div><label for="firstName">Ime</label><input type="text" id="firstName" required placeholder="Vaše ime"></div>
-      <div><label for="lastName">Prezime</label><input type="text" id="lastName" required placeholder="Vaše prezime"></div>
-    </div>
-    <label for="email">Email</label>
-    <input type="email" id="email" required placeholder="vas@email.hr">
-    <label for="status">Dolazim</label>
-    <select id="status" required>
-      <option value="">-- Odaberite --</option>
-      <option value="dolazim">DA, dolazim s veseljem!</option>
-      <option value="ne-dolazim">Nažalost, ne mogu doći</option>
-    </select>
-    <div class="row-3">
-      <div><label for="adults">Odraslih</label><select id="adults"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option></select></div>
-      <div><label for="children">Djece</label><select id="children"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
-    </div>
-    <label for="message">Poruka (opcionalno)</label>
-    <textarea id="message" placeholder="Napišite nam nešto..."></textarea>
-    <button type="submit" class="rsvp-btn" id="rsvpSubmitBtn">Pošalji potvrdu</button>
-    <div class="rsvp-status" id="rsvpStatus"></div>
-  </form>
+  <div class="rsvp-form-wrap reveal">
+    <form class="rsvp-form" id="rsvpForm" onsubmit="submitRSVP(event)">
+      <div class="row">
+        <div><label for="firstName">Ime</label><input type="text" id="firstName" required placeholder="Vaše ime"></div>
+        <div><label for="lastName">Prezime</label><input type="text" id="lastName" required placeholder="Vaše prezime"></div>
+      </div>
+      <label for="email">Email</label>
+      <input type="email" id="email" required placeholder="vas@email.hr">
+      <label for="status">Dolazim</label>
+      <select id="status" required>
+        <option value="">-- Odaberite --</option>
+        <option value="dolazim">DA, dolazim s veseljem!</option>
+        <option value="ne-dolazim">Nažalost, ne mogu doći</option>
+      </select>
+      <div class="row-3">
+        <div><label for="adults">Odraslih</label><select id="adults"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option></select></div>
+        <div><label for="children">Djece</label><select id="children"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      </div>
+      <label for="message">Poruka (opcionalno)</label>
+      <textarea id="message" placeholder="Napišite nam nešto..."></textarea>
+      <button type="submit" class="rsvp-btn" id="rsvpSubmitBtn">Pošalji potvrdu</button>
+      <div class="rsvp-status" id="rsvpStatus"></div>
+    </form>
+  </div>
 
   <div class="rsvp-success" id="rsvpSuccess">
+    <span class="success-icon">&#x2726;</span>
     <h3>Hvala vam!</h3>
     <p>Vaš dolazak je potvrđen. Vidimo se 10. listopada!</p>
     <p style="margin-top:24px;font-size:0.85rem;color:var(--text-light);">Denis &amp; Ivana &#x2726;</p>
   </div>
 </section>
 
-<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+<div class="divider"><span class="divider-line-left"></span><span class="divider-flower">&#x2736;</span><span class="divider-line-right"></span></div>
 
 <!-- ─── Map ─── -->
 <section class="map-section" id="sec-map">
@@ -879,9 +1064,10 @@ function doPost(e) {
 </section>
 
 <footer>
+  <p class="footer-ornament">&#x2736;</p>
   <p class="names">Denis &amp; Ivana</p>
   <p>10. listopada 2026. &middot; Karlovac</p>
-  <p style="margin-top:14px;letter-spacing:3px;">Veselimo se vašem dolasku!</p>
+  <p style="margin-top:14px;letter-spacing:3px;font-size:0.7rem;">Veselimo se vašem dolasku!</p>
 </footer>
 
 <script>
@@ -982,6 +1168,24 @@ window.addEventListener('scroll',()=>{
 function getScriptUrl(){ return localStorage.getItem('gsScriptUrl'); }
 function saveScriptUrl(url){ localStorage.setItem('gsScriptUrl',url); }
 
+async function fetchFromSheet(url){
+  try{
+    const resp = await fetch(url + '?t=' + Date.now());
+    if(!resp.ok) return null;
+    const json = await resp.json();
+    return json.data || json;
+  }catch(e){ return null; }
+}
+
+function sendToSheet(url, data){
+  return fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  });
+}
+
 // ─── RSVP ───
 async function submitRSVP(e){
   e.preventDefault();
@@ -1008,9 +1212,7 @@ async function submitRSVP(e){
 
   const url=getScriptUrl();
   if(url){
-    try{
-      await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    }catch(e){}
+    try{ await sendToSheet(url, data); }catch(e){}
   }
 
   setTimeout(()=>{
@@ -1047,21 +1249,20 @@ async function loadGuestList(){
   const url=getScriptUrl();
   if(url){
     try{
-      const resp=await fetch(url);
-      if(resp.ok){
-        const remote=await resp.json();
-        if(Array.isArray(remote)){
-          const localIds=new Set(allGuests.map(g=>g.id));
-          for(const g of remote){ if(!localIds.has(g.id)){ allGuests.push(g); localIds.add(g.id); } }
-          localStorage.setItem('weddingGuests',JSON.stringify(allGuests));
+      const remote = await fetchFromSheet(url);
+      if(remote && Array.isArray(remote)){
+        const localIds=new Set(allGuests.map(g=>g.id));
+        for(const g of remote){
+          if(!localIds.has(g.id)){ allGuests.push(g); localIds.add(g.id); }
         }
+        localStorage.setItem('weddingGuests',JSON.stringify(allGuests));
       }
     }catch(e){}
   }
 
   const confirmed=allGuests.filter(g=>g.status==='dolazim');
   const total=confirmed.reduce((s,g)=>s+g.adults+g.children,0);
-  stats.innerHTML=`Ukupno potvrda: <strong>${allGuests.length}</strong> &nbsp;|&nbsp; Dolaze: <strong>${confirmed.length}</strong> &nbsp;|&nbsp; Gostiju: <strong>${total}</strong>`;
+  stats.innerHTML=`&#x2726; Ukupno potvrda: <strong>${allGuests.length}</strong> &nbsp;|&nbsp; Dolaze: <strong>${confirmed.length}</strong> &nbsp;|&nbsp; Gostiju: <strong>${total}</strong>`;
   if(!allGuests.length){ list.innerHTML='<div class="admin-no-guests">Još nema potvrda.</div>'; return; }
   list.innerHTML=allGuests.slice().reverse().map(g=>`
     <div class="admin-guest-item">
