@@ -863,7 +863,7 @@ function doPost(e) {
     <input type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/abcdef/exec">
     <button class="setup-btn" onclick="saveSetup()">&#x2713; Spremi</button>
     <p id="setupStatus" style="font-size:0.8rem;color:#6a9b6a;display:none;"></p>
-    <button class="setup-btn" onclick="closeSetup()" style="background:transparent;color:var(--text-light);border:1px solid #e8d0d5;">Preskoči</button>
+    <button class="setup-btn" onclick="dismissSetup()" style="background:transparent;color:var(--text-light);border:1px solid #e8d0d5;">Preskoči</button>
   </div>
 </div>
 </div>
@@ -1284,6 +1284,7 @@ function openSetup(){
   const s=getScriptUrl(); if(s) document.getElementById('scriptUrl').value=s;
 }
 function closeSetup(){ document.getElementById('setupOverlay').classList.remove('open'); }
+function dismissSetup(){ localStorage.setItem('setupDismissed','1'); closeSetup(); }
 function saveSetup(){
   const url=document.getElementById('scriptUrl').value.trim();
   if(url){
@@ -1304,7 +1305,6 @@ document.addEventListener('keydown',e=>{
 document.getElementById('adminPanel').addEventListener('click',e=>{if(e.target===e.currentTarget) closeAdmin();});
 document.getElementById('setupOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget) closeSetup();});
 
-if(!getScriptUrl()&&!localStorage.getItem('setupDismissed')) setTimeout(openSetup,1000);
 </script>
 </body>
 </html>
