@@ -2,945 +2,514 @@
 <html lang="hr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Denis & Ivana - Vjenčanje</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Denis & Ivana — Vjenčanje</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --rose: #d4929e;
+  --rose-dark: #c47e8b;
+  --burgundy: #8b4a5a;
+  --blush: #fce8ee;
+  --cream: #fcf5f0;
+  --gold: #c9a96b;
+  --gold-light: #e8d5a8;
+  --text: #5a3e3e;
+  --text-light: #b07d8a;
+  --card-bg: #fefaf8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Playfair Display', serif;
-  background: #fcf5f0;
-  color: #5a3e3e;
+  background: var(--cream);
+  color: var(--text);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Floating petals ─── */
-#petals {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
+/* ─── Petals ─── */
+#petals { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
 .petal {
-  position: absolute;
-  width: 14px; height: 14px;
+  position:absolute; width:14px; height:14px;
   background: radial-gradient(circle at 30% 30%, #f8d7e0, #f0b9c9);
-  border-radius: 50% 0 50% 0;
-  opacity: 0;
+  border-radius: 50% 0 50% 0; opacity:0;
   animation: fall linear infinite;
 }
-
 @keyframes fall {
-  0% { transform: translateY(-5vh) rotate(0deg) scale(0.6); opacity: 0; }
-  10% { opacity: 0.5; }
-  90% { opacity: 0.4; }
-  100% { transform: translateY(105vh) rotate(540deg) scale(1); opacity: 0; }
+  0% { transform:translateY(-5vh) rotate(0deg) scale(0.6); opacity:0; }
+  10% { opacity:0.5; }
+  90% { opacity:0.4; }
+  100% { transform:translateY(105vh) rotate(540deg) scale(1); opacity:0; }
 }
+
+/* ─── Nav dots ─── */
+.nav-dots {
+  position:fixed; right:12px; top:50%; transform:translateY(-50%);
+  z-index:50; display:flex; flex-direction:column; gap:8px;
+}
+.nav-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(139,74,90,0.2); border:none; cursor:pointer;
+  transition:all 0.4s ease; padding:0;
+}
+.nav-dot.active { background:var(--burgundy); transform:scale(1.3); }
+@media (max-width:600px) { .nav-dots { display:none; } }
 
 /* ─── Hero ─── */
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(135deg, #fce8ee 0%, #fdf2f0 40%, #fce4e8 70%, #f8dce0 100%);
-  z-index: 1;
-  padding: 40px 20px;
+  position:relative; min-height:100vh; min-height:100dvh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  background:
+    linear-gradient(160deg, #fce8ee 0%, #fdf2f0 30%, #fce4e8 60%, #f8dce0 100%);
+  z-index:1; padding:30px 20px;
+  overflow:hidden;
 }
 
-.hero-floral {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  overflow: hidden;
+.hero::after {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(201,169,107,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(201,169,107,0.06) 0%, transparent 50%);
+  pointer-events:none;
 }
 
+.hero-floral { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
 .hero-floral .bloom {
-  position: absolute;
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(245, 175, 185, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, rgba(245,175,185,0.12) 0%, transparent 70%);
 }
+.hero-floral .bloom:nth-child(1) { top:-60px; left:-60px; width:350px; height:350px; }
+.hero-floral .bloom:nth-child(2) { bottom:-40px; right:-40px; width:300px; height:300px; }
+.hero-floral .bloom:nth-child(3) { top:25%; right:-100px; width:220px; height:220px; }
+.hero-floral .bloom:nth-child(4) { bottom:15%; left:-80px; width:260px; height:260px; }
 
-.hero-floral .bloom:nth-child(1) { top: -50px; left: -50px; width: 300px; height: 300px; }
-.hero-floral .bloom:nth-child(2) { bottom: -30px; right: -30px; width: 250px; height: 250px; }
-.hero-floral .bloom:nth-child(3) { top: 30%; right: -80px; width: 180px; height: 180px; }
-.hero-floral .bloom:nth-child(4) { bottom: 20%; left: -60px; width: 220px; height: 220px; }
-
-.hero-overlay {
-  position: relative;
-  z-index: 2;
-}
+.hero-overlay { position:relative; z-index:2; }
 
 .hero-ornament {
-  font-size: 1.6rem;
-  color: #d4929e;
-  letter-spacing: 6px;
-  opacity: 0;
-  animation: fadeInDown 1.5s ease forwards;
-  animation-delay: 0.5s;
+  font-size:1.4rem; color:var(--gold); letter-spacing:8px;
+  opacity:0; animation:fadeInDown 1.2s ease forwards; animation-delay:0.4s;
 }
 
 .hero-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(4rem, 10vw, 7rem);
-  font-weight: 400;
-  color: #8b4a5a;
-  margin: 8px 0;
-  opacity: 0;
-  animation: fadeInUp 1.5s ease forwards;
-  animation-delay: 1s;
-  text-shadow: 0 2px 30px rgba(139, 74, 90, 0.15);
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(3.5rem,12vw,7rem); font-weight:400;
+  color:var(--burgundy); margin:6px 0;
+  opacity:0; animation:fadeInUp 1.2s ease forwards; animation-delay:0.8s;
+  text-shadow:0 2px 40px rgba(139,74,90,0.12);
 }
 
 .hero-and {
-  font-size: 1.2rem;
-  color: #d4929e;
-  letter-spacing: 8px;
-  margin: 5px 0;
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards;
-  animation-delay: 1.4s;
+  font-size:1rem; color:var(--gold); letter-spacing:6px; margin:4px 0;
+  opacity:0; animation:fadeIn 1.2s ease forwards; animation-delay:1.2s;
 }
 
 .hero-subtitle {
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 10px;
-  text-transform: uppercase;
-  color: #b07d8a;
-  margin-top: 15px;
-  font-family: 'Montserrat', sans-serif;
-  opacity: 0;
-  animation: fadeInUp 1.5s ease forwards;
-  animation-delay: 1.8s;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.85rem; font-weight:300; letter-spacing:10px; text-transform:uppercase;
+  color:var(--text-light); margin-top:12px;
+  opacity:0; animation:fadeInUp 1.2s ease forwards; animation-delay:1.6s;
 }
 
 .hero-date {
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 4px;
-  color: #936a76;
-  margin-top: 25px;
-  opacity: 0;
-  animation: fadeIn 2s ease forwards;
-  animation-delay: 2.5s;
+  font-size:0.95rem; font-weight:400; letter-spacing:4px;
+  color:var(--burgundy); margin-top:20px;
+  opacity:0; animation:fadeIn 1.5s ease forwards; animation-delay:2.2s;
 }
+
+.hero-actions {
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+  margin-top:30px;
+  opacity:0; animation:fadeInUp 1s ease forwards; animation-delay:2.8s;
+}
+
+.hero-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 28px;
+  font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase; text-decoration:none;
+  border-radius:2px; transition:all 0.3s ease;
+  cursor:pointer; border:none;
+}
+
+.hero-btn-primary {
+  background:var(--burgundy); color:#fff;
+  box-shadow:0 2px 15px rgba(139,74,90,0.25);
+}
+.hero-btn-primary:hover { background:#7a3f4e; transform:translateY(-1px); box-shadow:0 4px 20px rgba(139,74,90,0.3); }
+
+.hero-btn-secondary {
+  background:transparent; color:var(--burgundy);
+  border:1px solid rgba(139,74,90,0.25);
+}
+.hero-btn-secondary:hover { border-color:var(--burgundy); background:rgba(139,74,90,0.04); }
 
 .scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  opacity: 0;
-  animation: fadeIn 2s ease forwards 3s, bounce 2s ease infinite 3.5s;
+  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+  z-index:2; opacity:0;
+  animation:fadeIn 1.5s ease forwards 3.2s, bounce 2s ease infinite 3.7s;
+}
+.scroll-indicator span {
+  display:block; width:18px; height:18px;
+  border:2px solid var(--rose); border-left:none; border-top:none;
+  transform:rotate(45deg); margin:-6px;
 }
 
-.scroll-indicator span {
-  display: block;
-  width: 20px; height: 20px;
-  border: 2px solid #d4929e;
-  border-left: none;
-  border-top: none;
-  transform: rotate(45deg);
-  margin: -8px;
+/* ─── Section shared ─── */
+.section { padding:90px 20px 80px; }
+.section-inner { max-width:700px; margin:0 auto; }
+.section-title {
+  font-family:'Great Vibes',cursive; font-size:2.4rem;
+  color:var(--burgundy); text-align:center; margin-bottom:10px;
 }
+.section-subtitle {
+  font-family:'Montserrat',sans-serif; font-size:0.7rem;
+  letter-spacing:5px; text-transform:uppercase;
+  color:var(--text-light); text-align:center; margin-bottom:40px;
+}
+.divider {
+  text-align:center; padding:30px 20px;
+  position:relative;
+}
+.divider-line {
+  display:inline-block; width:80px; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.divider-flower { color:var(--gold); font-size:0.85rem; letter-spacing:4px; margin-top:6px; }
+
+.reveal { opacity:0; transform:translateY(40px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+.reveal.visible { opacity:1; transform:translateY(0); }
 
 /* ─── Countdown ─── */
-.countdown-section {
-  padding: 70px 20px 50px;
-  background: #fffaf7;
-  text-align: center;
-}
-
-.countdown-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: #b07d8a;
-  margin-bottom: 30px;
-}
-
+.countdown-section { background:var(--cream); text-align:center; }
 .countdown {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
+  display:flex; justify-content:center; gap:clamp(16px,5vw,40px); flex-wrap:wrap;
 }
-
-.countdown-item { text-align: center; }
-
+.countdown-item { text-align:center; }
 .countdown-number {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: #8b4a5a;
-  display: block;
-  min-width: 60px;
+  font-family:'Montserrat',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:300;
+  color:var(--burgundy); display:block; min-width:54px;
+  position:relative;
 }
-
+.countdown-number::after {
+  content:''; position:absolute; bottom:-4px; left:20%; right:20%;
+  height:1px; background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
+}
 .countdown-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #b07d8a;
-  margin-top: 4px;
+  font-family:'Montserrat',sans-serif; font-size:0.6rem;
+  letter-spacing:3px; text-transform:uppercase; color:var(--text-light); margin-top:6px;
 }
 
 /* ─── Quote ─── */
 .quote-section {
-  padding: 70px 20px;
-  background: #fdf5f2;
-  text-align: center;
+  background:linear-gradient(180deg,var(--cream),#fdf5f2);
+  text-align:center;
 }
-
 .quote-text {
-  font-size: 1.5rem;
-  font-style: italic;
-  font-weight: 400;
-  color: #7a5660;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.7;
+  font-size:clamp(1.15rem,3vw,1.5rem); font-style:italic; font-weight:400;
+  color:var(--burgundy); max-width:580px; margin:0 auto; line-height:1.7;
+  position:relative;
 }
-
+.quote-text::before { content:'\201C'; font-size:3em; color:var(--gold-light); position:absolute; left:-10px; top:-20px; font-style:normal; opacity:0.5; }
 .quote-author {
-  font-size: 0.85rem;
-  font-style: normal;
-  font-family: 'Montserrat', sans-serif;
-  color: #b07d8a;
-  margin-top: 18px;
-  letter-spacing: 2px;
+  font-family:'Montserrat',sans-serif; font-size:0.75rem; font-style:normal;
+  color:var(--text-light); margin-top:16px; letter-spacing:2px;
 }
 
 /* ─── Story ─── */
-.story-section {
-  padding: 70px 20px;
-  background: #fffaf7;
-  text-align: center;
-}
-
-.story-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: #8b4a5a;
-  margin-bottom: 20px;
-}
-
+.story-section { background:var(--cream); text-align:center; }
 .story-content {
-  max-width: 600px;
-  margin: 0 auto;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: #7a5660;
+  max-width:560px; margin:0 auto; font-size:1rem; line-height:1.9;
+  color:var(--text);
 }
 
 /* ─── Gallery ─── */
-.gallery-section {
-  padding: 70px 20px;
-  background: #fdf5f2;
-  text-align: center;
-}
-
-.gallery-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: #8b4a5a;
-  margin-bottom: 6px;
-}
-
-.gallery-subtitle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  color: #b07d8a;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 35px;
-}
-
+.gallery-section { background:#fdf5f2; text-align:center; }
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-  max-width: 800px;
-  margin: 0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px; max-width:750px; margin:0 auto;
 }
-
 .gallery-grid img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 2px;
-  transition: all 0.4s ease;
-  opacity: 0;
-  transform: translateY(30px);
+  width:100%; height:240px; object-fit:cover; border-radius:2px;
+  transition:all 0.5s ease;
+  opacity:0; transform:translateY(25px);
+  box-shadow:0 2px 8px rgba(139,74,90,0.06);
 }
-
-.gallery-grid img.visible { opacity: 1; transform: translateY(0); }
-.gallery-grid img:hover { transform: scale(1.02); box-shadow: 0 8px 30px rgba(139, 74, 90, 0.15); }
+.gallery-grid img.visible { opacity:1; transform:translateY(0); }
+.gallery-grid img:hover { transform:scale(1.03); box-shadow:0 12px 40px rgba(139,74,90,0.12); }
 
 /* ─── Details ─── */
-.details {
-  padding: 70px 20px;
-  text-align: center;
-  background: #fffaf7;
-}
-
-.details-ornament { font-size: 1.3rem; color: #d4929e; letter-spacing: 4px; margin-bottom: 8px; }
-
-.details-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: #8b4a5a;
-  margin-bottom: 40px;
-}
-
+.details-section { background:var(--cream); text-align:center; }
 .details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 24px;
-  max-width: 900px;
-  margin: 0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px; max-width:850px; margin:0 auto;
 }
-
 .detail-card {
-  padding: 35px 20px;
-  background: #fef8f5;
-  border: 1px solid #f0d5db;
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(30px);
+  padding:32px 20px;
+  background:var(--card-bg);
+  border:1px solid rgba(212,146,158,0.15);
+  transition:all 0.4s ease;
+  opacity:0; transform:translateY(25px);
+  position:relative; overflow:hidden;
 }
-
-.detail-card.visible { opacity: 1; transform: translateY(0); }
-.detail-card:hover { border-color: #d4929e; box-shadow: 0 4px 20px rgba(212, 146, 158, 0.15); }
-
-.detail-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
-
-.detail-card h3 {
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: #8b4a5a;
-  margin-bottom: 8px;
-  letter-spacing: 1px;
+.detail-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
+  opacity:0; transition:opacity 0.4s;
 }
-
-.detail-card p {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #7a5660;
-  line-height: 1.6;
-}
-
-.detail-card .sub {
-  font-size: 0.8rem;
-  color: #b07d8a;
-  margin-top: 6px;
-}
+.detail-card.visible { opacity:1; transform:translateY(0); }
+.detail-card:hover { border-color:var(--rose); box-shadow:0 8px 30px rgba(212,146,158,0.1); }
+.detail-card:hover::before { opacity:1; }
+.detail-icon { font-size:2rem; margin-bottom:10px; display:block; }
+.detail-card h3 { font-size:1.1rem; font-weight:500; color:var(--burgundy); margin-bottom:6px; letter-spacing:1px; }
+.detail-card p { font-size:0.9rem; font-weight:400; color:var(--text); line-height:1.6; }
+.detail-card .sub { font-size:0.78rem; color:var(--text-light); margin-top:5px; }
 
 /* ─── Info bar ─── */
-.info-bar {
-  padding: 50px 20px;
-  background: #fdf5f2;
-  text-align: center;
-}
-
+.info-bar { background:#fdf5f2; text-align:center; padding:40px 20px; }
 .info-bar-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px 50px;
-  max-width: 800px;
-  margin: 0 auto;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:14px 45px;
+  max-width:750px; margin:0 auto;
 }
+.info-bar-item { font-size:0.9rem; color:var(--text); }
+.info-bar-item strong { color:var(--burgundy); font-weight:500; }
 
-.info-bar-item {
-  font-size: 0.9rem;
-  color: #7a5660;
-}
-
-.info-bar-item strong { color: #8b4a5a; font-weight: 500; }
-
-/* ─── Venue ─── */
 .venue-image {
-  width: 100%;
-  height: 380px;
-  object-fit: cover;
-  display: block;
+  width:100%; height:clamp(240px,40vw,400px); object-fit:cover; display:block;
 }
-
-/* ─── Divider ─── */
-.divider {
-  text-align: center;
-  padding: 40px 20px;
-  background: #fffaf7;
-}
-
-.divider-line {
-  display: inline-block;
-  width: 80px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #d4929e, transparent);
-}
-
-.divider-flower {
-  color: #d4929e;
-  font-size: 0.9rem;
-  letter-spacing: 4px;
-  margin-top: 8px;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
-}
-
-.reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ─── RSVP ─── */
-.rsvp-section {
-  padding: 70px 20px;
-  text-align: center;
-  background: #fdf5f2;
-}
-
-.rsvp-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: #8b4a5a;
-  margin-bottom: 6px;
-}
-
-.rsvp-subtitle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  color: #b07d8a;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 35px;
-}
-
+.rsvp-section { background:#fdf5f2; text-align:center; }
 .rsvp-form {
-  max-width: 480px;
-  margin: 0 auto;
-  text-align: left;
+  max-width:450px; margin:0 auto; text-align:left;
 }
-
 .rsvp-form label {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #b07d8a;
-  margin-bottom: 6px;
+  display:block; font-family:'Montserrat',sans-serif;
+  font-size:0.65rem; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text-light); margin-bottom:5px;
 }
-
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
-  width: 100%;
-  padding: 13px 16px;
-  margin-bottom: 20px;
-  background: #fff;
-  border: 1px solid #e8d0d5;
-  color: #5a3e3e;
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.3s;
-  border-radius: 2px;
+  width:100%; padding:14px 16px; margin-bottom:18px;
+  background:#fff; border:1px solid #e8d0d5;
+  color:var(--text); font-family:'Playfair Display',serif; font-size:0.95rem;
+  outline:none; transition:border-color 0.3s; border-radius:2px;
+  -webkit-appearance:none; appearance:none;
 }
-
 .rsvp-form input:focus,
 .rsvp-form select:focus,
-.rsvp-form textarea:focus {
-  border-color: #d4929e;
-}
-
-.rsvp-form select { cursor: pointer; }
-.rsvp-form select option { color: #5a3e3e; }
-
-.rsvp-form textarea { min-height: 70px; resize: vertical; }
-
-.rsvp-form .row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.rsvp-form .row-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
+.rsvp-form textarea:focus { border-color:var(--rose); }
+.rsvp-form select { cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23d4929e'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:10px; }
+.rsvp-form textarea { min-height:70px; resize:vertical; }
+.rsvp-form .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.rsvp-form .row-3 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .rsvp-btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  background: #d4929e;
-  color: #fff;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 2px;
+  width:100%; padding:15px; border:none;
+  background:linear-gradient(135deg,var(--burgundy),var(--rose-dark));
+  color:#fff; font-family:'Montserrat',sans-serif; font-size:0.7rem;
+  font-weight:500; letter-spacing:3px; text-transform:uppercase;
+  cursor:pointer; transition:all 0.3s ease; border-radius:2px;
+  position:relative; overflow:hidden;
 }
-
-.rsvp-btn:hover { background: #c47e8b; }
-.rsvp-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-.rsvp-success {
-  display: none;
-  padding: 50px 20px;
-  text-align: center;
-  max-width: 480px;
-  margin: 0 auto;
+.rsvp-btn::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1));
+  pointer-events:none;
 }
+.rsvp-btn:hover { transform:translateY(-1px); box-shadow:0 4px 20px rgba(139,74,90,0.25); }
+.rsvp-btn:active { transform:translateY(0); }
+.rsvp-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
 
-.rsvp-success h3 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  color: #8b4a5a;
-  margin-bottom: 10px;
-}
+.rsvp-success { display:none; padding:50px 20px; text-align:center; max-width:450px; margin:0 auto; }
+.rsvp-success h3 { font-family:'Great Vibes',cursive; font-size:2rem; color:var(--burgundy); margin-bottom:8px; }
+.rsvp-success p { color:var(--text); font-size:1rem; line-height:1.7; }
 
-.rsvp-success p { color: #7a5660; font-size: 1.05rem; line-height: 1.7; }
-
-.rsvp-status {
-  margin-top: 20px;
-  padding: 12px;
-  text-align: center;
-  font-size: 0.85rem;
-  font-family: 'Montserrat', sans-serif;
-  border: 1px solid #e8d0d5;
-  display: none;
-  border-radius: 2px;
-}
-
-.rsvp-status.error { border-color: #d4929e; color: #8b4a5a; display: block; }
+.rsvp-status { margin-top:16px; padding:12px; text-align:center; font-family:'Montserrat',sans-serif; font-size:0.8rem; border:1px solid #e8d0d5; display:none; border-radius:2px; }
+.rsvp-status.error { border-color:var(--rose); color:var(--burgundy); display:block; }
 
 /* ─── Map ─── */
-.map-section {
-  padding: 50px 20px;
-  background: #fffaf7;
-  text-align: center;
-}
+.map-section { background:var(--cream); text-align:center; padding:50px 20px; }
+.map-card { display:inline-block; padding:30px 50px; border:1px solid rgba(212,146,158,0.15); background:var(--card-bg); }
+.map-card h3 { font-size:1.1rem; font-weight:500; color:var(--burgundy); letter-spacing:1px; margin-bottom:6px; }
+.map-card p { font-size:0.9rem; color:var(--text); }
+.map-card a { color:var(--rose); text-decoration:none; border-bottom:1px solid rgba(212,146,158,0.3); transition:border-color 0.3s; }
+.map-card a:hover { border-bottom-color:var(--rose); }
 
-.map-card {
-  display: inline-block;
-  padding: 30px 50px;
-  border: 1px solid #f0d5db;
-  background: #fef8f5;
-}
-
-.map-card h3 {
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: #8b4a5a;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-
-.map-card p {
-  font-size: 0.9rem;
-  color: #7a5660;
-  font-weight: 400;
-}
-
-.map-card a {
-  color: #d4929e;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(212, 146, 158, 0.3);
-  transition: border-color 0.3s;
-}
-.map-card a:hover { border-bottom-color: #d4929e; }
+/* ─── Footer ─── */
+footer { padding:35px 20px; text-align:center; background:var(--cream); }
+footer .names { font-family:'Great Vibes',cursive; font-size:1.5rem; color:var(--burgundy); margin-bottom:4px; }
+footer p { font-family:'Montserrat',sans-serif; font-size:0.7rem; color:var(--text-light); letter-spacing:2px; }
 
 /* ─── Admin ─── */
 .admin-link {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  z-index: 100;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.65rem;
-  color: rgba(139, 74, 90, 0.25);
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: color 0.3s;
+  position:fixed; bottom:14px; right:14px; z-index:100;
+  font-family:'Montserrat',sans-serif; font-size:0.6rem;
+  color:rgba(139,74,90,0.2); text-decoration:none; letter-spacing:1px;
+  transition:color 0.3s;
 }
-.admin-link:hover { color: rgba(139, 74, 90, 0.5); }
+.admin-link:hover { color:rgba(139,74,90,0.45); }
 
 .admin-panel {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: rgba(252, 245, 240, 0.97);
-  overflow-y: auto;
-  padding: 40px 20px;
+  display:none; position:fixed; inset:0; z-index:999;
+  background:rgba(252,245,240,0.97); overflow-y:auto; padding:40px 16px;
+  -webkit-overflow-scrolling:touch;
 }
-
-.admin-panel.open { display: block; }
-
-.admin-panel h2 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.5rem;
-  color: #8b4a5a;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
+.admin-panel.open { display:block; }
+.admin-panel h2 { font-family:'Great Vibes',cursive; font-size:2.2rem; color:var(--burgundy); text-align:center; margin-bottom:24px; }
 .admin-panel .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  background: none;
-  border: 1px solid #e8d0d5;
-  color: #8b4a5a;
-  font-size: 1.4rem;
-  width: 40px; height: 40px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: border-color 0.3s;
+  position:absolute; top:16px; right:16px; background:none;
+  border:1px solid #e8d0d5; color:var(--burgundy); font-size:1.4rem;
+  width:40px; height:40px; cursor:pointer; border-radius:2px; transition:border-color 0.3s;
 }
-
-.admin-panel .close-btn:hover { border-color: #d4929e; }
-
-.admin-login {
-  max-width: 320px;
-  margin: 60px auto;
-  text-align: center;
-}
-
+.admin-panel .close-btn:hover { border-color:var(--rose); }
+.admin-login { max-width:300px; margin:50px auto; text-align:center; }
 .admin-login input {
-  width: 100%;
-  padding: 13px 16px;
-  margin-bottom: 14px;
-  background: #fff;
-  border: 1px solid #e8d0d5;
-  color: #5a3e3e;
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
-  outline: none;
-  text-align: center;
-  border-radius: 2px;
+  width:100%; padding:13px 16px; margin-bottom:12px;
+  background:#fff; border:1px solid #e8d0d5; color:var(--text);
+  font-family:'Playfair Display',serif; font-size:0.95rem; outline:none; text-align:center; border-radius:2px;
 }
-
-.admin-login input:focus { border-color: #d4929e; }
-
-.admin-guest-list {
-  max-width: 650px;
-  margin: 0 auto;
-}
-
+.admin-login input:focus { border-color:var(--rose); }
+.admin-guest-list { max-width:600px; margin:0 auto; }
 .admin-guest-item {
-  padding: 18px 20px;
-  margin-bottom: 10px;
-  border: 1px solid #f0d5db;
-  background: #fef8f5;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 10px;
+  padding:16px 18px; margin-bottom:8px;
+  border:1px solid rgba(212,146,158,0.12); background:var(--card-bg);
+  display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;
 }
-
-.admin-guest-item .guest-name {
-  font-size: 1.1rem;
-  color: #8b4a5a;
-  font-weight: 500;
-}
-
-.admin-guest-item .guest-detail {
-  font-size: 0.8rem;
-  color: #b07d8a;
-}
-
+.admin-guest-item .guest-name { font-size:1rem; color:var(--burgundy); font-weight:500; }
+.admin-guest-item .guest-detail { font-size:0.78rem; color:var(--text-light); }
 .admin-guest-item .guest-status {
-  padding: 3px 12px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: 1px solid;
-  border-radius: 2px;
-  white-space: nowrap;
+  padding:2px 10px; font-family:'Montserrat',sans-serif; font-size:0.65rem;
+  letter-spacing:2px; text-transform:uppercase; border:1px solid; border-radius:2px; white-space:nowrap;
 }
-
-.admin-guest-item .guest-status.dolazim {
-  color: #6a9b6a;
-  border-color: rgba(106, 155, 106, 0.3);
-  background: rgba(106, 155, 106, 0.05);
-}
-
-.admin-guest-item .guest-status.ne-dolazim {
-  color: #b07d8a;
-  border-color: rgba(176, 125, 138, 0.3);
-  background: rgba(176, 125, 138, 0.05);
-}
-
-.admin-guest-item .guest-message {
-  width: 100%;
-  font-style: italic;
-  color: #7a5660;
-  font-size: 0.85rem;
-  margin-top: 4px;
-}
-
-.admin-guest-item .guest-datetime {
-  width: 100%;
-  font-size: 0.7rem;
-  color: #b07d8a;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.admin-stats {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 0.9rem;
-  color: #7a5660;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.admin-stats strong { color: #8b4a5a; }
-
-.admin-login-error {
-  color: #d4929e;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-  display: none;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.admin-no-guests {
-  text-align: center;
-  color: #b07d8a;
-  font-size: 1rem;
-  padding: 40px;
-}
-
+.admin-guest-item .guest-status.dolazim { color:#6a9b6a; border-color:rgba(106,155,106,0.3); background:rgba(106,155,106,0.04); }
+.admin-guest-item .guest-status.ne-dolazim { color:var(--text-light); border-color:rgba(176,125,138,0.3); background:rgba(176,125,138,0.04); }
+.admin-guest-item .guest-message { width:100%; font-style:italic; color:var(--text); font-size:0.82rem; margin-top:4px; }
+.admin-guest-item .guest-datetime { width:100%; font-size:0.68rem; color:var(--text-light); font-family:'Montserrat',sans-serif; }
+.admin-stats { text-align:center; margin-bottom:20px; font-family:'Montserrat',sans-serif; font-size:0.85rem; color:var(--text); }
+.admin-stats strong { color:var(--burgundy); }
+.admin-login-error { color:var(--rose); font-size:0.78rem; margin-bottom:10px; display:none; font-family:'Montserrat',sans-serif; }
+.admin-no-guests { text-align:center; color:var(--text-light); font-size:0.95rem; padding:40px; }
 .admin-refresh-btn {
-  display: inline-block;
-  margin-bottom: 20px;
-  padding: 8px 24px;
-  border: 1px solid #d4929e;
-  background: transparent;
-  color: #d4929e;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
-  border-radius: 2px;
+  display:inline-block; margin-bottom:16px; padding:7px 20px;
+  border:1px solid var(--rose); background:transparent; color:var(--rose);
+  font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:2px;
+  text-transform:uppercase; cursor:pointer; transition:all 0.3s; border-radius:2px;
 }
+.admin-refresh-btn:hover { background:var(--rose); color:#fff; }
 
-.admin-refresh-btn:hover { background: #d4929e; color: #fff; }
-
-/* ─── Footer ─── */
-footer {
-  padding: 35px 20px;
-  text-align: center;
-  background: #fcf5f0;
-}
-
-footer .names {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.5rem;
-  color: #8b4a5a;
-  margin-bottom: 6px;
-}
-
-footer p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  color: #b07d8a;
-  letter-spacing: 2px;
-}
-
-/* ─── Setup guide ─── */
+/* ─── Setup ─── */
 .setup-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 998;
-  background: rgba(252, 245, 240, 0.98);
-  overflow-y: auto;
-  padding: 40px 20px;
+  display:none; position:fixed; inset:0; z-index:998;
+  background:rgba(252,245,240,0.98); overflow-y:auto; padding:40px 16px;
+  -webkit-overflow-scrolling:touch;
 }
-
-.setup-overlay.open { display: block; }
-
-.setup-box {
-  max-width: 560px;
-  margin: 40px auto;
-  text-align: left;
-}
-
-.setup-box h2 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  color: #8b4a5a;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.setup-box ol {
-  padding-left: 20px;
-  line-height: 2;
-  color: #5a3e3e;
-  font-size: 1rem;
-}
-
-.setup-box ol li { margin-bottom: 10px; }
-
+.setup-overlay.open { display:block; }
+.setup-box { max-width:520px; margin:30px auto; text-align:left; }
+.setup-box h2 { font-family:'Great Vibes',cursive; font-size:2rem; color:var(--burgundy); text-align:center; margin-bottom:16px; }
+.setup-box ol { padding-left:18px; line-height:2; color:var(--text); font-size:0.95rem; }
+.setup-box ol li { margin-bottom:8px; }
 .setup-box code {
-  display: block;
-  background: #fef8f5;
-  border: 1px solid #f0d5db;
-  padding: 15px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
-  white-space: pre-wrap;
-  margin: 8px 0;
-  color: #5a3e3e;
-  border-radius: 2px;
+  display:block; background:var(--card-bg); border:1px solid #f0d5db;
+  padding:14px; font-family:'Courier New',monospace; font-size:0.78rem;
+  white-space:pre-wrap; margin:6px 0; color:var(--text); border-radius:2px; overflow-x:auto;
 }
-
-.setup-box .note {
-  margin-top: 20px;
-  padding: 15px;
-  background: #fef8f5;
-  border: 1px solid #f0d5db;
-  font-size: 0.9rem;
-  color: #7a5660;
-}
-
 .setup-box .setup-btn {
-  display: inline-block;
-  margin: 20px 0;
-  padding: 12px 30px;
-  background: #d4929e;
-  color: #fff;
-  border: none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.3s;
+  display:inline-block; margin:16px 0; padding:12px 28px;
+  background:var(--burgundy); color:#fff; border:none;
+  font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:2px;
+  text-transform:uppercase; cursor:pointer; border-radius:2px; transition:background 0.3s;
 }
-
-.setup-box .setup-btn:hover { background: #c47e8b; }
-
-.setup-box input {
-  width: 100%;
-  padding: 12px 16px;
-  margin: 8px 0;
-  background: #fff;
-  border: 1px solid #e8d0d5;
-  color: #5a3e3e;
-  font-size: 0.9rem;
-  outline: none;
-  border-radius: 2px;
-}
-
-.setup-box input:focus { border-color: #d4929e; }
+.setup-box .setup-btn:hover { background:#7a3f4e; }
+.setup-box input { width:100%; padding:12px 16px; margin:6px 0; background:#fff; border:1px solid #e8d0d5; color:var(--text); font-size:0.9rem; outline:none; border-radius:2px; }
+.setup-box input:focus { border-color:var(--rose); }
 
 /* ─── Animations ─── */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-30px)} to{opacity:1;transform:translateY(0)} }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+@keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
 
 /* ─── Mobile ─── */
-@media (max-width: 600px) {
-  .hero-title { font-size: 3rem; }
-  .hero-subtitle { font-size: 0.75rem; letter-spacing: 6px; }
-  .countdown { gap: 12px; }
-  .countdown-number { font-size: 2rem; min-width: 48px; }
-  .details-grid { gap: 14px; }
-  .detail-card { padding: 25px 15px; }
-  .rsvp-form .row { grid-template-columns: 1fr; }
-  .rsvp-form .row-3 { grid-template-columns: 1fr; }
-  .map-card { padding: 25px 20px; }
-  .admin-guest-item { flex-direction: column; text-align: center; align-items: center; }
-  .gallery-grid img { height: 200px; }
-  .venue-image { height: 240px; }
-  .quote-text { font-size: 1.2rem; }
+@media (max-width:600px) {
+  .hero-title { font-size:3rem; }
+  .hero-subtitle { font-size:0.75rem; letter-spacing:6px; }
+  .section { padding:60px 16px 55px; }
+  .details-grid { grid-template-columns:1fr 1fr; gap:12px; }
+  .detail-card { padding:22px 14px; }
+  .gallery-grid { grid-template-columns:1fr 1fr; gap:8px; }
+  .gallery-grid img { height:160px; }
+  .rsvp-form .row { grid-template-columns:1fr; gap:0; }
+  .rsvp-form .row-3 { grid-template-columns:1fr; gap:0; }
+  .map-card { padding:25px 20px; }
+  .admin-guest-item { flex-direction:column; text-align:center; align-items:center; }
+  .quote-text { font-size:1.05rem; }
+  .quote-text::before { left:-2px; font-size:2.5em; top:-15px; }
+  .countdown { gap:12px; }
+  .countdown-number { min-width:42px; font-size:1.8rem; }
+  .hero-btn { padding:11px 22px; font-size:0.65rem; }
 }
+
+@media (max-width:400px) {
+  .details-grid { grid-template-columns:1fr; }
+  .gallery-grid { grid-template-columns:1fr; }
+  .gallery-grid img { height:200px; }
+}
+
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--cream); }
+::-webkit-scrollbar-thumb { background:var(--rose); border-radius:3px; }
 </style>
 </head>
 <body>
 
 <div id="petals"></div>
-<a href="#" class="admin-link" onclick="openAdmin()">&#x2691; Admin</a>
+<a href="#" class="admin-link" onclick="openAdmin()">&#x2691;</a>
+
+<nav class="nav-dots" id="navDots"></nav>
 
 <!-- ─── Setup overlay ─── -->
 <div class="setup-overlay" id="setupOverlay">
   <div class="setup-box">
     <h2>Povezivanje Google tablice</h2>
-    <p style="text-align:center;color:#7a5660;margin-bottom:20px;">
-      Da bi RSVP podaci bili centralno spremljeni, slijedi ove korake:
+    <p style="text-align:center;color:var(--text);margin-bottom:16px;font-size:0.9rem;">
+      Da bi RSVP podaci bili centralno spremljeni:
     </p>
     <ol>
-      <li>Otvori <a href="https://script.google.com" target="_blank" style="color:#d4929e;">script.google.com</a> i kreiraj novi projekt</li>
-      <li>Zamijeni kod sa ovim:</li>
+      <li>Otvori <a href="https://script.google.com" target="_blank" style="color:var(--rose);">script.google.com</a>, novi projekt</li>
+      <li>Zamijeni kod sa:</li>
     </ol>
     <code>function doGet(e) {
-  const sheet = SpreadsheetApp.openById('TVOJ_SHEET_ID').getSheetByName('RSVP');
-  const data = sheet.getDataRange().getValues();
-  if (data.length < 2) return ContentService.createTextOutput(JSON.stringify([])).setMimeType(ContentService.MimeType.JSON);
-  const headers = data[0];
-  const rows = data.slice(1).map(r => {
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = r[i]);
-    return obj;
-  });
-  return ContentService.createTextOutput(JSON.stringify(rows)).setMimeType(ContentService.MimeType.JSON);
+  const s = SpreadsheetApp.openById('ID').getSheetByName('RSVP');
+  const d = s.getDataRange().getValues();
+  if (d.length<2) return ContentService.createTextOutput('[]').setMimeType(ContentService.MimeType.JSON);
+  const h = d[0]; const r = d.slice(1).map(r=>{let o={};h.forEach((hi,i)=>o[hi]=r[i]);return o;});
+  return ContentService.createTextOutput(JSON.stringify(r)).setMimeType(ContentService.MimeType.JSON);
 }
-
 function doPost(e) {
-  const sheet = SpreadsheetApp.openById('TVOJ_SHEET_ID').getSheetByName('RSVP');
-  const body = JSON.parse(e.postData.contents);
-  sheet.appendRow([
-    body.id, body.firstName, body.lastName, body.email,
-    body.status, body.adults, body.children, body.message, body.timestamp
-  ]);
-  return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
+  const s = SpreadsheetApp.openById('ID').getSheetByName('RSVP');
+  const b = JSON.parse(e.postData.contents);
+  s.appendRow([b.id,b.firstName,b.lastName,b.email,b.status,b.adults,b.children,b.message,b.timestamp]);
+  return ContentService.createTextOutput(JSON.stringify({ok:1})).setMimeType(ContentService.MimeType.JSON);
 }</code>
     <ol start="3">
-      <li>Kreiraj Google tablicu na <a href="https://sheets.google.com" target="_blank" style="color:#d4929e;">sheets.google.com</a></li>
-      <li>Prvi red nazovi: id, firstName, lastName, email, status, adults, children, message, timestamp</li>
-      <li>Kopiraj ID tablice (iz URL-a: <code>/spreadsheets/d/OVO_JE_ID/edit</code>)</li>
-      <li>U Apps Script kodu zamijeni <code>TVOJ_SHEET_ID</code> sa tim ID-jem</li>
-      <li>Spremi projekt i klikni <strong>Deploy &rarr; New deployment &rarr; Web app</strong></li>
-      <li>Postavi: Execute as = <strong>Me</strong>, Access = <strong>Anyone</strong></li>
-      <li>Kopiraj URL web appa i zalijepi ga dolje:</li>
+      <li>Kreiraj Google tablicu, prvi red: <code>id,firstName,lastName,email,status,adults,children,message,timestamp</code></li>
+      <li>Kopiraj ID tablice iz URL-a</li>
+      <li>Zamijeni <code>ID</code> u kodu, spremi, Deploy &rarr; New deployment &rarr; Web app</li>
+      <li>Execute as: <strong>Me</strong>, Access: <strong>Anyone</strong></li>
+      <li>Zalijepi URL dolje:</li>
     </ol>
-    <label style="font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:#b07d8a;">Apps Script URL</label>
+    <label style="font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);">Apps Script URL</label>
     <input type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec">
     <button class="setup-btn" onclick="saveSetup()">Spremi</button>
-    <p id="setupStatus" style="font-size:0.85rem;color:#6a9b6a;display:none;"></p>
-    <button class="setup-btn" onclick="closeSetup()" style="background:transparent;color:#b07d8a;border:1px solid #e8d0d5;">Preskoči (lokalno)</button>
+    <p id="setupStatus" style="font-size:0.8rem;color:#6a9b6a;display:none;"></p>
+    <button class="setup-btn" onclick="closeSetup()" style="background:transparent;color:var(--text-light);border:1px solid #e8d0d5;">Preskoči</button>
   </div>
 </div>
 
@@ -948,47 +517,42 @@ function doPost(e) {
 <div class="admin-panel" id="adminPanel">
   <button class="close-btn" onclick="closeAdmin()">&times;</button>
   <h2>Pregled gostiju</h2>
-
   <div class="admin-login" id="adminLogin">
     <input type="password" id="adminPass" placeholder="Lozinka" onkeydown="if(event.key==='Enter')adminLogin()">
     <p class="admin-login-error" id="adminLoginError">Pogrešna lozinka</p>
-    <button class="rsvp-btn" onclick="adminLogin()" style="width:auto;padding:10px 36px;display:inline-block;">Ulaz</button>
+    <button class="admin-refresh-btn" onclick="adminLogin()" style="width:auto;padding:10px 36px;">Ulaz</button>
   </div>
-
   <div id="adminContent" style="display:none;">
-    <div style="text-align:center;">
-      <button class="admin-refresh-btn" onclick="loadGuestList()">&#x21bb; Osvježi</button>
-    </div>
+    <div style="text-align:center;"><button class="admin-refresh-btn" onclick="loadGuestList()">&#x21bb; Osvježi</button></div>
     <div class="admin-stats" id="adminStats"></div>
     <div class="admin-guest-list" id="adminGuestList"></div>
-    <div style="text-align:center;margin-top:20px;">
-      <a href="#" onclick="openSetup()" style="color:#d4929e;font-size:0.8rem;font-family:'Montserrat',sans-serif;">Poveži Google tablicu</a>
-    </div>
+    <div style="text-align:center;margin-top:16px;"><a href="#" onclick="openSetup()" style="color:var(--rose);font-size:0.78rem;font-family:'Montserrat',sans-serif;">Poveži Google tablicu</a></div>
   </div>
 </div>
 
 <!-- ─── Hero ─── -->
-<section class="hero">
+<section class="hero" id="sec-hero">
   <div class="hero-floral">
-    <div class="bloom"></div>
-    <div class="bloom"></div>
-    <div class="bloom"></div>
-    <div class="bloom"></div>
+    <div class="bloom"></div><div class="bloom"></div><div class="bloom"></div><div class="bloom"></div>
   </div>
   <div class="hero-overlay">
     <div class="hero-ornament">&#x2736;</div>
-    <h1 class="hero-title">Denis & Ivana</h1>
+    <h1 class="hero-title">Denis &amp; Ivana</h1>
     <p class="hero-and">&#x2726;</p>
     <p class="hero-subtitle">Vjenčanje</p>
-    <p class="hero-date">10. listopada 2026. &middot; Karlovac</p>
+    <p class="hero-date">10. 10. 2026. &middot; Karlovac</p>
+    <div class="hero-actions">
+      <a href="#rsvp" class="hero-btn hero-btn-primary">&#x2709; Potvrdi dolazak</a>
+      <a href="https://maps.google.com/?q=Nacionalno+svetiste+sv+Josipa+Karlovac" target="_blank" class="hero-btn hero-btn-secondary">&#x1F4CD; Misa</a>
+    </div>
   </div>
   <div class="scroll-indicator"><span></span></div>
 </section>
 
 <!-- ─── Countdown ─── -->
-<section class="countdown-section">
-  <p class="countdown-title reveal">Do velikog dana</p>
-  <div class="countdown" id="countdown">
+<section class="countdown-section section" id="sec-countdown">
+  <p class="section-subtitle reveal">Do velikog dana</p>
+  <div class="countdown reveal" id="countdown">
     <div class="countdown-item">
       <span class="countdown-number" id="days">00</span>
       <span class="countdown-label">Dana</span>
@@ -1008,8 +572,10 @@ function doPost(e) {
   </div>
 </section>
 
+<div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
+
 <!-- ─── Quote ─── -->
-<section class="quote-section">
+<section class="quote-section section" id="sec-quote">
   <p class="quote-text reveal">
     "Ljubav je jedina stvar koja raste dok je dijeliš."
   </p>
@@ -1019,20 +585,20 @@ function doPost(e) {
 <div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
 
 <!-- ─── Story ─── -->
-<section class="story-section">
-  <h2 class="story-title reveal">Naša priča</h2>
+<section class="story-section section" id="sec-story">
+  <h2 class="section-title reveal">Naša priča</h2>
   <div class="story-content reveal">
     <p>Započelo je jednim slučajnim susretom, a nastavilo se kroz smijeh, putovanja i bezbroj zajedničkih trenutaka. Nakon svih tih godina, odlučili smo zauvijek reći DA.</p>
-    <p style="margin-top:18px;">Radujemo se što ćete ovaj poseban dan podijeliti s nama!</p>
+    <p style="margin-top:16px;">Radujemo se što ćete ovaj poseban dan podijeliti s nama!</p>
   </div>
 </section>
 
 <div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
 
 <!-- ─── Gallery ─── -->
-<section class="gallery-section">
-  <h2 class="gallery-title reveal">Galerija</h2>
-  <p class="gallery-subtitle reveal">Trenuci koje pamtimo</p>
+<section class="gallery-section section" id="sec-gallery">
+  <h2 class="section-title reveal">Galerija</h2>
+  <p class="section-subtitle reveal">Trenuci koje pamtimo</p>
   <div class="gallery-grid">
     <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80" alt="Vjencanje" loading="lazy">
     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Vjencanje" loading="lazy">
@@ -1046,14 +612,13 @@ function doPost(e) {
 <div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
 
 <!-- ─── Details ─── -->
-<section class="details">
-  <div class="details-ornament reveal">&#x2736;</div>
-  <h2 class="details-title reveal">Detalji vjenčanja</h2>
+<section class="details-section section" id="sec-details">
+  <h2 class="section-title reveal">Detalji vjenčanja</h2>
   <div class="details-grid">
     <div class="detail-card">
       <span class="detail-icon">&#x1F48D;</span>
       <h3>Vjenčanje</h3>
-      <p>Subota, 10. listopada 2026.</p>
+      <p>Subota, 10.10.2026.</p>
       <p class="sub">u 19:00 sati</p>
     </div>
     <div class="detail-card">
@@ -1064,20 +629,19 @@ function doPost(e) {
     </div>
     <div class="detail-card">
       <span class="detail-icon">&#x1F37D;</span>
-      <h3>Svečana večera</h3>
+      <h3>Večera</h3>
       <p>Restoran Zrinski</p>
-      <p class="sub">Dom HV, Karlovac, nakon mise</p>
+      <p class="sub">Dom HV, Karlovac</p>
     </div>
     <div class="detail-card">
       <span class="detail-icon">&#x1F389;</span>
       <h3>Proslava</h3>
-      <p>Pjesma, ples i veselje do jutra</p>
+      <p>Pjesma i ples do jutra</p>
       <p class="sub">Restoran Zrinski</p>
     </div>
   </div>
 </section>
 
-<!-- ─── Info bar ─── -->
 <section class="info-bar">
   <div class="info-bar-inner reveal">
     <div class="info-bar-item"><strong>Datum:</strong> 10.10.2026.</div>
@@ -1087,55 +651,34 @@ function doPost(e) {
   </div>
 </section>
 
-<img class="venue-image" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=80" alt="Restoran Zrinski" loading="lazy">
+<img class="venue-image" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=80" alt="" loading="lazy">
 
 <div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
 
 <!-- ─── RSVP ─── -->
-<section class="rsvp-section">
-  <h2 class="rsvp-title reveal">Potvrdite dolazak</h2>
-  <p class="rsvp-subtitle reveal">Molimo potvrdite do 1. rujna 2026.</p>
+<section class="rsvp-section section" id="rsvp">
+  <h2 class="section-title reveal">Potvrdite dolazak</h2>
+  <p class="section-subtitle reveal">Molimo potvrdite do 1. rujna 2026.</p>
 
   <form class="rsvp-form reveal" id="rsvpForm" onsubmit="submitRSVP(event)">
     <div class="row">
-      <div>
-        <label for="firstName">Ime</label>
-        <input type="text" id="firstName" required placeholder="Vaše ime">
-      </div>
-      <div>
-        <label for="lastName">Prezime</label>
-        <input type="text" id="lastName" required placeholder="Vaše prezime">
-      </div>
+      <div><label for="firstName">Ime</label><input type="text" id="firstName" required placeholder="Vaše ime"></div>
+      <div><label for="lastName">Prezime</label><input type="text" id="lastName" required placeholder="Vaše prezime"></div>
     </div>
-
     <label for="email">Email</label>
     <input type="email" id="email" required placeholder="vas@email.hr">
-
     <label for="status">Dolazim</label>
     <select id="status" required>
       <option value="">-- Odaberite --</option>
       <option value="dolazim">DA, dolazim s veseljem!</option>
       <option value="ne-dolazim">Nažalost, ne mogu doći</option>
     </select>
-
     <div class="row-3">
-      <div>
-        <label for="adults">Odraslih</label>
-        <select id="adults">
-          <option>1</option><option>2</option><option>3</option><option checked>4</option><option>5</option>
-        </select>
-      </div>
-      <div>
-        <label for="children">Djece</label>
-        <select id="children">
-          <option checked>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
-        </select>
-      </div>
+      <div><label for="adults">Odraslih</label><select id="adults"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option></select></div>
+      <div><label for="children">Djece</label><select id="children"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
     </div>
-
     <label for="message">Poruka (opcionalno)</label>
     <textarea id="message" placeholder="Napišite nam nešto..."></textarea>
-
     <button type="submit" class="rsvp-btn" id="rsvpSubmitBtn">Pošalji potvrdu</button>
     <div class="rsvp-status" id="rsvpStatus"></div>
   </form>
@@ -1143,264 +686,223 @@ function doPost(e) {
   <div class="rsvp-success" id="rsvpSuccess">
     <h3>Hvala vam!</h3>
     <p>Vaš dolazak je potvrđen. Vidimo se 10. listopada!</p>
-    <p style="margin-top:30px;font-size:0.9rem;color:#b07d8a;">Denis & Ivana &#x2726;</p>
+    <p style="margin-top:24px;font-size:0.85rem;color:var(--text-light);">Denis &amp; Ivana &#x2726;</p>
   </div>
 </section>
 
 <div class="divider"><span class="divider-line"></span><div class="divider-flower">&#x2736;</div></div>
 
 <!-- ─── Map ─── -->
-<section class="map-section">
+<section class="map-section" id="sec-map">
   <div class="map-card reveal">
     <h3>Restoran Zrinski</h3>
     <p>Dom HV, Karlovac</p>
-    <p style="margin-top:12px;">
-      <a href="https://maps.google.com/?q=Restoran+Zrinski+Dom+HV+Karlovac" target="_blank">&#x1F4CD; Otvori na Google kartama</a>
-    </p>
+    <p style="margin-top:10px;"><a href="https://maps.google.com/?q=Restoran+Zrinski+Dom+HV+Karlovac" target="_blank">&#x1F4CD; Otvori na Google kartama</a></p>
   </div>
 </section>
 
-<!-- ─── Footer ─── -->
 <footer>
-  <p class="names">Denis & Ivana</p>
+  <p class="names">Denis &amp; Ivana</p>
   <p>10. listopada 2026. &middot; Karlovac</p>
-  <p style="margin-top:16px; font-size:0.7rem; letter-spacing:2px;">Veselimo se vašem dolasku!</p>
+  <p style="margin-top:14px;letter-spacing:3px;">Veselimo se vašem dolasku!</p>
 </footer>
 
 <script>
 // ─── Petals ───
-const petalCount = 30;
-const petalC = document.getElementById('petals');
-for (let i = 0; i < petalCount; i++) {
-  const p = document.createElement('div');
-  p.className = 'petal';
-  p.style.left = Math.random() * 100 + '%';
-  const s = 8 + Math.random() * 12;
-  p.style.width = s + 'px';
-  p.style.height = s + 'px';
-  p.style.animationDuration = (10 + Math.random() * 20) + 's';
-  p.style.animationDelay = (Math.random() * 20) + 's';
-  p.style.opacity = 0.2 + Math.random() * 0.4;
-  petalC.appendChild(p);
-}
+(function(){
+  const count = window.innerWidth<600 ? 15 : 30;
+  const c = document.getElementById('petals');
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div'); p.className='petal';
+    p.style.left=Math.random()*100+'%';
+    const s=7+Math.random()*12; p.style.width=s+'px'; p.style.height=s+'px';
+    p.style.animationDuration=(8+Math.random()*22)+'s';
+    p.style.animationDelay=(Math.random()*20)+'s';
+    p.style.opacity=0.2+Math.random()*0.4;
+    c.appendChild(p);
+  }
+})();
+
+// ─── Nav dots ───
+(function(){
+  const sections = ['sec-hero','sec-countdown','sec-quote','sec-story','sec-gallery','sec-details','rsvp','sec-map'];
+  const dots = document.getElementById('navDots');
+  sections.forEach(id => {
+    const d = document.createElement('button'); d.className='nav-dot'; d.dataset.target=id;
+    d.addEventListener('click',()=>{
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    });
+    dots.appendChild(d);
+  });
+  const allDots = dots.querySelectorAll('.nav-dot');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const idx = sections.indexOf(e.target.id);
+        allDots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+      }
+    });
+  },{threshold:[0.3,0.6]});
+  sections.forEach(id => { const el=document.getElementById(id); if(el) obs.observe(el); });
+})();
 
 // ─── Countdown ───
-const target = new Date('2026-10-10T19:00:00+02:00').getTime();
-function updateCountdown() {
-  const diff = target - Date.now();
-  if (diff <= 0) {
-    ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
-    return;
+(function(){
+  const target = new Date('2026-10-10T19:00:00+02:00').getTime();
+  function update(){
+    const diff = target-Date.now();
+    if(diff<=0){ ['days','hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='00'); return; }
+    document.getElementById('days').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('hours').textContent=String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('minutes').textContent=String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('seconds').textContent=String(Math.floor((diff%60000)/1000)).padStart(2,'0');
   }
-  document.getElementById('days').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
-  document.getElementById('hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
-  document.getElementById('minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
-  document.getElementById('seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
+  update(); setInterval(update,1000);
+})();
 
-// ─── Scroll Reveal ───
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.2 });
-document.querySelectorAll('.reveal, .detail-card, .gallery-grid img').forEach(el => observer.observe(el));
+// ─── Scroll reveal ───
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.2});
+document.querySelectorAll('.reveal,.detail-card,.gallery-grid img').forEach(el=>observer.observe(el));
 
 // ─── Parallax ───
-window.addEventListener('scroll', () => {
-  const s = window.pageYOffset;
-  const hero = document.querySelector('.hero-overlay');
-  if (hero && s < window.innerHeight) {
-    hero.style.transform = `translateY(${s * 0.25}px)`;
-    hero.style.opacity = 1 - (s / (window.innerHeight * 0.7));
+window.addEventListener('scroll',()=>{
+  const s=window.pageYOffset;
+  const hero=document.querySelector('.hero-overlay');
+  if(hero&&s<window.innerHeight){
+    hero.style.transform=`translateY(${s*0.25}px)`;
+    hero.style.opacity=1-(s/(window.innerHeight*0.7));
   }
 });
 
-// ─── Google Sheets Script URL ───
-function getScriptUrl() {
-  return localStorage.getItem('gsScriptUrl');
-}
+// ─── Google Sheets ───
+function getScriptUrl(){ return localStorage.getItem('gsScriptUrl'); }
+function saveScriptUrl(url){ localStorage.setItem('gsScriptUrl',url); }
 
-function saveScriptUrl(url) {
-  localStorage.setItem('gsScriptUrl', url);
-}
-
-// ─── RSVP Submit ───
-async function submitRSVP(e) {
+// ─── RSVP ───
+async function submitRSVP(e){
   e.preventDefault();
-  const btn = document.getElementById('rsvpSubmitBtn');
-  const status = document.getElementById('rsvpStatus');
-  btn.disabled = true;
-  btn.textContent = 'Slanje...';
-  status.className = 'rsvp-status';
-  status.style.display = 'none';
+  const btn=document.getElementById('rsvpSubmitBtn');
+  const st=document.getElementById('rsvpStatus');
+  btn.disabled=true; btn.textContent='Slanje...';
+  st.className='rsvp-status'; st.style.display='none';
 
-  const data = {
-    id: Date.now().toString(),
-    firstName: document.getElementById('firstName').value.trim(),
-    lastName: document.getElementById('lastName').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    status: document.getElementById('status').value,
-    adults: parseInt(document.getElementById('adults').value),
-    children: parseInt(document.getElementById('children').value),
-    message: document.getElementById('message').value.trim(),
-    timestamp: new Date().toLocaleString('hr-HR')
+  const data={
+    id:Date.now().toString(),
+    firstName:document.getElementById('firstName').value.trim(),
+    lastName:document.getElementById('lastName').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    status:document.getElementById('status').value,
+    adults:parseInt(document.getElementById('adults').value),
+    children:parseInt(document.getElementById('children').value),
+    message:document.getElementById('message').value.trim(),
+    timestamp:new Date().toLocaleString('hr-HR')
   };
 
-  // Always save locally as backup
-  const guests = JSON.parse(localStorage.getItem('weddingGuests') || '[]');
+  const guests=JSON.parse(localStorage.getItem('weddingGuests')||'[]');
   guests.push(data);
-  localStorage.setItem('weddingGuests', JSON.stringify(guests));
+  localStorage.setItem('weddingGuests',JSON.stringify(guests));
 
-  // Try saving to Google Sheets
-  const url = getScriptUrl();
-  if (url) {
-    try {
-      const resp = await fetch(url, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      // no-cors means we can't read response, assume success
-    } catch (e) {
-      // Fallback to local
-    }
+  const url=getScriptUrl();
+  if(url){
+    try{
+      await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    }catch(e){}
   }
 
-  setTimeout(() => {
-    document.getElementById('rsvpForm').style.display = 'none';
-    document.getElementById('rsvpSuccess').style.display = 'block';
-  }, 400);
+  setTimeout(()=>{
+    document.getElementById('rsvpForm').style.display='none';
+    document.getElementById('rsvpSuccess').style.display='block';
+  },400);
 }
 
 // ─── Admin ───
-const ADMIN_PASSWORD = 'denis2026';
-
-function openAdmin() {
+const ADMIN_PASSWORD='denis2026';
+function openAdmin(){
   document.getElementById('adminPanel').classList.add('open');
-  document.getElementById('adminLogin').style.display = 'block';
-  document.getElementById('adminContent').style.display = 'none';
-  document.getElementById('adminLoginError').style.display = 'none';
-  document.getElementById('adminPass').value = '';
-  setTimeout(() => document.getElementById('adminPass').focus(), 100);
+  document.getElementById('adminLogin').style.display='block';
+  document.getElementById('adminContent').style.display='none';
+  document.getElementById('adminLoginError').style.display='none';
+  document.getElementById('adminPass').value='';
+  setTimeout(()=>document.getElementById('adminPass').focus(),100);
 }
-
-function closeAdmin() {
-  document.getElementById('adminPanel').classList.remove('open');
-}
-
-function adminLogin() {
-  if (document.getElementById('adminPass').value !== ADMIN_PASSWORD) {
-    document.getElementById('adminLoginError').style.display = 'block';
-    return;
+function closeAdmin(){ document.getElementById('adminPanel').classList.remove('open'); }
+function adminLogin(){
+  if(document.getElementById('adminPass').value!==ADMIN_PASSWORD){
+    document.getElementById('adminLoginError').style.display='block'; return;
   }
-  document.getElementById('adminLogin').style.display = 'none';
-  document.getElementById('adminContent').style.display = 'block';
+  document.getElementById('adminLogin').style.display='none';
+  document.getElementById('adminContent').style.display='block';
   loadGuestList();
 }
+async function loadGuestList(){
+  const list=document.getElementById('adminGuestList');
+  const stats=document.getElementById('adminStats');
+  list.innerHTML='<div class="admin-no-guests">Učitavanje...</div>';
 
-async function loadGuestList() {
-  const list = document.getElementById('adminGuestList');
-  const stats = document.getElementById('adminStats');
-  list.innerHTML = '<div class="admin-no-guests">Učitavanje...</div>';
-
-  let allGuests = JSON.parse(localStorage.getItem('weddingGuests') || '[]');
-
-  // Try fetching from Google Sheets
-  const url = getScriptUrl();
-  if (url) {
-    try {
-      const resp = await fetch(url);
-      if (resp.ok) {
-        const remote = await resp.json();
-        if (Array.isArray(remote)) {
-          // Merge remote with local, deduplicate by id
-          const localIds = new Set(allGuests.map(g => g.id));
-          for (const g of remote) {
-            if (!localIds.has(g.id)) {
-              allGuests.push(g);
-              localIds.add(g.id);
-            }
-          }
-          localStorage.setItem('weddingGuests', JSON.stringify(allGuests));
+  let allGuests=JSON.parse(localStorage.getItem('weddingGuests')||'[]');
+  const url=getScriptUrl();
+  if(url){
+    try{
+      const resp=await fetch(url);
+      if(resp.ok){
+        const remote=await resp.json();
+        if(Array.isArray(remote)){
+          const localIds=new Set(allGuests.map(g=>g.id));
+          for(const g of remote){ if(!localIds.has(g.id)){ allGuests.push(g); localIds.add(g.id); } }
+          localStorage.setItem('weddingGuests',JSON.stringify(allGuests));
         }
       }
-    } catch (e) {}
+    }catch(e){}
   }
 
-  const confirmed = allGuests.filter(g => g.status === 'dolazim');
-  const totalGuestsCount = confirmed.reduce((sum, g) => sum + g.adults + g.children, 0);
-
-  stats.innerHTML = `
-    Ukupno potvrda: <strong>${allGuests.length}</strong> &nbsp;|&nbsp;
-    Dolaze: <strong>${confirmed.length}</strong> &nbsp;|&nbsp;
-    Ukupno gostiju: <strong>${totalGuestsCount}</strong>
-  `;
-
-  if (allGuests.length === 0) {
-    list.innerHTML = '<div class="admin-no-guests">Još nema potvrda.</div>';
-    return;
-  }
-
-  list.innerHTML = allGuests.slice().reverse().map(g => `
+  const confirmed=allGuests.filter(g=>g.status==='dolazim');
+  const total=confirmed.reduce((s,g)=>s+g.adults+g.children,0);
+  stats.innerHTML=`Ukupno potvrda: <strong>${allGuests.length}</strong> &nbsp;|&nbsp; Dolaze: <strong>${confirmed.length}</strong> &nbsp;|&nbsp; Gostiju: <strong>${total}</strong>`;
+  if(!allGuests.length){ list.innerHTML='<div class="admin-no-guests">Još nema potvrda.</div>'; return; }
+  list.innerHTML=allGuests.slice().reverse().map(g=>`
     <div class="admin-guest-item">
       <div>
         <div class="guest-name">${g.firstName} ${g.lastName}</div>
         <div class="guest-detail">${g.email}</div>
         <div class="guest-detail">Odraslih: ${g.adults}, Djece: ${g.children}</div>
       </div>
-      <div class="guest-status ${g.status}">
-        ${g.status === 'dolazim' ? 'Dolazim' : 'Ne dolazim'}
-      </div>
-      ${g.message ? `<div class="guest-message">"${g.message}"</div>` : ''}
+      <div class="guest-status ${g.status}">${g.status==='dolazim'?'Dolazim':'Ne dolazim'}</div>
+      ${g.message?`<div class="guest-message">"${g.message}"</div>`:''}
       <div class="guest-datetime">${g.timestamp}</div>
     </div>
   `).join('');
 }
 
-// ─── Setup overlay ───
-function openSetup() {
+// ─── Setup ───
+function openSetup(){
   document.getElementById('setupOverlay').classList.add('open');
-  const saved = getScriptUrl();
-  if (saved) document.getElementById('scriptUrl').value = saved;
+  const s=getScriptUrl(); if(s) document.getElementById('scriptUrl').value=s;
 }
-
-function closeSetup() {
-  document.getElementById('setupOverlay').classList.remove('open');
-}
-
-function saveSetup() {
-  const url = document.getElementById('scriptUrl').value.trim();
-  if (url) {
+function closeSetup(){ document.getElementById('setupOverlay').classList.remove('open'); }
+function saveSetup(){
+  const url=document.getElementById('scriptUrl').value.trim();
+  if(url){
     saveScriptUrl(url);
-    document.getElementById('setupStatus').style.display = 'block';
-    document.getElementById('setupStatus').textContent = '&#x2713; Spremljeno! Povezano s Google tablicom.';
-    document.getElementById('setupStatus').style.color = '#6a9b6a';
-    setTimeout(closeSetup, 1500);
+    document.getElementById('setupStatus').style.display='block';
+    document.getElementById('setupStatus').innerHTML='&#x2713; Spremljeno!';
+    setTimeout(closeSetup,1200);
   }
 }
 
-// Close admin on Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    if (document.getElementById('setupOverlay').classList.contains('open')) closeSetup();
-    else if (document.getElementById('adminPanel').classList.contains('open')) closeAdmin();
+// ─── Keyboard & backdrop ───
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('setupOverlay').classList.contains('open')) closeSetup();
+    else if(document.getElementById('adminPanel').classList.contains('open')) closeAdmin();
   }
 });
+document.getElementById('adminPanel').addEventListener('click',e=>{if(e.target===e.currentTarget) closeAdmin();});
+document.getElementById('setupOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget) closeSetup();});
 
-// Close on backdrop click
-document.getElementById('adminPanel').addEventListener('click', e => { if (e.target === e.currentTarget) closeAdmin(); });
-document.getElementById('setupOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeSetup(); });
-
-// Open setup on first visit if no URL configured
-if (!getScriptUrl() && !localStorage.getItem('setupDismissed')) {
-  setTimeout(openSetup, 1000);
-}
-document.addEventListener('click', function dismiss() {
-  localStorage.setItem('setupDismissed', '1');
-  document.removeEventListener('click', dismiss);
-}, { once: true });
+if(!getScriptUrl()&&!localStorage.getItem('setupDismissed')) setTimeout(openSetup,1000);
 </script>
 </body>
 </html>
