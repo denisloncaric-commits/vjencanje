@@ -66,6 +66,22 @@ body.no-cursor{cursor:none}
 @media(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
 @media(max-width:600px){.cursor-dot,.cursor-ring{display:none!important}}
 
+/* ─── Cinematic Flash ─── */
+.cinematic-flash{
+  position:fixed;inset:0;z-index:9998;
+  background:radial-gradient(circle at 50% 50%, rgba(200,168,78,0.25), rgba(200,168,78,0.05) 30%, transparent 60%);
+  opacity:0;pointer-events:none;
+  transition:opacity .6s ease;
+}
+.cinematic-flash.fire{opacity:1;animation:cinematicFlash 1.8s ease-out forwards}
+@keyframes cinematicFlash{
+  0%{opacity:0}
+  25%{opacity:1}
+  40%{opacity:.3}
+  70%{opacity:.05}
+  100%{opacity:0}
+}
+
 /* ─── Scroll Progress ─── */
 .scroll-progress{
   position:fixed;top:0;left:0;width:100%;height:2px;z-index:9000;
@@ -75,6 +91,10 @@ body.no-cursor{cursor:none}
   height:100%;width:0%;
   background:linear-gradient(90deg,var(--gold-light),var(--gold),var(--gold-ruby),var(--gold),var(--gold-light));
   background-size:200% 100%;transition:width .15s ease;
+}
+.scroll-progress-bar::after{
+  content:'';position:absolute;top:-4px;left:0;right:0;height:10px;
+  background:inherit;filter:blur(8px);opacity:.5;
 }
 
 /* ─── Preloader ─── */
@@ -1017,11 +1037,41 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.65rem;color:var(--text-l
 .setup-box input{width:100%;padding:14px 18px;margin:8px 0;background:var(--white);border:1px solid #e8d0d5;color:var(--text);font-size:.9rem;outline:none;border-radius:2px}
 .setup-box input:focus{border-color:var(--rose)}
 
+/* ─── AAA Shimmer ─── */
+.gold-shimmer-line{height:1px;width:100%;max-width:200px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--gold-light),var(--gold),var(--gold-ruby),var(--gold),var(--gold-light),transparent);background-size:400% 100%;animation:shimmerSlide 4s ease-in-out infinite;opacity:0;transition:opacity 1s ease}
+.gold-shimmer-line.visible{opacity:1}
+@keyframes shimmerSlide{0%{background-position:-400% center}100%{background-position:400% center}}
+
 /* ─── Animations ─── */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeInDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+/* ─── Music Toggle ─── */
+.music-btn{
+  position:fixed;bottom:30px;right:30px;z-index:9001;
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-ruby));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px rgba(200,168,78,0.3);
+  transition:all .5s var(--ease-spring);
+  opacity:0;transform:scale(0);pointer-events:none;
+}
+.music-btn.visible{opacity:1;transform:scale(1);pointer-events:auto}
+.music-btn:hover{transform:scale(1.12);box-shadow:0 8px 40px rgba(200,168,78,0.4)}
+.music-btn.playing{animation:musicPulse 3s ease-in-out infinite}
+@keyframes musicPulse{0%,100%{box-shadow:0 4px 24px rgba(200,168,78,0.3)}50%{box-shadow:0 4px 40px rgba(200,168,78,0.55)}}
+.music-btn svg{width:20px;height:20px;fill:#fff;transition:all .3s}
+.music-btn .music-note{position:absolute;font-size:10px;opacity:0;transition:all .6s var(--ease-spring)}
+.music-btn.playing .music-note-1{opacity:1;transform:translate(-16px,-18px);animation:noteFloat1 2s ease-in-out infinite}
+.music-btn.playing .music-note-2{opacity:1;transform:translate(14px,-22px);animation:noteFloat2 2.4s ease-in-out infinite .6s}
+.music-btn.playing .music-note-3{opacity:1;transform:translate(0,-26px);animation:noteFloat3 2.8s ease-in-out infinite 1.2s}
+@keyframes noteFloat1{0%,100%{transform:translate(-16px,-18px) scale(1);opacity:.7}50%{transform:translate(-20px,-30px) scale(1.2);opacity:1}}
+@keyframes noteFloat2{0%,100%{transform:translate(14px,-22px) scale(1);opacity:.6}50%{transform:translate(18px,-34px) scale(1.15);opacity:1}}
+@keyframes noteFloat3{0%,100%{transform:translate(0,-26px) scale(1);opacity:.5}50%{transform:translate(0,-38px) scale(1.25);opacity:.9}}
+@media(max-width:600px){.music-btn{bottom:20px;right:20px;width:42px;height:42px}}
 
 /* ─── Mobile ─── */
 @media(max-width:600px){
@@ -1056,6 +1106,8 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.65rem;color:var(--text-l
 </style>
 </head>
 <body>
+
+<div class="cinematic-flash" id="cinematicFlash"></div>
 
 <div class="preloader" id="preloader">
   <div class="preloader-ring"></div>
@@ -1546,6 +1598,17 @@ function doPost(e) {
   <p style="margin-top:16px;letter-spacing:4px;font-size:.7rem;">Veselimo se vašem dolasku!</p>
 </footer>
 
+<audio id="bgMusic" loop preload="none">
+  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/bkSejUIn16rStHrC7NHp4j4DhWGKd1ICwI5DPDvw.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Glazba">
+  <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+  <span class="music-note music-note-1">♪</span>
+  <span class="music-note music-note-2">♫</span>
+  <span class="music-note music-note-3">♪</span>
+</button>
+
 <div class="confetti-container" id="confettiContainer"></div>
 
 <script>
@@ -1555,6 +1618,25 @@ window.addEventListener('load',()=>{
     document.getElementById('preloader').classList.add('hidden');
   },600);
 });
+
+// ─── Music ───
+let musicStarted=false;
+const audio=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+function toggleMusic(){
+  if(audio.paused){audio.play().catch(()=>{});musicBtn.classList.add('playing');}
+  else{audio.pause();musicBtn.classList.remove('playing');}
+}
+function startMusic(){
+  if(musicStarted) return;
+  musicStarted=true;
+  audio.play().then(()=>{
+    musicBtn.classList.add('visible','playing');
+  }).catch(()=>{
+    setTimeout(()=>musicBtn.classList.add('visible'),500);
+  });
+}
+audio.addEventListener('ended',()=>{musicBtn.classList.remove('playing')});
 
 // ─── Cursor ───
 (function(){
@@ -1694,6 +1776,11 @@ function openInvitation(){
   crack.classList.add('cracking');
   createWaxShards(seal);
   createBurstParticles(seal);
+  startMusic();
+  setTimeout(()=>{
+    document.getElementById('cinematicFlash').classList.add('fire');
+    setTimeout(()=>{document.getElementById('cinematicFlash').classList.remove('fire')},2000);
+  },400);
   setTimeout(()=>{
     env.classList.add('open');
     crack.classList.add('cracked');
@@ -1810,6 +1897,64 @@ window.addEventListener('scroll',()=>{
     hero.style.opacity=1-(s/(window.innerHeight*0.7));
   }
 });
+
+// ─── Shimmer Dividers ───
+(function(){
+  const divs=document.querySelectorAll('.divider');
+  divs.forEach((d,i)=>{
+    const line=document.createElement('div');line.className='gold-shimmer-line';
+    d.prepend(line);
+    const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){line.classList.add('visible');obs.unobserve(line)}})},{threshold:0.3});
+    obs.observe(line);
+  });
+})();
+
+// ─── Cinematic AAA Effects ───
+(function(){
+  const sections=document.querySelectorAll('.section');
+  const hero=document.getElementById('sec-hero');
+  sections.forEach(sec=>{
+    const bg=sec.querySelector('.cinematic-bg');
+    if(!bg&&sec!==hero){
+      const el=document.createElement('div');
+      el.className='cinematic-bg';
+      el.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity 1.2s ease;background:radial-gradient(ellipse at 50% 0%, rgba(200,168,78,0.015) 0%, transparent 60%)';
+      sec.style.position='relative';
+      sec.prepend(el);
+    }
+  });
+  const bgEls=document.querySelectorAll('.cinematic-bg');
+  const secObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const bg=e.target.querySelector('.cinematic-bg');
+      if(bg) bg.style.opacity=e.isIntersecting?'1':'0';
+    });
+  },{threshold:0.1});
+  sections.forEach(sec=>secObs.observe(sec));
+})();
+
+// ─── Cinematic Scroll Transform ───
+(function(){
+  const els=document.querySelectorAll('.section-title,.section-subtitle,.detail-card,.gallery-grid img');
+  let ticking=false;
+  window.addEventListener('scroll',()=>{
+    if(!ticking){requestAnimationFrame(()=>{
+      const sy=window.pageYOffset;
+      els.forEach((el,i)=>{
+        const rect=el.getBoundingClientRect();
+        const vh=window.innerHeight;
+        if(rect.top<vh&&rect.bottom>0){
+          const progress=1-(rect.top/vh);
+          const rot=Math.max(-2,Math.min(2,(progress-0.5)*2));
+          if(!el.classList.contains('detail-card')&&!el.classList.contains('gallery-grid img')){
+            el.style.transform=`perspective(800px) rotateX(${rot*0.5}deg) translateY(${(1-progress)*12}px)`;
+          }
+        }
+      });
+      ticking=false;
+    });ticking=true}
+  });
+})();
 
 // ─── Gallery Lightbox ───
 let currentImg=0;
