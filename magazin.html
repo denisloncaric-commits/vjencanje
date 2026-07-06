@@ -3,485 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Ispričaj svoju priču — Digitalni Magazin</title>
-<meta name="description" content="Ispričaj svoju priču — Digitalni magazin. Inspiracija, emocije, priče koje ostaju.">
-<meta property="og:title" content="Ispričaj svoju priču">
-<meta property="og:description" content="Digitalni magazin — Inspiracija, emocije, priče koje ostaju.">
+<title>Ispričaj svoju priču — Digitalni Magazin za Biznis</title>
+<meta name="description" content="Ispričaj svoju priču — Digitalni magazin. Storytelling marketing koji pokreće biznis.">
+<meta property="og:title" content="Ispričaj svoju priču — Digitalni Magazin">
+<meta property="og:description" content="Storytelling marketing koji pokreće biznis.">
 <meta property="og:type" content="website">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;500;600;700;800&family=Great+Vibes&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg-primary:#12080c;--bg-secondary:#1e0e16;--bg-tertiary:#2a1420;
-  --bg-card:#1a0e14;--bg-card-hover:#2a1824;
-  --rose:#f0a8c0;--rose-light:#f8c8d8;--rose-bright:#f28db8;--rose-deep:#d47090;
-  --rose-dark:#b85070;--rose-shadow:#8a3848;--rose-glow:rgba(240,168,192,0.12);
-  --cream:#fcf8f5;--ivory:#fefcf9;
-  --burgundy:#6a3848;--burgundy-deep:#4d2834;--burgundy-dark:#2a121e;
-  --gold:#c8a84e;--gold-light:#e0cf96;
-  --text:#e8d0d8;--text-light:#a88090;--text-lighter:#805060;
-  --white:#fff;
-  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --bg:#faf0f2;--bg-alt:#fdf5f7;--bg-card:#fef8fa;--bg-card-hover:#fdf0f4;
+  --rose:#e8749a;--rose-light:#f0a8c0;--rose-bright:#f28db8;--rose-deep:#d45078;
+  --rose-dark:#b83860;--rose-glow:rgba(232,116,154,0.1);--rose-border:rgba(232,116,154,0.08);
+  --text:#1a0e14;--text-light:#805060;--text-lighter:#a88090;--text-muted:#c0a0ac;
+  --white:#fff;--black:#0a0a0a;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
   --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
   --ease-smooth:cubic-bezier(0.25,0.46,0.45,0.94);
-  --ease-power4:cubic-bezier(0.16,1,0.3,1);
 }
 html{scroll-behavior:smooth}
 body{
   font-family:'Playfair Display',serif;
-  background:var(--bg-primary);
-  color:var(--white);
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  cursor:default;
+  background:var(--bg);color:var(--text);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;cursor:default;
 }
-::selection{background:var(--rose);color:var(--bg-primary)}
+::selection{background:var(--rose);color:var(--white)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-
 ::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg-primary)}
-::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--rose),var(--rose-dark));border-radius:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
 
 /* ─── Preloader ─── */
-.preloader{
-  position:fixed;inset:0;z-index:99999;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:var(--bg-primary);
-  transition:opacity 1s var(--ease-smooth),transform 1s var(--ease-smooth);
-}
+.preloader{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);transition:opacity .8s ease,transform .8s ease}
 .preloader.hidden{opacity:0;transform:scale(1.1);pointer-events:none}
-.preloader-ring{
-  width:60px;height:60px;border-radius:50%;
-  border:1.5px solid rgba(240,168,192,0.06);
-  border-top-color:var(--rose);
-  animation:preloaderSpin 1.4s var(--ease-out-expo) infinite;
-  position:relative;
-}
-.preloader-ring::before{
-  content:'';position:absolute;inset:10px;border-radius:50%;
-  border:1px solid rgba(240,168,192,0.04);
-  border-bottom-color:var(--rose-light);
-  animation:preloaderSpin 0.9s var(--ease-out-expo) infinite reverse;
-}
-.preloader-text{
-  font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:12px;text-transform:uppercase;
-  color:rgba(240,168,192,0.2);margin-top:24px;font-weight:400;
-}
-@keyframes preloaderSpin{to{transform:rotate(360deg)}}
-
-/* ─── Cursor ─── */
-.cursor-dot{
-  position:fixed;width:4px;height:4px;border-radius:50%;
-  background:var(--rose);z-index:99998;pointer-events:none;
-  transform:translate(-50%,-50%);transition:transform .1s ease,opacity .3s;
-  box-shadow:0 0 12px rgba(240,168,192,0.4);display:none;
-}
-.cursor-ring{
-  position:fixed;width:32px;height:32px;border-radius:50%;
-  border:1px solid rgba(240,168,192,0.15);z-index:99997;pointer-events:none;
-  transform:translate(-50%,-50%);transition:width .5s var(--ease-spring),height .5s var(--ease-spring),border-color .3s,opacity .3s;
-  display:none;
-}
-.cursor-ring.hover{width:56px;height:56px;border-color:rgba(240,168,192,0.35);background:rgba(240,168,192,0.03);}
-@media(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
-@media(max-width:600px){.cursor-dot,.cursor-ring{display:none!important}}
-
-/* ─── Particles ─── */
-#particles-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.7}
+.preloader-ring{width:60px;height:60px;border-radius:50%;border:1.5px solid var(--rose-border);border-top-color:var(--rose);animation:spin 1.4s var(--ease-out) infinite;position:relative}
+.preloader-ring::before{content:'';position:absolute;inset:10px;border-radius:50%;border:1px solid var(--rose-border);border-bottom-color:var(--rose-light);animation:spin .9s var(--ease-out) infinite reverse}
+.preloader-text{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:12px;text-transform:uppercase;color:var(--text-lighter);margin-top:24px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ─── Scroll Progress ─── */
-.scroll-progress{position:fixed;top:0;left:0;width:100%;height:1.5px;z-index:99990;pointer-events:none}
-.scroll-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--rose-light),var(--rose),var(--rose-deep),var(--rose),var(--rose-light));background-size:200% 100%;transition:width .1s ease}
+.scroll-progress{position:fixed;top:0;left:0;width:100%;height:2px;z-index:99990;pointer-events:none}
+.scroll-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--rose-light),var(--rose),var(--rose-deep));transition:width .1s ease}
 
 /* ─── Navigation ─── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:9999;
-  padding:20px 40px;display:flex;align-items:center;justify-content:space-between;
-  transition:all .6s ease;
-}
-nav .logo{
-  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:6px;text-transform:uppercase;
-  color:var(--white);text-decoration:none;font-weight:500;
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+nav .logo{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:6px;text-transform:uppercase;color:var(--text);text-decoration:none;font-weight:500}
 nav .logo span{color:var(--rose)}
-nav .nav-cta{
-  font-family:'Montserrat',sans-serif;font-size:.55rem;letter-spacing:3px;text-transform:uppercase;
-  color:var(--white);text-decoration:none;padding:10px 24px;
-  border:1px solid rgba(255,255,255,0.15);border-radius:50px;
-  transition:all .4s var(--ease-spring);position:relative;overflow:hidden;
-}
-nav .nav-cta::before{content:'';position:absolute;inset:0;background:var(--rose);opacity:0;transition:opacity .4s}
-nav .nav-cta:hover::before{opacity:1}
-nav .nav-cta:hover{color:var(--bg-primary);border-color:var(--rose);box-shadow:0 0 30px rgba(240,168,192,0.2)}
-nav .nav-cta span{position:relative;z-index:1}
-@media(max-width:600px){nav{padding:16px 20px}nav .nav-cta{padding:8px 16px;font-size:.5rem}}
+nav .nav-cta{font-family:'Montserrat',sans-serif;font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--white);text-decoration:none;padding:10px 24px;background:var(--rose);border-radius:50px;transition:all .4s var(--ease-spring)}
+nav .nav-cta:hover{background:var(--rose-deep);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,116,154,0.2)}
+@media(max-width:600px){nav{padding:14px 20px}nav .nav-cta{padding:8px 16px;font-size:.45rem}}
 
 /* ─── Hero ─── */
-.hero{
-  position:relative;min-height:100vh;min-height:100dvh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;z-index:1;padding:30px 20px;overflow:hidden;
-  background:var(--bg-primary);
-}
-.hero-grid-lines{
-  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.025;
-  background-image:linear-gradient(90deg,var(--rose) 1px,transparent 1px),linear-gradient(0deg,var(--rose) 1px,transparent 1px);
-  background-size:60px 60px;
-}
-.hero::before{
-  content:'';position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(240,168,192,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(240,168,192,0.02) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.5) 0%, transparent 60%);
-  pointer-events:none;
-}
-.hero-glow{
-  position:absolute;width:700px;height:700px;border-radius:50%;
-  background:radial-gradient(circle,rgba(240,168,192,0.04) 0%,transparent 60%);
-  top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;
-  animation:heroPulse 6s ease-in-out infinite;
-}
-@keyframes heroPulse{
-  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5}
-  50%{transform:translate(-50%,-50%) scale(1.5);opacity:1}
-}
-.hero-overlay{position:relative;z-index:2;max-width:1100px;width:100%}
+.hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 20px;overflow:hidden;background:var(--bg)}
+.hero-grid{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.03;background-image:linear-gradient(90deg,var(--rose) 1px,transparent 1px),linear-gradient(0deg,var(--rose) 1px,transparent 1px);background-size:60px 60px}
+.hero::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 50% 0%, var(--rose-glow) 0%, transparent 60%);pointer-events:none}
+.hero-glow{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,var(--rose-glow) 0%,transparent 60%);top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;animation:pulse 6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.3}50%{transform:translate(-50%,-50%) scale(1.4);opacity:.6}}
+.hero-content{position:relative;z-index:2;max-width:1100px;width:100%}
 
-.hero-label{
-  font-family:'Montserrat',sans-serif;font-size:.55rem;font-weight:300;
-  letter-spacing:12px;text-transform:uppercase;
-  color:rgba(240,168,192,0.3);margin-bottom:20px;
-  opacity:0;animation:fadeInUp 1.2s var(--ease-out-expo) forwards;animation-delay:.3s;
-}
-.hero-label::before,.hero-label::after{
-  content:'';display:inline-block;width:40px;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(240,168,192,0.3));
-  margin:0 16px;vertical-align:middle;
-}
-.hero-label::after{background:linear-gradient(90deg,rgba(240,168,192,0.3),transparent)}
+.hero-label{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;letter-spacing:14px;text-transform:uppercase;color:var(--rose);margin-bottom:20px;opacity:0;animation:fu 1.2s var(--ease-out) forwards;animation-delay:.3s}
+.hero-label::before,.hero-label::after{content:'';display:inline-block;width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--rose));margin:0 16px;vertical-align:middle}
+.hero-label::after{background:linear-gradient(90deg,var(--rose),transparent)}
 
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,10vw,7rem);font-weight:700;color:var(--text);line-height:1.05;letter-spacing:-1px;opacity:0;transform:translateY(80px);animation:titleReveal 1.5s var(--ease-out) forwards;animation-delay:.6s}
+.hero-title .rose{color:var(--rose)}
+@keyframes titleReveal{0%{opacity:0;transform:translateY(80px)}100%{opacity:1;transform:translateY(0)}}
 .hero-title-line{overflow:hidden;line-height:1}
-.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3.2rem,12vw,8rem);
-  font-weight:700;color:var(--white);
-  line-height:1.05;letter-spacing:-1px;
-  opacity:0;transform:translateY(120px);
-  animation:heroTitleReveal 1.6s var(--ease-power4) forwards;
-  animation-delay:.6s;
-}
-.hero-title .italic{font-style:italic;font-weight:400}
-.hero-title .gold{color:var(--rose)}
-@keyframes heroTitleReveal{
-  0%{opacity:0;transform:translateY(120px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-.hero-title-line-2{margin-top:-.1em}
+.hero-title-line-2{margin-top:-.08em}
 .hero-title-line-2 .hero-title{animation-delay:.9s;font-weight:200;font-style:italic}
 
-.hero-subtitle{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1rem,2.2vw,1.6rem);
-  font-weight:300;font-style:italic;
-  color:rgba(255,255,255,0.4);margin-top:16px;letter-spacing:2px;
-  opacity:0;animation:fadeInUp 1.2s var(--ease-out-expo) forwards;animation-delay:1.6s;
-}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.4rem);font-weight:300;font-style:italic;color:var(--text-light);margin:12px auto 0;max-width:600px;opacity:0;animation:fu 1.2s var(--ease-out) forwards;animation-delay:1.5s}
 
-.hero-cta{
-  display:inline-flex;align-items:center;gap:12px;
-  margin-top:40px;padding:18px 44px;
-  font-family:'Montserrat',sans-serif;font-size:.65rem;font-weight:600;
-  letter-spacing:4px;text-transform:uppercase;text-decoration:none;
-  color:var(--white);
-  border:1.5px solid rgba(240,168,192,0.3);
-  transition:all .5s var(--ease-spring);
-  opacity:0;animation:fadeInUp 1.2s ease forwards;animation-delay:2.2s;cursor:pointer;
-  position:relative;overflow:hidden;
-}
-.hero-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--rose),var(--rose-deep),var(--rose));opacity:0;transition:opacity .5s}
-.hero-cta::after{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,transparent,rgba(240,168,192,0.2),transparent);filter:blur(8px);opacity:0;transition:opacity .5s;z-index:-1}
-.hero-cta:hover::before{opacity:1}
-.hero-cta:hover::after{opacity:1}
-.hero-cta:hover{transform:translateY(-4px);border-color:transparent;box-shadow:0 16px 48px rgba(240,168,192,0.15)}
-.hero-cta .arrow{transition:transform .4s var(--ease-spring);font-size:1.1rem}
-.hero-cta:hover .arrow{transform:translateX(6px) rotate(-45deg)}
-.hero-cta span{position:relative;z-index:1}
+.hero-metrics{display:flex;gap:40px;justify-content:center;margin-top:40px;flex-wrap:wrap;opacity:0;animation:fu 1.2s ease forwards;animation-delay:2.2s}
+.hero-metric{text-align:center}
+.hero-metric-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--rose);line-height:1}
+.hero-metric-label{font-family:'Montserrat',sans-serif;font-size:.45rem;letter-spacing:4px;text-transform:uppercase;color:var(--text-lighter);margin-top:4px}
 
-.hero-scroll-indicator{
-  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
-  z-index:2;opacity:0;animation:fadeIn 2s ease forwards 3s;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-}
-.hero-scroll-indicator .mouse{
-  width:22px;height:34px;border:1.5px solid rgba(240,168,192,0.12);
-  border-radius:12px;position:relative;
-}
-.hero-scroll-indicator .mouse::after{
-  content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);
-  width:2px;height:8px;background:rgba(240,168,192,0.25);border-radius:2px;
-  animation:scrollMouse 2.2s ease infinite;
-}
-@keyframes scrollMouse{
-  0%{transform:translateX(-50%) translateY(0);opacity:1}
-  100%{transform:translateX(-50%) translateY(16px);opacity:0}
-}
-.hero-scroll-indicator p{font-family:'Montserrat',sans-serif;font-size:.45rem;letter-spacing:4px;text-transform:uppercase;color:rgba(240,168,192,0.08)}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;margin-top:36px;padding:16px 40px;font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;text-decoration:none;color:var(--white);background:var(--rose);border:none;transition:all .5s var(--ease-spring);opacity:0;animation:fu 1.2s ease forwards;animation-delay:2.6s;cursor:pointer}
+.hero-cta:hover{background:var(--rose-deep);transform:translateY(-4px);box-shadow:0 16px 48px rgba(232,116,154,0.2)}
+.hero-cta .arr{transition:transform .4s var(--ease-spring);font-size:1rem}
+.hero-cta:hover .arr{transform:translateX(4px) rotate(-45deg)}
 
-@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;opacity:0;animation:fi 2s ease forwards 3.2s;display:flex;flex-direction:column;align-items:center;gap:6px}
+.scroll-hint .mouse{width:20px;height:30px;border:1.5px solid var(--rose-border);border-radius:10px;position:relative}
+.scroll-hint .mouse::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:2px;height:7px;background:var(--rose);border-radius:2px;animation:scroll 2s ease infinite}
+@keyframes scroll{0%{transform:translateX(-50%) translateY(0);opacity:1}100%{transform:translateX(-50%) translateY(14px);opacity:0}}
+.scroll-hint p{font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted)}
+
+@keyframes fu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
 
 /* ─── Shared ─── */
-.section{margin:0 auto}
-.section-dark{background:var(--bg-primary);position:relative}
-.section-alt{background:var(--bg-secondary);position:relative}
-.section-dark::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(240,168,192,0.08),transparent)}
+.section{position:relative}
+.section-bg{background:var(--bg)}
+.section-alt{background:var(--bg-alt)}
+.section-inner{max-width:1040px;margin:0 auto;padding:100px 20px;position:relative;z-index:2}
+.section-inner-sm{max-width:800px;margin:0 auto;padding:80px 20px;position:relative;z-index:2}
+.label{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:400;letter-spacing:10px;text-transform:uppercase;color:var(--rose);margin-bottom:14px}
+.headline{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:600;color:var(--text);line-height:1.1;margin-bottom:16px}
+.headline .rose{color:var(--rose);font-style:italic}
+.text{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--text-light);line-height:1.7;max-width:540px}
+.text-lg{font-size:clamp(1.1rem,1.8vw,1.3rem);color:var(--text-light)}
+.text-center{text-align:center;margin-left:auto;margin-right:auto}
 
-.spread{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 20px;overflow:hidden}
-.spread-content{max-width:1000px;width:100%;position:relative;z-index:2}
-.spread-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-@media(max-width:800px){.spread-row{grid-template-columns:1fr;gap:40px}}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+@media(max-width:800px){.grid-2{grid-template-columns:1fr;gap:30px}.grid-3{grid-template-columns:1fr;gap:20px}}
 
-.section-label{
-  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:400;
-  letter-spacing:10px;text-transform:uppercase;
-  color:rgba(240,168,192,0.2);margin-bottom:16px;
-}
-.section-headline{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,5vw,3.5rem);
-  font-weight:600;color:var(--white);line-height:1.1;margin-bottom:20px;
-}
-.section-headline .gold{color:var(--rose);font-style:italic}
-.section-text{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1rem,1.8vw,1.25rem);
-  color:rgba(255,255,255,0.3);line-height:1.7;max-width:560px;font-weight:400;
-}
-.section-text-lg{font-size:clamp(1.15rem,2vw,1.4rem);color:rgba(255,255,255,0.35)}
+.rf{opacity:0;transform:translateY(30px);transition:all 1s var(--ease-out)}
+.rf.vis{opacity:1;transform:translateY(0)}
+.rs{opacity:0;transform:scale(.85);transition:all 1.2s var(--ease-spring)}
+.rs.vis{opacity:1;transform:scale(1)}
+.rl{opacity:0;transform:translateX(-40px);transition:all .9s var(--ease-out)}
+.rl.vis{opacity:1;transform:translateX(0)}
+.rr{opacity:0;transform:translateX(40px);transition:all .9s var(--ease-out)}
+.rr.vis{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+.d5{transition-delay:.5s}.d6{transition-delay:.6s}.d8{transition-delay:.8s}.d10{transition-delay:1s}
 
-.reveal-fade{opacity:0;transform:translateY(40px);transition:all 1.2s var(--ease-power4)}
-.reveal-fade.visible{opacity:1;transform:translateY(0)}
-.reveal-scale{opacity:0;transform:scale(0.8);transition:all 1.2s var(--ease-spring)}
-.reveal-scale.visible{opacity:1;transform:scale(1)}
-.reveal-left{opacity:0;transform:translateX(-60px);transition:all 1s var(--ease-out-expo)}
-.reveal-left.visible{opacity:1;transform:translateX(0)}
-.reveal-right{opacity:0;transform:translateX(60px);transition:all 1s var(--ease-out-expo)}
-.reveal-right.visible{opacity:1;transform:translateX(0)}
-.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
-.delay-4{transition-delay:.4s}.delay-5{transition-delay:.5s}.delay-6{transition-delay:.6s}
-.delay-8{transition-delay:.8s}.delay-10{transition-delay:1s}.delay-12{transition-delay:1.2s}
+/* ─── Marketing Cards ─── */
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1040px;margin:0 auto}
+.mkt-card{position:relative;padding:50px 28px 60px;text-align:center;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .5s var(--ease-spring);overflow:hidden;background:var(--bg-card);border:1px solid var(--rose-border)}
+.mkt-card::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,transparent,rgba(232,116,154,0.02));opacity:0;transition:opacity .5s}
+.mkt-card:hover::before{opacity:1}
+.mkt-card:hover{background:var(--bg-card-hover);transform:translateY(-6px);border-color:var(--rose)}
+.mkt-card .ic{font-size:2.4rem;margin-bottom:14px;position:relative;z-index:1;display:inline-block;transition:transform .5s var(--ease-spring)}
+.mkt-card:hover .ic{transform:scale(1.15)}
+.mkt-card h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:var(--text);position:relative;z-index:1;margin-bottom:6px}
+.mkt-card p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-lighter);line-height:1.5;position:relative;z-index:1}
+.mkt-card .num{position:absolute;bottom:16px;right:20px;font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:rgba(232,116,154,0.03);line-height:1;pointer-events:none}
+@media(max-width:800px){.mkt-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.mkt-grid{grid-template-columns:1fr}}
 
-.bg-accent{
-  position:absolute;pointer-events:none;z-index:0;
-  width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(240,168,192,0.03),transparent 60%);
-}
-.bg-accent-2{
-  position:absolute;pointer-events:none;z-index:0;
-  width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(240,168,192,0.02),transparent 60%);
-}
+/* ─── Case Study ─── */
+.case-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;max-width:1040px;margin:30px auto 0}
+.case-card{padding:36px 28px;border:1px solid var(--rose-border);transition:all .4s var(--ease-spring);position:relative}
+.case-card:hover{border-color:var(--rose);transform:translateY(-4px);background:var(--bg-card-hover)}
+.case-card .tag{display:inline-block;padding:4px 14px;font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;background:var(--rose-glow);color:var(--rose);margin-bottom:12px}
+.case-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--text);margin-bottom:4px}
+.case-card p{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-lighter);line-height:1.5}
+.case-card .result{display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rose-border)}
+.case-card .result span{font-family:'Montserrat',sans-serif;font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-lighter)}
+.case-card .result strong{color:var(--rose);font-weight:600;display:block;font-size:.85rem;font-family:'Playfair Display',serif;letter-spacing:0;text-transform:none}
+@media(max-width:800px){.case-row{grid-template-columns:1fr;gap:16px}}
 
-.grid-overlay{
-  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.015;
-  background-image:linear-gradient(90deg,rgba(240,168,192,0.3) 1px,transparent 1px);
-  background-size:40px 100%;
-}
-.light-beam{
-  position:absolute;width:1px;top:0;bottom:0;
-  background:linear-gradient(180deg,transparent,rgba(240,168,192,0.015),transparent);
-  pointer-events:none;z-index:0;
-}
-.light-beam:nth-child(2){left:33%}.light-beam:nth-child(3){left:66%}
+/* ─── Metrics Bar ─── */
+.metrics-showcase{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;max-width:900px;margin:0 auto;padding:40px 20px}
+.metric-vis{text-align:center}
+.metric-vis .bar-wrap{height:160px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:12px}
+.metric-vis .bar{width:50px;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--rose),var(--rose-light));transition:height 1.5s var(--ease-out);min-height:10px}
+.metric-vis .bar-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--rose)}
+.metric-vis .bar-label{font-family:'Montserrat',sans-serif;font-size:.45rem;letter-spacing:4px;text-transform:uppercase;color:var(--text-lighter);margin-top:4px}
+@media(max-width:600px){.metrics-showcase{grid-template-columns:1fr 1fr;gap:20px}}
 
-/* ─── Magazine Grid ─── */
-.magazine-grid{display:grid;grid-template-columns:1fr 1fr;width:100%;margin:0 auto}
-.magazine-item{
-  position:relative;overflow:hidden;min-height:clamp(300px,50vw,500px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 30px;text-align:center;cursor:pointer;
-  border:1px solid rgba(240,168,192,0.03);
-  transition:all .6s var(--ease-spring);will-change:transform;
-}
-.magazine-item::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,transparent,rgba(240,168,192,0.03));opacity:0;transition:opacity .7s}
-.magazine-item:hover::before{opacity:1}
-.magazine-item:hover{background:rgba(240,168,192,0.03);border-color:rgba(240,168,192,0.08);z-index:3}
-.magazine-item:hover .magazine-number{opacity:0.8}
-.magazine-item:first-child{grid-column:1 / -1}
-.magazine-item.featured{min-height:clamp(400px,60vw,600px);background:linear-gradient(135deg,rgba(240,168,192,0.04),rgba(240,168,192,0.01) 50%,transparent)}
-.magazine-number{position:absolute;top:20px;left:24px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;letter-spacing:4px;color:rgba(240,168,192,0.15);transition:opacity .5s}
-.magazine-category{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:500;letter-spacing:6px;text-transform:uppercase;color:var(--rose);margin-bottom:12px;position:relative;z-index:1}
-.magazine-category::before,.magazine-category::after{content:' — ';opacity:.4}
-.magazine-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.6rem);font-weight:600;color:var(--white);line-height:1.15;position:relative;z-index:1;transition:all .4s ease}
-.magazine-item.featured .magazine-title{font-size:clamp(2rem,6vw,4rem);font-weight:700}
-.magazine-item:hover .magazine-title{color:var(--rose-light);letter-spacing:.5px}
-.magazine-excerpt{font-family:'Cormorant Garamond',serif;font-size:clamp(.85rem,1.5vw,1.1rem);color:rgba(255,255,255,0.25);margin-top:8px;font-style:italic;position:relative;z-index:1;max-width:400px;transition:color .4s}
-.magazine-item:hover .magazine-excerpt{color:rgba(255,255,255,0.4)}
-.magazine-read{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-top:16px;position:relative;z-index:1;opacity:0;transform:translateY(10px);transition:all .4s var(--ease-spring)}
-.magazine-item:hover .magazine-read{opacity:1;transform:translateY(0)}
-
-/* ─── Quote Block ─── */
-.quote-block{padding:80px 20px;text-align:center;position:relative}
-.quote-block::before,.quote-block::after{content:'';position:absolute;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(240,168,192,0.06),transparent)}
-.quote-block::before{top:0}.quote-block::after{bottom:0}
-.quote-mark{font-size:4rem;color:rgba(240,168,192,0.06);line-height:0;font-family:'Playfair Display',serif;display:block;margin-bottom:10px}
-.quote-text{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-style:italic;color:rgba(255,255,255,0.5);line-height:1.6;max-width:700px;margin:0 auto;font-weight:400}
-.quote-author{font-family:'Montserrat',sans-serif;font-size:.55rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:rgba(240,168,192,0.15);margin-top:16px}
-
-/* ─── Stats ─── */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:800px;margin:0 auto;padding:80px 20px}
-.stat-item{text-align:center}
-.stat-number{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;color:var(--rose);line-height:1}
-.stat-label{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,0.15);margin-top:8px}
-@media(max-width:600px){.stats-row{gap:20px;padding:40px 20px}}
-
-/* ─── Cards Grid ─── */
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);max-width:1040px;margin:0 auto}
-.card-item{
-  position:relative;padding:60px 30px;text-align:center;min-height:280px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  transition:all .6s var(--ease-spring);overflow:hidden;
-}
-.card-item::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,transparent,rgba(240,168,192,0.03));opacity:0;transition:opacity .6s}
-.card-item:hover::before{opacity:1}
-.card-item:hover{background:var(--bg-card-hover);transform:translateY(-4px)}
-.card-item .icon{font-size:2rem;margin-bottom:12px;position:relative;z-index:1;display:inline-block;transition:transform .5s var(--ease-spring)}
-.card-item:hover .icon{transform:scale(1.2)}
-.card-item h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--white);position:relative;z-index:1}
-.card-item p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(255,255,255,0.2);margin-top:6px;position:relative;z-index:1}
-@media(max-width:800px){.cards-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.cards-grid{grid-template-columns:1fr}}
-
-/* ─── Story Cards ─── */
-.story-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1040px;margin:0 auto}
-.story-card{
-  position:relative;padding:80px 30px 100px;text-align:center;min-height:360px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  border:1px solid rgba(240,168,192,0.03);
-  transition:all .6s var(--ease-spring);overflow:hidden;
-}
-.story-card::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,transparent,rgba(240,168,192,0.03));opacity:0;transition:opacity .6s}
-.story-card:hover::before{opacity:1}
-.story-card:hover{background:var(--bg-card-hover);transform:translateY(-6px);border-color:rgba(240,168,192,0.08)}
-.story-card .story-icon{font-size:2.6rem;margin-bottom:16px;position:relative;z-index:1;display:inline-block;transition:transform .5s var(--ease-spring)}
-.story-card:hover .story-icon{transform:scale(1.15)}
-.story-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--white);position:relative;z-index:1;margin-bottom:8px}
-.story-card p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(255,255,255,0.2);line-height:1.6;position:relative;z-index:1;max-width:280px}
-.story-card .story-author{font-family:'Montserrat',sans-serif;font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-top:12px;position:relative;z-index:1}
-@media(max-width:800px){.story-cards{grid-template-columns:1fr}}
-.story-card:nth-child(1) .story-icon{color:var(--rose)}
-.story-card:nth-child(2) .story-icon{color:var(--rose-light)}
-.story-card:nth-child(3) .story-icon{color:var(--rose-bright)}
+/* ─── Quote ─── */
+.quote-wrap{padding:80px 20px;text-align:center}
+.quote-mark{font-size:4rem;color:var(--rose-border);line-height:0;font-family:'Playfair Display',serif;display:block;margin-bottom:8px}
+.quote-text{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.7rem);font-style:italic;color:var(--text-light);line-height:1.6;max-width:680px;margin:0 auto;font-weight:400}
+.quote-author{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--text-muted);margin-top:14px}
 
 /* ─── Steps ─── */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:900px;margin:0 auto;padding:60px 20px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:900px;margin:30px auto 0}
 .step{text-align:center;position:relative}
-.step-number{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:rgba(240,168,192,0.04);line-height:1;margin-bottom:8px}
-.step h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--white);margin-bottom:6px}
-.step p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(255,255,255,0.2);line-height:1.5;max-width:240px;margin:0 auto}
-.step::after{content:'→';position:absolute;right:-24px;top:30%;color:rgba(240,168,192,0.05);font-size:1.5rem}
+.step-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:rgba(232,116,154,0.06);line-height:1;margin-bottom:6px}
+.step h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:6px}
+.step p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-lighter);line-height:1.5;max-width:220px;margin:0 auto}
+.step::after{content:'→';position:absolute;right:-24px;top:25%;color:var(--rose-border);font-size:1.4rem}
 .step:last-child::after{display:none}
-@media(max-width:800px){.steps{grid-template-columns:1fr;gap:30px}.step::after{display:none}}
+@media(max-width:800px){.steps{grid-template-columns:1fr;gap:24px}.step::after{display:none}}
 
-/* ─── Highlight number ─── */
-.highlight-row{display:flex;gap:80px;justify-content:center;flex-wrap:wrap;padding:60px 20px}
-.highlight-item{text-align:center}
-.highlight-num{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:700;background:linear-gradient(135deg,var(--rose),var(--rose-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
-.highlight-label{font-family:'Montserrat',sans-serif;font-size:.55rem;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,0.1);margin-top:8px}
-@media(max-width:600px){.highlight-row{gap:40px}}
+/* ─── Story Cards ─── */
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1040px;margin:30px auto 0}
+.story-card{position:relative;padding:70px 28px 80px;text-align:center;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--rose-border);transition:all .5s var(--ease-spring);overflow:hidden;background:var(--bg-card)}
+.story-card::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,transparent,rgba(232,116,154,0.02));opacity:0;transition:opacity .5s}
+.story-card:hover::before{opacity:1}
+.story-card:hover{background:var(--bg-card-hover);transform:translateY(-6px);border-color:var(--rose)}
+.story-card .si{font-size:2.4rem;margin-bottom:14px;position:relative;z-index:1;display:inline-block;transition:transform .5s var(--ease-spring)}
+.story-card:hover .si{transform:scale(1.12)}
+.story-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--text);position:relative;z-index:1;margin-bottom:6px}
+.story-card p{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-lighter);line-height:1.5;position:relative;z-index:1;max-width:260px}
+.story-card .sa{font-family:'Montserrat',sans-serif;font-size:.45rem;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-top:10px;position:relative;z-index:1}
+@media(max-width:800px){.story-grid{grid-template-columns:1fr}}
 
 /* ─── Glass Card ─── */
-.glass-card{
-  background:rgba(240,168,192,0.02);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(240,168,192,0.06);padding:50px 36px;text-align:center;
-  transition:all .5s var(--ease-spring);
-}
-.glass-card:hover{border-color:rgba(240,168,192,0.15);transform:translateY(-6px)}
-.glass-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:500;color:var(--white);margin-bottom:8px}
-.glass-card p{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,0.25)}
-.glass-card .glass-btn{
-  display:inline-block;margin-top:20px;padding:12px 32px;
-  font-family:'Montserrat',sans-serif;font-size:.55rem;font-weight:600;
-  letter-spacing:3px;text-transform:uppercase;text-decoration:none;
-  color:var(--white);border:1px solid rgba(240,168,192,0.2);
-  transition:all .4s var(--ease-spring);
-}
-.glass-card .glass-btn:hover{background:var(--rose);color:var(--bg-primary);border-color:var(--rose)}
-
-/* ─── Parallax shapes ─── */
-.parallax-layer{position:absolute;pointer-events:none;z-index:0}
-.parallax-shape{width:100%;height:100%;border:1px solid rgba(240,168,192,0.02);border-radius:50%}
+.glass-card{background:rgba(232,116,154,0.02);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--rose-border);padding:44px 32px;text-align:center;transition:all .4s var(--ease-spring)}
+.glass-card:hover{border-color:var(--rose);transform:translateY(-4px)}
+.glass-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;color:var(--text);margin-bottom:6px}
+.glass-card p{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--text-lighter);margin-bottom:16px}
+.glass-card .gb{display:inline-block;padding:10px 28px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;text-decoration:none;color:var(--white);background:var(--rose);transition:all .4s var(--ease-spring)}
+.glass-card .gb:hover{background:var(--rose-deep);transform:translateY(-2px)}
 
 /* ─── Newsletter ─── */
-.newsletter-wrap{max-width:600px;margin:0 auto;padding:80px 20px;text-align:center}
-.newsletter-form{display:flex;gap:12px;max-width:480px;margin:30px auto 0}
-.newsletter-form input{
-  flex:1;padding:16px 20px;
-  background:rgba(240,168,192,0.03);border:1px solid rgba(240,168,192,0.08);
-  font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--white);
-  outline:none;transition:all .3s;
-}
-.newsletter-form input:focus{border-color:rgba(240,168,192,0.2);background:rgba(240,168,192,0.05)}
-.newsletter-form input::placeholder{color:rgba(255,255,255,0.06)}
-.newsletter-form button{
-  padding:16px 28px;
-  font-family:'Montserrat',sans-serif;font-size:.55rem;font-weight:600;
-  letter-spacing:3px;text-transform:uppercase;
-  background:var(--rose);color:var(--bg-primary);border:none;
-  cursor:pointer;transition:all .4s var(--ease-spring);
-}
-.newsletter-form button:hover{background:var(--rose-light);transform:translateY(-2px)}
-@media(max-width:500px){.newsletter-form{flex-direction:column}}
+.nw{max-width:540px;margin:0 auto;text-align:center}
+.nf{display:flex;gap:10px;max-width:440px;margin:24px auto 0}
+.nf input{flex:1;padding:14px 18px;background:var(--bg-card);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--text);outline:none;transition:all .3s}
+.nf input:focus{border-color:var(--rose);background:var(--bg-card-hover)}
+.nf input::placeholder{color:var(--text-muted)}
+.nf button{padding:14px 24px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--rose);color:var(--white);border:none;cursor:pointer;transition:all .4s var(--ease-spring)}
+.nf button:hover{background:var(--rose-deep);transform:translateY(-2px)}
+@media(max-width:500px){.nf{flex-direction:column}}
 
 /* ─── Final CTA ─── */
-.final-cta{
-  position:relative;min-height:100vh;min-height:100dvh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:40px 20px;overflow:hidden;
-}
-.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%, rgba(240,168,192,0.04) 0%, transparent 50%);pointer-events:none}
-.final-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(240,168,192,0.03),transparent 60%);top:30%;left:50%;transform:translateX(-50%);pointer-events:none;animation:heroPulse 8s ease-in-out infinite}
-.final-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:700;color:var(--white);line-height:1.05;max-width:900px;position:relative;z-index:2}
-.final-title .gold{color:var(--rose)}
-.final-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.4rem);font-weight:300;font-style:italic;color:rgba(255,255,255,0.3);margin-top:12px;max-width:500px;position:relative;z-index:2}
-.final-btn{
-  display:inline-flex;align-items:center;gap:14px;
-  margin-top:40px;padding:22px 52px;
-  font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:700;
-  letter-spacing:5px;text-transform:uppercase;text-decoration:none;
-  color:var(--white);
-  background:linear-gradient(135deg,var(--rose),var(--rose-deep),var(--rose-dark),var(--rose));
-  background-size:200% 100%;position:relative;overflow:hidden;
-  transition:all .5s var(--ease-spring);cursor:pointer;border:none;z-index:2;
-}
-.final-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent);pointer-events:none}
-.final-btn::after{content:'';position:absolute;inset:-3px;background:linear-gradient(135deg,rgba(240,168,192,0.3),transparent,rgba(240,168,192,0.3));filter:blur(12px);opacity:0;transition:opacity .5s;z-index:-1}
-.final-btn:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 24px 60px rgba(240,168,192,0.15);background-position:100% 0}
+.final{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;overflow:hidden;background:var(--bg)}
+.final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%, var(--rose-glow) 0%, transparent 50%);pointer-events:none}
+.final-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,var(--rose-glow),transparent 60%);top:30%;left:50%;transform:translateX(-50%);pointer-events:none;animation:pulse 8s ease-in-out infinite}
+.final-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6vw,4.5rem);font-weight:700;color:var(--text);line-height:1.05;max-width:800px;position:relative;z-index:2}
+.final-title .rose{color:var(--rose)}
+.final-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,1.8vw,1.3rem);font-weight:300;font-style:italic;color:var(--text-light);margin-top:10px;max-width:480px;position:relative;z-index:2}
+.final-btn{display:inline-flex;align-items:center;gap:12px;margin-top:36px;padding:20px 48px;font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;text-decoration:none;color:var(--white);background:linear-gradient(135deg,var(--rose),var(--rose-deep));transition:all .5s var(--ease-spring);cursor:pointer;border:none;z-index:2}
+.final-btn::after{content:'';position:absolute;inset:-3px;background:linear-gradient(135deg,rgba(232,116,154,0.3),transparent,rgba(232,116,154,0.3));filter:blur(12px);opacity:0;transition:opacity .5s;z-index:-1}
+.final-btn:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 24px 60px rgba(232,116,154,0.15)}
 .final-btn:hover::after{opacity:1}
-.final-btn .arrow{transition:transform .5s var(--ease-spring);font-size:1.2rem}
-.final-btn:hover .arrow{transform:translateX(6px) rotate(-45deg)}
-.final-note{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,0.04);margin-top:24px;position:relative;z-index:2}
+.final-btn .arr{transition:transform .5s var(--ease-spring);font-size:1.1rem}
+.final-btn:hover .arr{transform:translateX(6px) rotate(-45deg)}
+.final-note{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--text-muted);margin-top:20px;z-index:2;position:relative}
 
 /* ─── Footer ─── */
-footer{padding:60px 20px 50px;text-align:center;border-top:1px solid rgba(240,168,192,0.03)}
-footer p{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,0.04)}
+footer{padding:50px 20px;text-align:center;border-top:1px solid var(--rose-border)}
+footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--text-muted)}
 
 /* ─── Mobile ─── */
 @media(max-width:600px){
-  .hero-title{font-size:2.5rem}
-  .hero-label{font-size:.45rem;letter-spacing:6px}
+  .hero-title{font-size:2.2rem}
+  .hero-label{font-size:.4rem;letter-spacing:8px}
   .hero-label::before,.hero-label::after{width:20px;margin:0 8px}
-  .hero-cta{padding:14px 28px;font-size:.55rem}
-  .reveal-section{padding:80px 16px}
-  .spread{padding:80px 16px}
-  .card-item{min-height:220px;padding:40px 20px}
-  .final-btn{padding:16px 32px;font-size:.6rem}
-  .final-title{font-size:2rem}
-  .magazine-item.featured .magazine-title{font-size:1.8rem}
-  .magazine-item{min-height:220px;padding:30px 20px}
-  .story-card{min-height:280px;padding:50px 24px 70px}
+  .hero-cta{padding:14px 26px;font-size:.5rem}
+  .section-inner{padding:70px 16px}
+  .section-inner-sm{padding:60px 16px}
+  .final-btn{padding:16px 30px;font-size:.6rem}
+  .final-title{font-size:1.8rem}
+  .mkt-card{min-height:240px;padding:36px 20px 50px}
+  .case-card{padding:28px 20px}
+  .story-card{min-height:260px;padding:50px 20px 60px}
+  .metrics-showcase{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -492,341 +246,212 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;let
   <div class="preloader-text">Ispričaj svoju priču</div>
 </div>
 
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <div class="scroll-progress"><div class="scroll-progress-bar" id="scrollProgress"></div></div>
-
-<canvas id="particles-canvas"></canvas>
 
 <nav id="nav">
   <a href="#" class="logo"><span>✦</span> ISpričaj</a>
-  <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="nav-cta"><span>Prati nas</span></a>
+  <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="nav-cta">Prati nas →</a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="hero">
-  <div class="hero-grid-lines"></div>
+  <div class="hero-grid"></div>
   <div class="hero-glow"></div>
-  <div class="hero-overlay">
-    <div class="hero-label">Digitalni Magazin</div>
+  <div class="hero-content">
+    <div class="hero-label">Storytelling Marketing</div>
     <div class="hero-title-line">
-      <h1 class="hero-title">Ispričaj <span class="gold">svoju</span></h1>
+      <h1 class="hero-title">Ispričaj <span class="rose">svoju</span></h1>
     </div>
     <div class="hero-title-line hero-title-line-2">
-      <h1 class="hero-title"><span class="italic">priču</span></h1>
+      <h1 class="hero-title"><span class="rose">priču</span> i pokreni biznis</h1>
     </div>
-    <p class="hero-subtitle">Svaka priča zaslužuje da bude ispričana.<br>Svaki trenutak vrijedi trajati zauvijek.</p>
+    <p class="hero-sub">Storytelling nije samo umjetnost — on je najmoćniji marketinški alat koji pretvara promatrače u kupce, a kupce u zajednicu.</p>
+    <div class="hero-metrics">
+      <div class="hero-metric"><div class="hero-metric-num">83%</div><div class="hero-metric-label">Veći angažman</div></div>
+      <div class="hero-metric"><div class="hero-metric-num">4.6x</div><div class="hero-metric-label">Više konverzija</div></div>
+      <div class="hero-metric"><div class="hero-metric-num">70%</div><div class="hero-metric-label">Bolji brand recall</div></div>
+    </div>
     <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="hero-cta">
-      <span>Započni svoju priču</span><span class="arrow">↗</span>
+      <span>Započni svoju priču</span><span class="arr">↗</span>
     </a>
   </div>
-  <div class="hero-scroll-indicator"><div class="mouse"></div><p>Listaj</p></div>
+  <div class="scroll-hint"><div class="mouse"></div><p>Otkrij više</p></div>
 </section>
 
-<!-- ═══ MAGAZINE GRID ═══ -->
-<section class="section section-dark">
-  <div class="grid-overlay"></div>
-  <div class="spread">
-    <div class="spread-content">
-      <div class="section-label reveal-fade" style="text-align:center;margin-bottom:40px">Najnovije izdanje</div>
-      <div class="magazine-grid">
-        <div class="magazine-item featured" style="--order:1">
-          <span class="magazine-number">— 01 —</span>
-          <div class="magazine-category">Priča mjeseca</div>
-          <h2 class="magazine-title">Svaka emocija je<br>umjetnost sama po sebi</h2>
-          <p class="magazine-excerpt">Kako pretočiti osjećaje u riječi koje ostaju za cijeli život. Priča o hrabrosti, ljubavi i istinskoj ranjivosti.</p>
-          <span class="magazine-read">Istraži →</span>
-        </div>
-        <div class="magazine-item" style="--order:2">
-          <span class="magazine-number">— 02 —</span>
-          <div class="magazine-category">Inspiracija</div>
-          <h2 class="magazine-title">Glas koji<br>ne smije utihnuti</h2>
-          <p class="magazine-excerpt">Priče koje mijenjaju perspektivu i dotiču dušu.</p>
-          <span class="magazine-read">Istraži →</span>
-        </div>
-        <div class="magazine-item" style="--order:3">
-          <span class="magazine-number">— 03 —</span>
-          <div class="magazine-category">Priče</div>
-          <h2 class="magazine-title">Trenuci koji<br>oblikuju sudbinu</h2>
-          <p class="magazine-excerpt">Zbirka priča običnih ljudi s neobičnim životima.</p>
-          <span class="magazine-read">Istraži →</span>
-        </div>
-        <div class="magazine-item" style="--order:4">
-          <span class="magazine-number">— 04 —</span>
-          <div class="magazine-category">Perspektiva</div>
-          <h2 class="magazine-title">Umijeće<br>slušanja</h2>
-          <p class="magazine-excerpt">Zašto je slušanje najmoćnija vještina današnjice.</p>
-          <span class="magazine-read">Istraži →</span>
+<!-- ═══ WHY STORYTELLING ═══ -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="label rf">Zašto storytelling marketing</div>
+    <div class="grid-2" style="margin-top:10px">
+      <div class="rl">
+        <h2 class="headline">Priče prodaju.<br><span class="rose">Činjenice objašnjavaju.</span></h2>
+        <p class="text text-lg">Dok suhoparni podaci brzo padnu u zaborav, dobro ispričana priča ostaje urezana u memoriju. Neuroznanost potvrđuje — mozak na priče reagira oslobađanjem oksitocina, hormona povjerenja. A povjerenje je valuta marketinga.</p>
+      </div>
+      <div class="rr d3">
+        <div class="glass-card">
+          <h3>Neuroznanost prodaje</h3>
+          <p>Priče aktiviraju 7 dijelova mozga odjednom — dok podaci aktiviraju samo 2. Zato storytelling pretraja i pretvara.</p>
+          <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--rose);margin-top:8px">7 : 2</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ QUOTE 1 ═══ -->
-<section class="section-dark">
-  <div class="quote-block">
+<!-- ═══ METRICS VISUAL ═══ -->
+<section class="section section-bg">
+  <div class="section-inner-sm">
+    <div class="label rf text-center">Vizualni dokaz</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Storytelling marketing u <span class="rose">brojkama</span></h2>
+  </div>
+  <div class="metrics-showcase">
+    <div class="metric-vis rf"><div class="bar-wrap"><div class="bar" style="height:20px" data-h="140"></div></div><div class="bar-num">83%</div><div class="bar-label">Veći angažman</div></div>
+    <div class="metric-vis rf d2"><div class="bar-wrap"><div class="bar" style="height:20px" data-h="100"></div></div><div class="bar-num">4.6x</div><div class="bar-label">Više konverzija</div></div>
+    <div class="metric-vis rf d4"><div class="bar-wrap"><div class="bar" style="height:20px" data-h="120"></div></div><div class="bar-num">70%</div><div class="bar-label">Bolji brand recall</div></div>
+    <div class="metric-vis rf d6"><div class="bar-wrap"><div class="bar" style="height:20px" data-h="160"></div></div><div class="bar-num">22x</div><div class="bar-label">Veća zapamćenost</div></div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS FOR BUSINESS ═══ -->
+<section class="section section-alt">
+  <div class="section-inner-sm">
+    <div class="label rf text-center">Kako funkcionira</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Od priče do <span class="rose">profita</span> u 3 koraka</h2>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><h3>Autentična priča</h3><p>Kreiramo narativ koji rezonira s tvojom publikom — bez prodajnih pritisaka, sa stvarnom vrijednošću.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Distribucija i doseg</h3><p>Tvoja priča dolazi do prave publike kroz ciljani storytelling marketing na društvenim mrežama.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Konverzija i rast</h3><p>Publika koja vjeruje tvojoj priči postaje zajednica — a zajednica donosi održiv rast.</p></div>
+  </div>
+</section>
+
+<!-- ═══ MARKETING TOOLS ═══ -->
+<section class="section section-bg">
+  <div class="section-inner">
+    <div class="label rf text-center">Alati koje koristimo</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Storytelling <span class="rose">marketing</span> alati</h2>
+    <div class="mkt-grid" style="margin-top:40px">
+      <div class="mkt-card"><span class="num">01</span><div class="ic">✧</div><h3>Brand Narrative</h3><p>Razvijamo priču koja definira tvoj brand i stvara emocionalnu povezanost s publikom.</p></div>
+      <div class="mkt-card"><span class="num">02</span><div class="ic">✦</div><h3>Content Strategy</h3><p>Planiramo sadržaj koji educira, inspirira i vodi potencijalne klijente kroz prodajni funnel.</p></div>
+      <div class="mkt-card"><span class="num">03</span><div class="ic">◇</div><h3>Visual Identity</h3><p>Stvaramo vizualni jezik koji priča tvoju priču i prije nego što netko pročita riječ.</p></div>
+      <div class="mkt-card"><span class="num">04</span><div class="ic">○</div><h3>Social Storytelling</h3><p>Prilagođavamo narativ za Instagram, TikTok i druge platforme gdje je tvoja publika.</p></div>
+      <div class="mkt-card"><span class="num">05</span><div class="ic">▽</div><h3>Community Building</h3><p>Gradimo zajednicu oko tvoje priče — lojalne pratitelje koji postaju ambasadori branda.</p></div>
+      <div class="mkt-card"><span class="num">06</span><div class="ic">△</div><h3>Analytics & Optimize</h3><p>Mjerimo angažman, doseg i konverzije te optimiziramo storytelling za maksimalan ROI.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASE STUDIES ═══ -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="label rf text-center">Primjeri iz prakse</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Brandovi koji su <span class="rose">uspjeli</span> kroz priču</h2>
+    <div class="case-row">
+      <div class="case-card"><span class="tag">E-commerce</span><h3>Modni brend</h3><p>Kroz storytelling o održivoj modi i ljudima iza proizvoda, povećali su prodaju za 340% u 6 mjeseci.</p><div class="result"><span><strong>+340%</strong>Prodaja</span><span><strong>4.2x</strong>ROI</span></div></div>
+      <div class="case-card"><span class="tag">Usluge</span><h3>Wellness studio</h3><p>Dijeljenjem stvarnih transformacija članova kroz video storytelling, popunili su kapacitete za 3 mjeseca unaprijed.</p><div class="result"><span><strong>100%</strong>Popunjenost</span><span><strong>2.8x</strong>Engagement</span></div></div>
+      <div class="case-card"><span class="tag">Startup</span><h3>Tech platforma</h3><p>Pričom o nastanku i misiji, izgradili su zajednicu od 50k pratitelja i privukli prve investitore.</p><div class="result"><span><strong>50k</strong>Pratitelja</span><span><strong>€2M</strong>Investicija</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUOTE ═══ -->
+<section class="section section-bg">
+  <div class="quote-wrap">
     <span class="quote-mark">"</span>
-    <p class="quote-text">Najljepše priče su one koje još nisu ispričane. Jer čekaju upravo tebe — tvoj glas, tvoju istinu, tvoju hrabrost.</p>
+    <p class="quote-text">Ljudi ne kupuju proizvode — oni kupuju bolje verzije sebe. Tvoja priča je most koji ih tamo vodi.</p>
     <p class="quote-author">— Ispričaj svoju priču</p>
   </div>
 </section>
 
-<!-- ═══ STATS ═══ -->
-<section class="section-alt">
-  <div class="stats-row" id="statsRow">
-    <div class="stat-item reveal-fade">
-      <div class="stat-number"><span class="counter" data-target="127">0</span></div>
-      <div class="stat-label">Ispričanih priča</div>
-    </div>
-    <div class="stat-item reveal-fade delay-2">
-      <div class="stat-number"><span class="counter" data-target="56">0</span></div>
-      <div class="stat-label">Autora</div>
-    </div>
-    <div class="stat-item reveal-fade delay-4">
-      <div class="stat-number"><span class="counter" data-target="∞">∞</span></div>
-      <div class="stat-label">Emocija</div>
+<!-- ═══ VISUAL EXAMPLES ═══ -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="label rf text-center">Vizualni storytelling</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Kako izgleda <span class="rose">priča</span> koja prodaje</h2>
+    <div class="grid-3" style="margin-top:40px">
+      <div class="story-card" style="min-height:300px"><div class="si">♡</div><h3>Prije — Suhoparna ponuda</h3><p>"Imamo najbolje cipele." → Nikoga ne zanima. Nema emocije, nema povjerenja, nema akcije.</p><span class="sa">✗ Bez storytelllinga</span></div>
+      <div class="story-card" style="min-height:300px"><div class="si">✦</div><h3>Poslije — Priča koja prodaje</h3><p>"Ove cipele nosi majka koja svaki dan pješači 5 km do posla. Napravljene su da izdrže." → Emocija, povezanost, prodaja.</p><span class="sa">✓ Storytelling</span></div>
+      <div class="story-card" style="min-height:300px"><div class="si">△</div><h3>Rezultat — Rast</h3><p>Autentična priča stvara povjerenje. Povjerenje vodi do konverzije. Konverzija vodi do rasta. Jednostavno.</p><span class="sa">→ Rast biznisa</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ REVEAL SECTION 1 ═══ -->
-<section class="section-dark" style="position:relative">
-  <div class="bg-accent" style="top:50%;right:-10%"></div>
-  <div class="light-beam"></div><div class="light-beam"></div>
-  <div class="spread">
-    <div class="spread-content">
-      <div class="spread-row">
-        <div class="reveal-left">
-          <div class="section-label">Zašto postojimo</div>
-          <h2 class="section-headline">Svaka priča je <span class="gold">svjetlo</span><br>koje treba zasjati</h2>
-        </div>
-        <div class="reveal-right delay-3">
-          <p class="section-text section-text-lg">U svijetu prepunom buke, mi stvaramo prostor za autentičnost. Platformu gdje tvoje riječi dobivaju pozornicu koju zaslužuju. Gdje se tvoja istina pretvara u umjetnost.</p>
-          <p class="section-text" style="margin-top:20px">Nije važno jesi li pisac, sanjar, ili netko tko jednostavno ima nešto za reći — ovdje je tvoje mjesto.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ VALUES CARDS ═══ -->
-<section class="section-alt">
-  <div class="bg-accent" style="bottom:0;left:-20%;top:auto;width:400px;height:400px"></div>
-  <div class="spread" style="min-height:auto;padding:100px 20px">
-    <div class="spread-content">
-      <div class="section-label reveal-fade" style="text-align:center">Naše vrijednosti</div>
-      <h2 class="section-headline reveal-fade delay-2" style="text-align:center;max-width:600px;margin:0 auto 50px">Što nosi<span class="gold"> svaka </span>priča</h2>
-      <div class="cards-grid">
-        <div class="card-item"><div class="icon">✧</div><h3>Autentičnost</h3><p>Iskrene priče koje dotiču srce</p></div>
-        <div class="card-item"><div class="icon">✦</div><h3>Inspiracija</h3><p>Ideje koje mijenjaju perspektivu</p></div>
-        <div class="card-item"><div class="icon">◇</div><h3>Emocija</h3><p>Osjećaji pretočeni u riječi</p></div>
-        <div class="card-item"><div class="icon">○</div><h3>Zajednica</h3><p>Ljudi koji dijele svoje istine</p></div>
-        <div class="card-item"><div class="icon">▽</div><h3>Hrabrost</h3><p>Biti ranjiv je najveća snaga</p></div>
-        <div class="card-item"><div class="icon">△</div><h3>Rast</h3><p>Svaka priča nosi lekciju</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ QUOTE 2 ═══ -->
-<section class="section-dark">
-  <div class="quote-block">
-    <span class="quote-mark">"</span>
-    <p class="quote-text">Tvoja priča nije samo tvoja. Ona je dar svima koji su spremni čuti.</p>
-    <p class="quote-author">— Ispričaj svoju priču</p>
-  </div>
-</section>
-
-<!-- ═══ STORY HIGHLIGHTS ═══ -->
-<section class="section-alt">
-  <div class="grid-overlay"></div>
-  <div class="spread" style="min-height:auto;padding:100px 20px">
-    <div class="spread-content">
-      <div class="section-label reveal-fade" style="text-align:center">Priče zajednice</div>
-      <h2 class="section-headline reveal-fade delay-2" style="text-align:center;max-width:600px;margin:0 auto 50px">Glasovi koji<br><span class="gold">inspiriraju</span></h2>
-      <div class="story-cards">
-        <div class="story-card">
-          <div class="story-icon">♡</div>
-          <h3>Marijina priča</h3>
-          <p>"Nakon godina šutnje, napokon sam pronašla hrabrost da podijelim svoju istinu. Ova zajednica me prihvatila bez osude."</p>
-          <span class="story-author">— Marija, 34</span>
-        </div>
-        <div class="story-card">
-          <div class="story-icon">✧</div>
-          <h3>Markova transformacija</h3>
-          <p>"Mislio sam da moja priča nikoga ne zanima. Ali riječi koje sam napisao promijenile su nečiji život. To je neopisiv osjećaj."</p>
-          <span class="story-author">— Marko, 28</span>
-        </div>
-        <div class="story-card">
-          <div class="story-icon">✦</div>
-          <h3>Anina pobjeda</h3>
-          <p>"Kroz pisanje sam se izliječila. Svaka riječ koju napišem korak je bliže sebi. Hvala vam što postojite."</p>
-          <span class="story-author">— Ana, 42</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ HIGHLIGHT NUMBERS ═══ -->
-<section class="section-dark">
-  <div class="highlight-row">
-    <div class="highlight-item reveal-fade"><div class="highlight-num">15+</div><div class="highlight-label">Mjesečnih priča</div></div>
-    <div class="highlight-item reveal-fade delay-2"><div class="highlight-num">500+</div><div class="highlight-label">Pratitelja</div></div>
-    <div class="highlight-item reveal-fade delay-4"><div class="highlight-num">100%</div><div class="highlight-label">Autentično</div></div>
-  </div>
-</section>
-
-<!-- ═══ HOW IT WORKS ═══ -->
-<section class="section-alt">
-  <div class="spread" style="min-height:auto;padding:100px 20px">
-    <div class="spread-content">
-      <div class="section-label reveal-fade" style="text-align:center">Kako funkcionira</div>
-      <h2 class="section-headline reveal-fade delay-2" style="text-align:center;max-width:500px;margin:0 auto 20px">Tvoja priča u <span class="gold">3 koraka</span></h2>
-      <div class="steps">
-        <div class="step"><div class="step-number">01</div><h3>Podijeli svoju priču</h3><p>Napiši ili snimi svoju priču. Bez filtera, bez pravila — samo ti.</p></div>
-        <div class="step"><div class="step-number">02</div><h3>Inspiriraj druge</h3><p>Tvoja priča postaje dio kolekcije koja mijenja perspektive.</p></div>
-        <div class="step"><div class="step-number">03</div><h3>Postani dio zajednice</h3><p>Poveži se s ljudima koji dijele tvoje vrijednosti i emocije.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ REVEAL SECTION 2 ═══ -->
-<section class="section-dark">
-  <div class="bg-accent" style="top:30%;left:-10%"></div>
-  <div class="bg-accent-2" style="bottom:10%;right:-5%"></div>
-  <div class="spread">
-    <div class="spread-content">
-      <div class="spread-row" style="direction:rtl">
-        <div class="reveal-right">
-          <div class="section-label">Naša misija</div>
-          <h2 class="section-headline">Stvaramo <span class="gold">prostor</span><br>za tvoje riječi</h2>
-          <p class="section-text section-text-lg">Ispričaj svoju priču je digitalni magazin posvećen autentičnom izražavanju. Bez filtera, bez očekivanja — samo ti i tvoja priča.</p>
-          <p class="section-text" style="margin-top:20px">Vjerujemo da svatko nosi priču koja može promijeniti nečiji svijet. Pridruži nam se i podijeli svoju.</p>
-        </div>
-        <div class="reveal-left delay-3" style="direction:ltr">
-          <div class="glass-card">
-            <h3>Pridruži se zajednici</h3>
-            <p>Prati nas na Instagramu i postani dio priče koja raste svaki dan.</p>
-            <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="glass-btn">Prati nas</a>
-          </div>
-        </div>
-      </div>
+<!-- ═══ CUSTOMER STORIES ═══ -->
+<section class="section section-bg">
+  <div class="section-inner-sm">
+    <div class="label rf text-center">Što kažu klijenti</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Priče koje su <span class="rose">pokrenule</span> biznis</h2>
+    <div class="story-grid">
+      <div class="story-card"><div class="si">♡</div><h3>Ivana, vlasnica brenda</h3><p>"Nakon što smo promijenili pristup i počeli pričati priču iza naših proizvoda, prodaja je porasla za 180% u prvom mjesecu."</p><span class="sa">— Modni brend</span></div>
+      <div class="story-card"><div class="si">✧</div><h3>Marko, osnivač startupa</h3><p>"Investitori su rekli da ih je naša priča uvjerila više od business plana. Storytelling je zatvorio investiciju."</p><span class="sa">— Tech startup</span></div>
+      <div class="story-card"><div class="si">✦</div><h3>Petra, marketing direktor</h3><p>"Organski doseg nam je pao dok nismo uveli storytelling. Sad imamo 4x više angažmana bez plaćenog oglašavanja."</p><span class="sa">— Agency</span></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ NEWSLETTER ═══ -->
-<section class="section-alt">
-  <div class="bg-accent" style="top:20%;right:-15%"></div>
-  <div class="newsletter-wrap">
-    <div class="section-label reveal-fade">Ne propusti nijednu priču</div>
-    <h2 class="section-headline reveal-fade delay-2" style="text-align:center;max-width:500px;margin:0 auto">Prijavi se na <span class="gold">newsletter</span></h2>
-    <p class="section-text" style="text-align:center;margin:10px auto 0">Budite prvi koji saznaje za nove priče, inspireciju i događanja.</p>
-    <form class="newsletter-form reveal-fade delay-4" onsubmit="event.preventDefault();alert('Hvala! Uspješno ste prijavljeni.');this.reset()">
-      <input type="email" placeholder="tvoja@email.com" required>
-      <button type="submit">Prijavi se</button>
-    </form>
+<section class="section section-alt">
+  <div class="section-inner-sm">
+    <div class="nw">
+      <div class="label rf">Ne propusti priliku</div>
+      <h2 class="headline" style="text-align:center;max-width:450px;margin:0 auto">Prijavi se na <span class="rose">marketing</span> newsletter</h2>
+      <p class="text" style="text-align:center;margin:8px auto 0">Svaki tjedan šaljemo jedan storytelling savjet koji možeš odmah primijeniti.</p>
+      <form class="nf rf d3" onsubmit="event.preventDefault();alert('Hvala! Provjeri svoj email.');this.reset()">
+        <input type="email" placeholder="tvoj@email.com" required>
+        <button type="submit">Prijavi se</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <!-- ═══ FINAL CTA ═══ -->
-<section class="final-cta">
+<section class="final">
   <div class="final-glow"></div>
-  <div class="grid-overlay"></div>
-  <div class="hero-label reveal-fade">I ti imaš priču</div>
-  <h2 class="final-title reveal-fade delay-2">
-    Spremni za <span class="gold">svoju</span>?<br>
-    <span class="italic" style="font-weight:300">Pridruži nam se.</span>
+  <div class="hero-label rf">Spremni za rast?</div>
+  <h2 class="final-title rf d2">
+    Tvoj biznis <span class="rose">priča</span> se<br>
+    <span style="font-weight:300;font-style:italic">čekala.</span>
   </h2>
-  <p class="final-subtitle reveal-fade delay-4">Tvoje riječi čekaju. Tvoj glas je važan. Tvoja priča počinje ovdje.</p>
-  <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="final-btn reveal-scale delay-5">
-    <span>Ispričaj svoju priču</span><span class="arrow">↗</span>
+  <p class="final-sub rf d3">Pridruži se brandovima koji su kroz storytelling transformirali svoj marketing i povećali prihode.</p>
+  <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="final-btn rs d4">
+    <span>Započni svoju priču</span><span class="arr">↗</span>
   </a>
-  <p class="final-note reveal-fade delay-8">@_ispricaj_svoju_pricu_</p>
+  <p class="final-note rf d6">@_ispricaj_svoju_pricu_</p>
 </section>
 
 <footer>
-  <p>© 2026 Ispričaj svoju priču — Digitalni magazin</p>
+  <p>© 2026 Ispričaj svoju priču — Digitalni magazin za storytelling marketing</p>
 </footer>
 
 <script>
-// ─── Cursor ───
-const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
-if(window.innerWidth>600&&!('ontouchstart' in window)){
-  document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'});
-  document.querySelectorAll('a,button,.magazine-item,.card-item,.hero-cta,.final-btn,.nav-cta,.story-card').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hover'));el.addEventListener('mouseleave',()=>ring.classList.remove('hover'))});
-  dot.style.display='block';ring.style.display='block';
-}
-
-// ─── Preloader ───
-window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader').classList.add('hidden')},800)});
-
-// ─── Scroll Progress ───
+// Scroll Progress
 window.addEventListener('scroll',()=>{const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('scrollProgress').style.width=((s/d)*100)+'%'});
 
-// ─── Nav ───
+// Nav
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{nav.style.background=window.scrollY>100?'rgba(18,8,12,0.9)':'transparent';nav.style.backdropFilter=window.scrollY>100?'blur(20px)':'none';nav.style.padding=window.scrollY>100?'14px 40px':'20px 40px'});
+window.addEventListener('scroll',()=>{nav.style.background=window.scrollY>80?'rgba(250,240,242,0.95)':'transparent';nav.style.backdropFilter=window.scrollY>80?'blur(20px)':'none';nav.style.boxShadow=window.scrollY>80?'0 1px 20px rgba(232,116,154,0.04)':'none'});
 
-// ─── Particles ───
-const canvas=document.getElementById('particles-canvas'),ctx=canvas.getContext('2d');
-let particles=[],mouseX=0,mouseY=0;
-function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
-resizeCanvas();window.addEventListener('resize',resizeCanvas);
-document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY});
-class Particle{
-  constructor(){this.reset()}
-  reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+0.3;this.speedX=(Math.random()-0.5)*0.3;this.speedY=(Math.random()-0.5)*0.3;this.opacity=Math.random()*0.5+0.1;this.hue=Math.random()*40+320}
-  update(){this.x+=this.speedX;this.y+=this.speedY;const dx=mouseX-this.x,dy=mouseY-this.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){const f=(150-dist)/150;this.x-=dx*f*0.003;this.y-=dy*f*0.003}if(this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height)this.reset()}
-  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue},60%,75%,${this.opacity})`;ctx.fill()}
-}
-const pc=Math.min(80,Math.floor(window.innerWidth*window.innerHeight/15000));
-for(let i=0;i<pc;i++)particles.push(new Particle());
-function animateParticles(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for(const p of particles)p.update(),p.draw();
-  for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(240,168,192,${0.06*(1-dist/120)})`;ctx.stroke()}}
-  requestAnimationFrame(animateParticles)
-}
-animateParticles();
+// Intersection Observer
+const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('vis')})},{threshold:.1});
+document.querySelectorAll('.rf,.rs,.rl,.rr').forEach(el=>io.observe(el));
 
-// ─── Intersection Observer ───
-new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:0.1}).observe(document.querySelectorAll('.reveal-fade,.reveal-scale,.reveal-left,.reveal-right'));
+// Animated bars
+const barObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const bar=en.target;bar.style.height=bar.getAttribute('data-h')+'px';barObs.unobserve(bar)}})});
+document.querySelectorAll('.bar').forEach(el=>barObs.observe(el));
 
-// ─── Counters ───
-new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,t=el.getAttribute('data-target');if(t==='∞'){el.textContent='∞';return}const tn=parseInt(t);if(isNaN(tn))return;let c=0;const st=performance.now();(function up(time){const p=Math.min((time-st)/2000,1);c=Math.floor((1-Math.pow(1-p,3))*tn);el.textContent=c;p<1?requestAnimationFrame(up):el.textContent=tn})(performance.now());observer.unobserve(el)}})}).observe(document.querySelectorAll('.counter'));
+// Magazine stagger
+const mgObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all .9s cubic-bezier(0.16,1,0.3,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';mgObs.unobserve(en.target)}})},{threshold:.05});
+document.querySelectorAll('.mkt-card,.story-card,.step,.case-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';mgObs.observe(el)});
 
-// ─── Parallax ───
-document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-.5)*20,y=(e.clientY/window.innerHeight-.5)*20;document.querySelectorAll('.parallax-layer').forEach(l=>{l.style.transform=`translate(${x}px,${y}px)`})});
+// Hero parallax
+window.addEventListener('scroll',()=>{const s=window.scrollY,hero=document.getElementById('hero');if(hero){const g=hero.querySelector('.hero-glow');if(g)g.style.transform=`translate(-50%,calc(-50% + ${s*0.06}px)) scale(${1+s*0.0006})`}});
 
-// ─── Magazine items stagger ───
-const mgObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all 0.8s cubic-bezier(0.16,1,0.3,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';mgObs.unobserve(en.target)}})},{threshold:.05});
-document.querySelectorAll('.magazine-item').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';mgObs.observe(el)});
+// Metric stagger
+const metObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all .8s cubic-bezier(0.34,1.56,0.64,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';metObs.unobserve(en.target)}})},{threshold:.2});
+document.querySelectorAll('.hero-metric').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';metObs.observe(el)});
 
-// ─── Card items stagger ───
-const cardObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all 0.8s cubic-bezier(0.16,1,0.3,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';cardObs.unobserve(en.target)}})},{threshold:.05});
-document.querySelectorAll('.card-item,.story-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';cardObs.observe(el)});
-
-// ─── 3D Tilt Magazine ───
-document.querySelectorAll('.magazine-item').forEach(item=>{item.addEventListener('mousemove',e=>{const r=item.getBoundingClientRect();item.style.transform=`perspective(1000px) rotateY(${(e.clientX-r.left)/r.width-.5}deg) rotateX(${-(e.clientY-r.top)/r.height*4+.5}deg) translateZ(10px)`});item.addEventListener('mouseleave',()=>{item.style.transform='perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0)'})});
-
-// ─── Steps stagger ───
-const stepObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all 0.8s cubic-bezier(0.16,1,0.3,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';stepObs.unobserve(en.target)}})},{threshold:.1});
-document.querySelectorAll('.step').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(20px)';setTimeout(()=>stepObs.observe(el),i*100)});
-
-// ─── Hero parallax ───
-window.addEventListener('scroll',()=>{const s=window.scrollY,hero=document.getElementById('hero');if(hero){const bg=hero.querySelector('.hero-glow');if(bg)bg.style.transform=`translate(-50%,calc(-50% + ${s*0.08}px)) scale(${1+s*0.0008})`}});
-
-// ─── Step arrows stagger ───
-const highlightObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all 1s cubic-bezier(0.16,1,0.3,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';highlightObs.unobserve(en.target)}})},{threshold:.2});
-document.querySelectorAll('.highlight-item').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';highlightObs.observe(el)});
-
-console.log('%c Ispričaj svoju priču ','background:#f0a8c0;color:#12080c;font-size:16px;font-weight:bold;padding:8px 16px;border-radius:4px;font-family:serif;');
-console.log('%c Digitalni magazin — @_ispricaj_svoju_pricu_ ','color:#f0a8c0;font-size:12px;padding:4px 16px;font-family:monospace;');
+console.log('%c Ispričaj svoju priču ','background:#e8749a;color:#fff;font-size:16px;font-weight:bold;padding:8px 16px;border-radius:4px;font-family:serif;');
+console.log('%c Storytelling marketing — @_ispricaj_svoju_pricu_ ','color:#e8749a;font-size:12px;padding:4px 16px;font-family:monospace;');
 </script>
 </body>
 </html>
