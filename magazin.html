@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Ispričaj svoju priču — Digitalni Magazin</title>
+<meta name="description" content="Ispričaj svoju priču — Digitalni magazin. Inspiracija, emocije, priče koje ostaju.">
+<meta property="og:title" content="Ispričaj svoju priču">
+<meta property="og:description" content="Digitalni magazin — Inspiracija, emocije, priče koje ostaju.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;500;600;700;800&family=Great+Vibes&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --black:#0a0a0a;--black-2:#0f0f0f;--black-3:#151515;--black-4:#1a1a1a;
+  --dark:#1a1a1e;--dark-2:#222226;--dark-3:#2a2a2e;
+  --gold:#c8a84e;--gold-light:#e0cf96;--gold-shimmer:#f0e8d0;--gold-deep:#a88838;
+  --gold-ruby:#b8963e;--gold-glow:rgba(200,168,78,0.15);
+  --cream:#fcf8f5;--ivory:#fefcf9;--champagne:#f7f0e0;
+  --burgundy:#6a3848;--burgundy-deep:#4d2834;
+  --rose:#d8b4c0;--rose-dark:#c090a0;
+  --text:#1a1a1e;--text-light:#6a6a72;--text-lighter:#9a9aa2;
+  --white:#fff;--white-warm:#fefdfc;
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --ease-smooth:cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-bounce:cubic-bezier(0.68,-0.55,0.27,1.55);
+  --ease-power4:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Playfair Display',serif;
+  background:var(--black);
+  color:var(--white);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  cursor:default;
+}
+::selection{background:var(--gold);color:var(--black)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold),var(--gold-deep));border-radius:2px}
+
+/* ─── Preloader ─── */
+.preloader{
+  position:fixed;inset:0;z-index:99999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--black);
+  transition:opacity 1.2s var(--ease-smooth),transform 1.2s var(--ease-smooth);
+}
+.preloader.hidden{opacity:0;transform:scale(1.15);pointer-events:none}
+.preloader-ring{
+  width:60px;height:60px;border-radius:50%;
+  border:1.5px solid rgba(200,168,78,0.06);
+  border-top-color:var(--gold);
+  animation:preloaderSpin 1.4s var(--ease-out-expo) infinite;
+  position:relative;
+}
+.preloader-ring::before{
+  content:'';position:absolute;inset:10px;border-radius:50%;
+  border:1px solid rgba(200,168,78,0.04);
+  border-bottom-color:var(--gold-light);
+  animation:preloaderSpin 0.9s var(--ease-out-expo) infinite reverse;
+}
+.preloader-text{
+  font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:12px;text-transform:uppercase;
+  color:rgba(200,168,78,0.2);margin-top:24px;font-weight:400;
+}
+@keyframes preloaderSpin{to{transform:rotate(360deg)}}
+
+/* ─── Cursor ─── */
+.cursor-dot{
+  position:fixed;width:4px;height:4px;border-radius:50%;
+  background:var(--gold);z-index:99998;pointer-events:none;
+  transform:translate(-50%,-50%);transition:transform .1s ease,opacity .3s;
+  mix-blend-mode:normal;box-shadow:0 0 12px rgba(200,168,78,0.4);
+  display:none;
+}
+.cursor-ring{
+  position:fixed;width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(200,168,78,0.15);z-index:99997;pointer-events:none;
+  transform:translate(-50%,-50%);transition:width .5s var(--ease-spring),height .5s var(--ease-spring),border-color .3s,opacity .3s;
+  display:none;
+}
+.cursor-ring.hover{width:54px;height:54px;border-color:rgba(200,168,78,0.3);background:rgba(200,168,78,0.03);}
+@media(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
+@media(max-width:600px){.cursor-dot,.cursor-ring{display:none!important}}
+
+/* ─── Canvas Particles Background ─── */
+#particles-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.6}
+
+/* ─── Scroll Progress ─── */
+.scroll-progress{
+  position:fixed;top:0;left:0;width:100%;height:1.5px;z-index:99990;
+  background:transparent;pointer-events:none;
+}
+.scroll-progress-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold),var(--gold-ruby),var(--gold),var(--gold-light));
+  background-size:200% 100%;transition:width .1s ease;
+}
+
+/* ─── Navigation ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  padding:20px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .6s ease;
+  mix-blend-mode:difference;
+}
+nav.scrolled{background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:14px 40px}
+nav .logo{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:6px;text-transform:uppercase;
+  color:var(--white);text-decoration:none;font-weight:500;
+}
+nav .logo span{color:var(--gold)}
+nav .nav-cta{
+  font-family:'Montserrat',sans-serif;font-size:.55rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--white);text-decoration:none;padding:10px 24px;
+  border:1px solid rgba(255,255,255,0.15);border-radius:50px;
+  transition:all .4s var(--ease-spring);
+  position:relative;overflow:hidden;
+}
+nav .nav-cta::before{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);opacity:0;transition:opacity .4s;
+}
+nav .nav-cta:hover::before{opacity:1}
+nav .nav-cta:hover{color:var(--black);border-color:var(--gold)}
+nav .nav-cta span{position:relative;z-index:1}
+@media(max-width:600px){nav{padding:16px 20px}nav .nav-cta{padding:8px 16px;font-size:.5rem}}
+
+/* ─── Hero / Cover ─── */
+.hero{
+  position:relative;min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;z-index:1;padding:30px 20px;
+  overflow:hidden;
+  background:var(--black);
+}
+.hero-grid-lines{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:0.03;
+  background-image:
+    linear-gradient(90deg,var(--gold) 1px,transparent 1px),
+    linear-gradient(0deg,var(--gold) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(200,168,78,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(200,168,78,0.02) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.5) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,78,0.03) 0%,transparent 60%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:0;pointer-events:none;
+  animation:heroPulse 6s ease-in-out infinite;
+}
+@keyframes heroPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5}
+  50%{transform:translate(-50%,-50%) scale(1.5);opacity:1}
+}
+.hero-overlay{position:relative;z-index:2;max-width:1100px;width:100%}
+
+.hero-label{
+  font-family:'Montserrat',sans-serif;font-size:.55rem;font-weight:300;
+  letter-spacing:12px;text-transform:uppercase;
+  color:rgba(200,168,78,0.3);margin-bottom:20px;
+  opacity:0;animation:fadeInUp 1.2s var(--ease-out-expo) forwards;animation-delay:.3s;
+  position:relative;
+}
+.hero-label::before,.hero-label::after{
+  content:'';display:inline-block;width:40px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,168,78,0.3));
+  margin:0 16px;vertical-align:middle;
+}
+.hero-label::after{background:linear-gradient(90deg,rgba(200,168,78,0.3),transparent)}
+
+.hero-title-line{
+  overflow:hidden;line-height:1;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,12vw,8rem);
+  font-weight:700;color:var(--white);
+  line-height:1.05;letter-spacing:-1px;
+  opacity:0;transform:translateY(120px);
+  animation:heroTitleReveal 1.6s var(--ease-power4) forwards;
+  animation-delay:.6s;
+  position:relative;
+}
+.hero-title .italic{font-style:italic;font-weight:400}
+.hero-title .gold{color:var(--gold)}
+@keyframes heroTitleReveal{
+  0%{opacity:0;transform:translateY(120px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.hero-title-line-2{margin-top:-.1em}
+.hero-title-line-2 .hero-title{animation-delay:.9s;font-weight:200;font-style:italic}
+
+.hero-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,2.2vw,1.6rem);
+  font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.4);
+  margin-top:16px;letter-spacing:2px;
+  opacity:0;animation:fadeInUp 1.2s var(--ease-out-expo) forwards;animation-delay:1.6s;
+}
+
+.hero-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-top:40px;padding:18px 44px;
+  font-family:'Montserrat',sans-serif;font-size:.65rem;font-weight:600;
+  letter-spacing:4px;text-transform:uppercase;text-decoration:none;
+  color:var(--white);
+  border:1.5px solid rgba(200,168,78,0.3);
+  position:relative;overflow:hidden;
+  transition:all .5s var(--ease-spring);
+  opacity:0;animation:fadeInUp 1.2s ease forwards;animation-delay:2.2s;
+  cursor:pointer;
+}
+.hero-cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold),var(--gold-ruby),var(--gold));
+  opacity:0;transition:opacity .5s;
+}
+.hero-cta::after{
+  content:'';position:absolute;inset:-2px;
+  background:linear-gradient(135deg,transparent,rgba(200,168,78,0.2),transparent);
+  filter:blur(8px);opacity:0;transition:opacity .5s;z-index:-1;
+}
+.hero-cta:hover::before{opacity:1}
+.hero-cta:hover::after{opacity:1}
+.hero-cta:hover{transform:translateY(-4px);border-color:transparent;box-shadow:0 16px 48px rgba(200,168,78,0.15)}
+.hero-cta .arrow{transition:transform .4s var(--ease-spring);font-size:1.1rem}
+.hero-cta:hover .arrow{transform:translateX(6px) rotate(-45deg)}
+.hero-cta span{position:relative;z-index:1}
+
+.hero-scroll-indicator{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  z-index:2;opacity:0;
+  animation:fadeIn 2s ease forwards 3s;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.hero-scroll-indicator .mouse{
+  width:22px;height:34px;border:1.5px solid rgba(200,168,78,0.12);
+  border-radius:12px;position:relative;
+}
+.hero-scroll-indicator .mouse::after{
+  content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:2px;height:8px;background:rgba(200,168,78,0.25);border-radius:2px;
+  animation:scrollMouse 2.2s ease infinite;
+}
+@keyframes scrollMouse{
+  0%{transform:translateX(-50%) translateY(0);opacity:1}
+  100%{transform:translateX(-50%) translateY(16px);opacity:0}
+}
+.hero-scroll-indicator p{
+  font-family:'Montserrat',sans-serif;font-size:.45rem;
+  letter-spacing:4px;text-transform:uppercase;color:rgba(200,168,78,0.08);
+}
+
+/* ─── Hero Animations ─── */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ─── Section: Magazine Spread ─── */
+.section{margin:0 auto}
+.section-dark{background:var(--black);position:relative}
+.section-dark::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,168,78,0.08),transparent);
+}
+
+.spread{
+  position:relative;
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:100px 20px;overflow:hidden;
+}
+.spread-content{
+  max-width:1000px;width:100%;position:relative;z-index:2;
+}
+.spread-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;
+}
+@media(max-width:800px){.spread-row{grid-template-columns:1fr;gap:40px}}
+
+/* ─── Magazine Cover Style ─── */
+.magazine-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  width:100%;margin:0 auto;
+}
+.magazine-item{
+  position:relative;overflow:hidden;
+  min-height:clamp(300px,50vw,500px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 30px;text-align:center;
+  cursor:pointer;
+  border:1px solid rgba(200,168,78,0.03);
+  transition:all .6s var(--ease-spring);
+}
+.magazine-item::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,transparent,rgba(200,168,78,0.02));
+  opacity:0;transition:opacity .7s;
+}
+.magazine-item:hover::before{opacity:1}
+.magazine-item:hover{background:rgba(200,168,78,0.02);border-color:rgba(200,168,78,0.06);z-index:3}
+.magazine-item:hover .magazine-number{opacity:0.8}
+.magazine-item:first-child{grid-column:1 / -1}
+.magazine-item.featured{
+  min-height:clamp(400px,60vw,600px);
+  background:linear-gradient(135deg,rgba(200,168,78,0.03),transparent 50%);
+}
+.magazine-number{
+  position:absolute;top:20px;left:24px;
+  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;
+  letter-spacing:4px;color:rgba(200,168,78,0.15);
+  transition:opacity .5s;
+}
+.magazine-category{
+  font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:500;
+  letter-spacing:6px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+  position:relative;z-index:1;
+}
+.magazine-category::before,.magazine-category::after{content:' — ';opacity:.4}
+.magazine-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.4rem,4vw,2.6rem);
+  font-weight:600;color:var(--white);line-height:1.15;
+  position:relative;z-index:1;
+  transition:all .4s ease;
+}
+.magazine-item.featured .magazine-title{font-size:clamp(2rem,6vw,4rem);font-weight:700}
+.magazine-item:hover .magazine-title{color:var(--gold-light);letter-spacing:.5px}
+.magazine-excerpt{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(.85rem,1.5vw,1.1rem);
+  color:rgba(255,255,255,0.25);margin-top:8px;
+  font-style:italic;position:relative;z-index:1;
+  max-width:400px;transition:color .4s;
+}
+.magazine-item:hover .magazine-excerpt{color:rgba(255,255,255,0.4)}
+.magazine-read{
+  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:500;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-top:16px;position:relative;z-index:1;
+  opacity:0;transform:translateY(10px);transition:all .4s var(--ease-spring);
+}
+.magazine-item:hover .magazine-read{opacity:1;transform:translateY(0)}
+.magazine-item .bg-number{
+  position:absolute;right:-20px;bottom:-30px;
+  font-size:clamp(10rem,25vw,20rem);font-weight:900;
+  color:rgba(200,168,78,0.015);
+  line-height:1;font-family:'Playfair Display',serif;
+  pointer-events:none;user-select:none;
+}
+
+/* ─── Cinematic Reveal Sections ─── */
+.reveal-section{
+  position:relative;min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;
+  padding:120px 20px;
+  overflow:hidden;
+}
+.reveal-section .bg-accent{
+  position:absolute;top:50%;right:-10%;
+  width:500px;height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,78,0.02),transparent 60%);
+  pointer-events:none;
+}
+.reveal-section .bg-accent-2{
+  position:absolute;bottom:10%;left:-5%;
+  width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,78,0.015),transparent 60%);
+  pointer-events:none;
+}
+
+.section-label{
+  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:400;
+  letter-spacing:10px;text-transform:uppercase;
+  color:rgba(200,168,78,0.2);margin-bottom:16px;
+}
+.section-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:600;color:var(--white);line-height:1.1;
+  margin-bottom:20px;
+}
+.section-headline .gold{color:var(--gold);font-style:italic}
+.section-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,1.8vw,1.25rem);
+  color:rgba(255,255,255,0.3);line-height:1.7;
+  max-width:560px;font-weight:400;
+}
+.section-text-lg{font-size:clamp(1.15rem,2vw,1.4rem);color:rgba(255,255,255,0.35)}
+
+/* ─── Quote Block ─── */
+.quote-block{
+  padding:80px 20px;text-align:center;
+  position:relative;
+}
+.quote-block::before{
+  content:'';position:absolute;top:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,168,78,0.06),transparent);
+}
+.quote-block::after{
+  content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,168,78,0.06),transparent);
+}
+.quote-mark{
+  font-size:4rem;color:rgba(200,168,78,0.06);line-height:0;
+  font-family:'Playfair Display',serif;
+  display:block;margin-bottom:10px;
+}
+.quote-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.2rem,3vw,1.8rem);font-style:italic;
+  color:rgba(255,255,255,0.5);line-height:1.6;
+  max-width:700px;margin:0 auto;
+  font-weight:400;
+}
+.quote-author{
+  font-family:'Montserrat',sans-serif;font-size:.55rem;font-weight:300;
+  letter-spacing:6px;text-transform:uppercase;
+  color:rgba(200,168,78,0.15);margin-top:16px;
+}
+
+/* ─── Stats / Numbers ─── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+  max-width:800px;margin:0 auto;padding:80px 20px;
+}
+.stat-item{text-align:center}
+.stat-number{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,6vw,4.5rem);
+  font-weight:700;color:var(--gold);line-height:1;
+}
+.stat-label{
+  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;
+  letter-spacing:6px;text-transform:uppercase;
+  color:rgba(255,255,255,0.15);margin-top:8px;
+}
+@media(max-width:600px){.stats-row{gap:20px;padding:40px 20px}}
+
+/* ─── Cards Grid ─── */
+.cards-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  max-width:1000px;margin:0 auto;
+}
+.card-item{
+  position:relative;padding:60px 30px;
+  border:1px solid rgba(200,168,78,0.03);
+  text-align:center;
+  transition:all .6s var(--ease-spring);
+  overflow:hidden;
+  min-height:280px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.card-item::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,transparent,rgba(200,168,78,0.02));
+  opacity:0;transition:opacity .6s;
+}
+.card-item:hover::before{opacity:1}
+.card-item:hover{background:rgba(200,168,78,0.01);border-color:rgba(200,168,78,0.06);transform:translateY(-4px)}
+.card-item .icon{
+  font-size:2rem;margin-bottom:12px;position:relative;z-index:1;
+  display:inline-block;
+  transition:transform .5s var(--ease-spring);
+}
+.card-item:hover .icon{transform:scale(1.2)}
+.card-item h3{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:500;color:var(--white);
+  position:relative;z-index:1;
+}
+.card-item p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.9rem;color:rgba(255,255,255,0.2);
+  margin-top:6px;position:relative;z-index:1;
+}
+.card-item .card-number{
+  position:absolute;bottom:16px;right:20px;
+  font-family:'Playfair Display',serif;
+  font-size:3rem;font-weight:900;
+  color:rgba(200,168,78,0.02);
+  line-height:1;pointer-events:none;
+}
+@media(max-width:800px){.cards-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.cards-grid{grid-template-columns:1fr}}
+
+/* ─── Horizontal Scroll Section ─── */
+.horizontal-section{
+  position:relative;height:400vh;
+}
+.horizontal-sticky{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  display:flex;align-items:center;
+}
+.horizontal-track{
+  display:flex;
+  transition:transform .1s linear;
+  will-change:transform;
+}
+.horizontal-panel{
+  min-width:100vw;height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 40px;text-align:center;
+  border-right:1px solid rgba(200,168,78,0.03);
+}
+
+/* ─── 3D Tilt Cards ─── */
+.tilt-card{
+  perspective:1200px;
+  margin:20px auto;max-width:400px;
+}
+.tilt-card-inner{
+  padding:50px 30px;text-align:center;
+  background:linear-gradient(135deg,rgba(200,168,78,0.03),transparent 70%);
+  border:1px solid rgba(200,168,78,0.06);
+  transition:transform .3s var(--ease-out-expo);
+  position:relative;
+}
+.tilt-card-inner::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(200,168,78,0.02),transparent 40%);
+  pointer-events:none;
+}
+
+/* ─── Instagram CTA Final ─── */
+.final-cta{
+  position:relative;min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 20px;
+  overflow:hidden;
+}
+.final-cta::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(200,168,78,0.03) 0%, transparent 50%);
+  pointer-events:none;
+}
+.final-glow{
+  position:absolute;width:500px;height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,78,0.02),transparent 60%);
+  top:30%;left:50%;transform:translateX(-50%);
+  pointer-events:none;
+  animation:heroPulse 8s ease-in-out infinite;
+}
+.final-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,7vw,5rem);
+  font-weight:700;color:var(--white);line-height:1.05;
+  max-width:900px;position:relative;z-index:2;
+}
+.final-title .gold{color:var(--gold)}
+.final-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,2vw,1.4rem);
+  font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.3);margin-top:12px;
+  max-width:500px;position:relative;z-index:2;
+}
+.final-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  margin-top:40px;padding:22px 52px;
+  font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:700;
+  letter-spacing:5px;text-transform:uppercase;text-decoration:none;
+  color:var(--black);
+  background:linear-gradient(135deg,var(--gold),var(--gold-ruby),var(--gold));
+  background-size:200% 100%;
+  position:relative;overflow:hidden;
+  transition:all .5s var(--ease-spring);
+  cursor:pointer;border:none;
+  position:relative;z-index:2;
+}
+.final-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);
+  pointer-events:none;
+}
+.final-btn::after{
+  content:'';position:absolute;inset:-3px;
+  background:linear-gradient(135deg,rgba(200,168,78,0.3),transparent,rgba(200,168,78,0.3));
+  filter:blur(12px);opacity:0;transition:opacity .5s;z-index:-1;
+}
+.final-btn:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 24px 60px rgba(200,168,78,0.15);background-position:100% 0}
+.final-btn:hover::after{opacity:1}
+.final-btn .arrow{transition:transform .5s var(--ease-spring);font-size:1.2rem}
+.final-btn:hover .arrow{transform:translateX(6px) rotate(-45deg)}
+.final-note{
+  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;
+  letter-spacing:6px;text-transform:uppercase;
+  color:rgba(255,255,255,0.06);margin-top:24px;position:relative;z-index:2;
+}
+
+/* ─── Counter Animation ─── */
+.counter-container{display:inline-flex;gap:6px}
+.counter-digit{
+  display:inline-block;font-family:'Playfair Display',serif;
+  color:var(--gold);font-weight:700;
+  position:relative;
+}
+
+/* ─── Footer ─── */
+footer{
+  padding:60px 20px 50px;text-align:center;
+  border-top:1px solid rgba(200,168,78,0.03);
+  position:relative;
+}
+footer p{
+  font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:300;
+  letter-spacing:6px;text-transform:uppercase;
+  color:rgba(255,255,255,0.04);
+}
+
+/* ─── Parallax Layers ─── */
+.parallax-layer{
+  position:absolute;pointer-events:none;z-index:0;
+}
+.parallax-layer-1{top:15%;left:5%;width:300px;height:300px}
+.parallax-layer-2{bottom:20%;right:8%;width:200px;height:200px}
+.parallax-shape{
+  width:100%;height:100%;
+  border:1px solid rgba(200,168,78,0.02);border-radius:50%;
+}
+
+/* ─── Grid Overlay ─── */
+.grid-overlay{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:0.02;
+  background-image:linear-gradient(90deg,rgba(200,168,78,0.3) 1px,transparent 1px);
+  background-size:40px 100%;
+}
+
+/* ─── Text Reveal ─── */
+.text-reveal{overflow:hidden;line-height:1.15}
+.text-reveal-inner{
+  display:block;transform:translateY(100%);
+  transition:transform 1.2s var(--ease-power4);
+}
+.text-reveal-inner.revealed{transform:translateY(0)}
+
+/* ─── Glass Card ─── */
+.glass-card{
+  background:rgba(255,255,255,0.01);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(200,168,78,0.04);
+  padding:40px 30px;text-align:center;
+  transition:all .5s var(--ease-spring);
+}
+.glass-card:hover{border-color:rgba(200,168,78,0.1);transform:translateY(-4px)}
+.glass-card h3{
+  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;color:var(--white);
+}
+.glass-card p{
+  font-family:'Cormorant Garamond',serif;font-size:.95rem;color:rgba(255,255,255,0.2);
+  margin-top:6px;
+}
+
+/* ─── Reveal Animations ─── */
+.reveal-fade{opacity:0;transform:translateY(40px);transition:all 1.2s var(--ease-power4)}
+.reveal-fade.visible{opacity:1;transform:translateY(0)}
+.reveal-scale{opacity:0;transform:scale(0.8);transition:all 1.2s var(--ease-spring)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.reveal-left{opacity:0;transform:translateX(-60px);transition:all 1s var(--ease-out-expo)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(60px);transition:all 1s var(--ease-out-expo)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
+.delay-4{transition-delay:.4s}.delay-5{transition-delay:.5s}.delay-6{transition-delay:.6s}
+.delay-8{transition-delay:.8s}.delay-10{transition-delay:1s}
+
+/* ─── Light Beams ─── */
+.light-beam{
+  position:absolute;width:1px;top:0;bottom:0;left:20%;
+  background:linear-gradient(180deg,transparent,rgba(200,168,78,0.02),transparent);
+  pointer-events:none;z-index:0;
+}
+.light-beam:nth-child(2){left:50%}
+.light-beam:nth-child(3){left:80%}
+
+/* ─── Mobile ─── */
+@media(max-width:600px){
+  .hero-title{font-size:2.5rem}
+  .hero-label{font-size:.45rem;letter-spacing:6px}
+  .hero-label::before,.hero-label::after{width:20px;margin:0 8px}
+  .hero-cta{padding:14px 28px;font-size:.55rem}
+  .reveal-section{padding:80px 16px}
+  .spread{padding:80px 16px}
+  .card-item{min-height:220px;padding:40px 20px}
+  .horizontal-panel{padding:40px 20px}
+  .final-btn{padding:16px 32px;font-size:.6rem}
+  .final-title{font-size:2rem}
+  .magazine-item.featured .magazine-title{font-size:1.8rem}
+  .magazine-item{min-height:220px;padding:30px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="preloader-ring"></div>
+  <div class="preloader-text">Ispričaj svoju priču</div>
+</div>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollProgress"></div></div>
+
+<!-- Particles Canvas -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- Navigation -->
+<nav id="nav">
+  <a href="#" class="logo"><span>✦</span> ISpričaj</a>
+  <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="nav-cta"><span>Prati nas</span></a>
+</nav>
+
+<!-- ═══ HERO / COVER ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-overlay">
+    <div class="hero-label">Digitalni Magazin</div>
+
+    <div class="hero-title-line">
+      <h1 class="hero-title">Ispričaj <span class="gold">svoju</span></h1>
+    </div>
+    <div class="hero-title-line hero-title-line-2">
+      <h1 class="hero-title"><span class="italic">priču</span></h1>
+    </div>
+
+    <p class="hero-subtitle">Svaka priča zaslužuje da bude ispričana.<br>Svaki trenutak vrijedi trajati zauvijek.</p>
+
+    <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="hero-cta">
+      <span>Započni svoju priču</span>
+      <span class="arrow">↗</span>
+    </a>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <div class="mouse"></div>
+    <p>Listaj</p>
+  </div>
+</section>
+
+<!-- ═══ MAGAZINE GRID ═══ -->
+<section class="section section-dark">
+  <div class="grid-overlay"></div>
+  <div class="spread">
+    <div class="spread-content">
+      <div class="section-label reveal-fade" style="text-align:center;margin-bottom:40px">Najnovije izdanje</div>
+      <div class="magazine-grid">
+        <div class="magazine-item featured" style="--order:1">
+          <span class="magazine-number">— 01 —</span>
+          <span class="bg-number">01</span>
+          <div class="magazine-category">Priča mjeseca</div>
+          <h2 class="magazine-title">Svaka emocija je<br>umjetnost sama po sebi</h2>
+          <p class="magazine-excerpt">Kako pretočiti osjećaje u riječi koje ostaju za cijeli život. Priča o hrabrosti, ljubavi i istinskoj ranjivosti.</p>
+          <span class="magazine-read">Istraži →</span>
+        </div>
+
+        <div class="magazine-item" style="--order:2">
+          <span class="magazine-number">— 02 —</span>
+          <span class="bg-number">02</span>
+          <div class="magazine-category">Inspiracija</div>
+          <h2 class="magazine-title">Glas koji<br>ne smije utihnuti</h2>
+          <p class="magazine-excerpt">Priče koje mijenjaju perspektivu i dotiču dušu.</p>
+          <span class="magazine-read">Istraži →</span>
+        </div>
+
+        <div class="magazine-item" style="--order:3">
+          <span class="magazine-number">— 03 —</span>
+          <span class="bg-number">03</span>
+          <div class="magazine-category">Priče</div>
+          <h2 class="magazine-title">Trenuci koji<br>oblikuju sudbinu</h2>
+          <p class="magazine-excerpt">Zbirka priča običnih ljudi s neobičnim životima.</p>
+          <span class="magazine-read">Istraži →</span>
+        </div>
+
+        <div class="magazine-item" style="--order:4">
+          <span class="magazine-number">— 04 —</span>
+          <span class="bg-number">04</span>
+          <div class="magazine-category">Perspektiva</div>
+          <h2 class="magazine-title">Umijeće<br>slušanja</h2>
+          <p class="magazine-excerpt">Zašto je slušanje najmoćnija vještina današnjice.</p>
+          <span class="magazine-read">Istraži →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUOTE ═══ -->
+<section class="section-dark">
+  <div class="quote-block">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">Najljepše priče su one koje još nisu ispričane. Jer čekaju upravo tebe — tvoj glas, tvoju istinu, tvoju hrabrost.</p>
+    <p class="quote-author">— Ispričaj svoju priču</p>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="section-dark">
+  <div class="stats-row" id="statsRow">
+    <div class="stat-item reveal-fade">
+      <div class="stat-number"><span class="counter" data-target="127">0</span></div>
+      <div class="stat-label">Ispričanih priča</div>
+    </div>
+    <div class="stat-item reveal-fade delay-2">
+      <div class="stat-number"><span class="counter" data-target="56">0</span></div>
+      <div class="stat-label">Autora</div>
+    </div>
+    <div class="stat-item reveal-fade delay-4">
+      <div class="stat-number"><span class="counter" data-target="∞">∞</span></div>
+      <div class="stat-label">Emocija</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REVEAL SECTION 1 ═══ -->
+<section class="section-dark reveal-section">
+  <div class="bg-accent"></div>
+  <div class="light-beam"></div>
+  <div class="light-beam"></div>
+  <div class="spread-content" style="margin:0 auto;max-width:1000px">
+    <div class="spread-row">
+      <div class="reveal-left">
+        <div class="section-label">Zašto postojimo</div>
+        <h2 class="section-headline">Svaka priča je <span class="gold">svjetlo</span><br>koje treba zasjati</h2>
+      </div>
+      <div class="reveal-right delay-3">
+        <p class="section-text section-text-lg">U svijetu prepunom buke, mi stvaramo prostor za autentičnost. Platformu gdje tvoje riječi dobivaju pozornicu koju zaslužuju. Gdje se tvoja istina pretvara u umjetnost.</p>
+        <p class="section-text" style="margin-top:20px">Nije važno jesi li pisac, sanjar, ili netko tko jednostavno ima nešto za reći — ovdje je tvoje mjesto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CARDS GRID ═══ -->
+<section class="section-dark">
+  <div class="cards-grid" style="padding:0 20px;max-width:1040px;margin:0 auto">
+    <div class="card-item reveal-fade">
+      <span class="card-number">01</span>
+      <div class="icon">✧</div>
+      <h3>Autentičnost</h3>
+      <p>Iskrene priče koje dotiču srce</p>
+    </div>
+    <div class="card-item reveal-fade delay-2">
+      <span class="card-number">02</span>
+      <div class="icon">✦</div>
+      <h3>Inspiracija</h3>
+      <p>Ideje koje mijenjaju perspektivu</p>
+    </div>
+    <div class="card-item reveal-fade delay-4">
+      <span class="card-number">03</span>
+      <div class="icon">◇</div>
+      <h3>Emocija</h3>
+      <p>Osjećaji pretočeni u riječi</p>
+    </div>
+    <div class="card-item reveal-fade delay-1">
+      <span class="card-number">04</span>
+      <div class="icon">○</div>
+      <h3>Zajednica</h3>
+      <p>Ljudi koji dijele svoje istine</p>
+    </div>
+    <div class="card-item reveal-fade delay-3">
+      <span class="card-number">05</span>
+      <div class="icon">▽</div>
+      <h3>Hrabrost</h3>
+      <p>Biti ranjiv je najveća snaga</p>
+    </div>
+    <div class="card-item reveal-fade delay-5">
+      <span class="card-number">06</span>
+      <div class="icon">△</div>
+      <h3>Rast</h3>
+      <p>Svaka priča nosi lekciju</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUOTE 2 ═══ -->
+<section class="section-dark">
+  <div class="quote-block">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">Tvoja priča nije samo tvoja. Ona je dar svima koji su spremni čuti.</p>
+    <p class="quote-author">— Ispričaj svoju priču</p>
+  </div>
+</section>
+
+<!-- ═══ REVEAL SECTION 2 ═══ -->
+<section class="section-dark reveal-section">
+  <div class="bg-accent" style="top:30%;left:-10%"></div>
+  <div class="bg-accent-2"></div>
+  <div class="spread-content" style="margin:0 auto;max-width:1000px">
+    <div class="spread-row" style="direction:rtl">
+      <div class="reveal-right">
+        <div class="section-label">Naša misija</div>
+        <h2 class="section-headline">Stvaramo <span class="gold">prostor</span><br>za tvoje riječi</h2>
+        <p class="section-text section-text-lg">Ispričaj svoju priču je digitalni magazin posvećen autentičnom izražavanju. Bez filtera, bez očekivanja — samo ti i tvoja priča.</p>
+        <p class="section-text" style="margin-top:20px">Vjerujemo da svatko nosi priču koja može promijeniti nečiji svijet. Pridruži nam se i podijeli svoju.</p>
+      </div>
+      <div class="reveal-left delay-3" style="direction:ltr">
+        <div class="glass-card">
+          <h3>Pridruži se zajednici</h3>
+          <p>Prati nas na Instagramu i postani dio priče koja raste svaki dan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="final-cta" id="final-cta">
+  <div class="final-glow"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="hero-label reveal-fade">I ti imaš priču</div>
+
+  <h2 class="final-title reveal-fade delay-2">
+    Spremni za <span class="gold">svoju</span>?<br>
+    <span class="italic" style="font-weight:300">Pridruži nam se.</span>
+  </h2>
+
+  <p class="final-subtitle reveal-fade delay-4">Tvoje riječi čekaju. Tvoj glas je važan. Tvoja priča počinje ovdje.</p>
+
+  <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="final-btn reveal-scale delay-5">
+    <span>Ispričaj svoju priču</span>
+    <span class="arrow">↗</span>
+  </a>
+
+  <p class="final-note reveal-fade delay-8">@_ispricaj_svoju_pricu_</p>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>© 2026 Ispričaj svoju priču — Digitalni magazin</p>
+</footer>
+
+<script>
+// ─── Cursor ───
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+if(window.innerWidth > 600 && !('ontouchstart' in window)){
+  document.body.classList.remove('no-cursor');
+  document.addEventListener('mousemove', e => {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .magazine-item, .card-item, .hero-cta, .final-btn, .nav-cta').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+  dot.style.display = 'block';
+  ring.style.display = 'block';
+}
+
+// ─── Preloader ───
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 800);
+});
+
+// ─── Scroll Progress ───
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  document.getElementById('scrollProgress').style.width = progress + '%';
+});
+
+// ─── Nav scroll ───
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 100);
+});
+
+// ─── Particles Canvas ───
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouseX = 0, mouseY = 0;
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+class Particle {
+  constructor(){this.reset()}
+  reset(){
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.hue = Math.random() * 60 + 35;
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    const dx = mouseX - this.x;
+    const dy = mouseY - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if(dist < 150){
+      const force = (150 - dist) / 150;
+      this.x -= dx * force * 0.003;
+      this.y -= dy * force * 0.003;
+    }
+    if(this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue}, 40%, 70%, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+const particleCount = Math.min(80, Math.floor(window.innerWidth * window.innerHeight / 15000));
+for(let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+let mousePX = 0, mousePY = 0;
+function animateParticles(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  mousePX += (mouseX - mousePX) * 0.05;
+  mousePY += (mouseY - mousePY) * 0.05;
+  for(const p of particles){ p.update(); p.draw(); }
+  // connections
+  for(let i = 0; i < particles.length; i++){
+    for(let j = i + 1; j < particles.length; j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if(dist < 120){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(200,168,78,${0.04 * (1 - dist / 120)})`;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ─── Intersection Observer Reveals ───
+const revealEls = document.querySelectorAll('.reveal-fade, .reveal-scale, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ─── Counter Animation ───
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = el.getAttribute('data-target');
+      if(target === '∞'){ el.textContent = '∞'; return; }
+      const targetNum = parseInt(target);
+      if(isNaN(targetNum)) return;
+      let current = 0;
+      const duration = 2000;
+      const startTime = performance.now();
+      function updateCounter(time){
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        current = Math.floor(eased * targetNum);
+        el.textContent = current;
+        if(progress < 1) requestAnimationFrame(updateCounter);
+        else el.textContent = targetNum;
+      }
+      requestAnimationFrame(updateCounter);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.3 });
+counters.forEach(el => counterObserver.observe(el));
+
+// ─── Parallax on mouse ───
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.querySelectorAll('.parallax-layer').forEach(layer => {
+    layer.style.transform = `translate(${x}px, ${y}px)`;
+  });
+});
+
+// ─── Smooth reveal for magazine items ───
+const magazineItems = document.querySelectorAll('.magazine-item');
+const magazineObserver = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting){
+      entry.target.style.opacity = '0';
+      entry.target.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        entry.target.style.transition = 'all 0.8s cubic-bezier(0.16,1,0.3,1)';
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }, (entry.target.style.getPropertyValue('--order') || 1) * 150);
+      magazineObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05 });
+magazineItems.forEach(el => magazineObserver.observe(el));
+
+// ─── Card items stagger ───
+const cardItems = document.querySelectorAll('.card-item');
+const cardObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.style.transition = 'all 0.8s cubic-bezier(0.16,1,0.3,1)';
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      cardObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05 });
+cardItems.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  cardObserver.observe(el);
+});
+
+// ─── Text reveal animation ───
+const textReveals = document.querySelectorAll('.text-reveal-inner');
+const textObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('revealed');
+      textObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+textReveals.forEach(el => textObserver.observe(el));
+
+// ─── Magazine item hover 3D tilt ───
+document.querySelectorAll('.magazine-item').forEach(item => {
+  item.addEventListener('mousemove', e => {
+    const rect = item.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    item.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) translateZ(10px)`;
+  });
+  item.addEventListener('mouseleave', () => {
+    item.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  });
+});
+
+// ─── Tilt cards ───
+document.querySelectorAll('.tilt-card-inner').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(1200px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateZ(20px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  });
+});
+
+// ─── Horizontal scroll section ───
+const horizontalSection = document.querySelector('.horizontal-section');
+const horizontalTrack = document.querySelector('.horizontal-track');
+if(horizontalSection && horizontalTrack){
+  window.addEventListener('scroll', () => {
+    const rect = horizontalSection.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      const progress = Math.abs(rect.top) / (horizontalSection.offsetHeight - window.innerHeight);
+      const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
+      horizontalTrack.style.transform = `translateX(${-progress * maxTranslate}px)`;
+    }
+  });
+}
+
+// ─── Parallax on hero ───
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const hero = document.getElementById('hero');
+  if(hero){
+    const heroBg = hero.querySelector('.hero-glow');
+    if(heroBg) heroBg.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.08}px)) scale(${1 + scrollY * 0.0008})`;
+  }
+});
+
+console.log('%c Ispričaj svoju priču ',
+  'background:#c8a84e;color:#0a0a0a;font-size:16px;font-weight:bold;padding:8px 16px;border-radius:4px;font-family:serif;');
+console.log('%c Digitalni magazin — @_ispricaj_svoju_pricu_ ',
+  'color:#c8a84e;font-size:12px;padding:4px 16px;font-family:monospace;');
+</script>
+</body>
+</html>
