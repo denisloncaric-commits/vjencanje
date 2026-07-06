@@ -520,6 +520,9 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
 </footer>
 
 <script>
+// Preloader
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader').classList.add('hidden')},600)});
+
 // Scroll Progress
 window.addEventListener('scroll',()=>{const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('scrollProgress').style.width=((s/d)*100)+'%'});
 
