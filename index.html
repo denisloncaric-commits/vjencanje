@@ -2160,6 +2160,7 @@ document.addEventListener('keydown',e=>{
 // ─── Google Sheets ───
 function getScriptUrl(){ return localStorage.getItem('gsScriptUrl'); }
 function saveScriptUrl(url){ localStorage.setItem('gsScriptUrl',url); }
+if(!getScriptUrl()) saveScriptUrl('https://script.google.com/macros/s/AKfycbyCzeDrdQ6Nr0IxmlpHDKgW1Mw8iS6gsuo0SsXTVprmsU8Qkjyss5pqWMvcUkmhvSWjRQ/exec');
 async function fetchFromSheet(url){
   try{
     const resp=await fetch(url+'?t='+Date.now());
