@@ -186,31 +186,29 @@ body.no-cursor{cursor:none}
 
 @keyframes pulseGlow{
   0%,100%{box-shadow:0 0 30px rgba(200,168,78,0.08),0 0 80px rgba(200,168,78,0.03)}
-  50%{box-shadow:0 0 50px rgba(200,168,78,0.18),0 0 120px rgba(200,168,78,0.06)}
+  50%{box-shadow:0 0 50px rgba(200,168,78,0.25),0 0 120px rgba(200,168,78,0.1)}
 }
-@keyframes waxCrack{
-  0%{clip-path:inset(0)}
-  15%{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-  30%{clip-path:polygon(28% 0,100% 0,100% 100%,0 100%,0 58%,18% 48%,0 28%)}
-  50%{clip-path:polygon(28% 0,68% 12%,100% 0,100% 100%,58% 82%,0 100%,3% 62%,20% 52%,6% 32%)}
-  70%{clip-path:polygon(18% 4%,58% 6%,72% 18%,100% 3%,100% 100%,48% 80%,8% 92%,2% 58%,16% 46%,3% 28%)}
-  100%{clip-path:polygon(14% 2%,32% 14%,52% 4%,68% 16%,88% 6%,100% 18%,100% 100%,52% 76%,38% 86%,10% 90%,4% 52%,18% 40%,2% 22%)}
+@keyframes sealGlow{
+  0%{box-shadow:0 0 30px rgba(200,168,78,0.15),0 0 80px rgba(200,168,78,0.05);transform:scale(1)}
+  35%{box-shadow:0 0 80px rgba(200,168,78,0.4),0 0 160px rgba(200,168,78,0.15);transform:scale(1.08)}
+  65%{box-shadow:0 0 120px rgba(200,168,78,0.6),0 0 240px rgba(200,168,78,0.2);transform:scale(1.04)}
+  100%{box-shadow:0 0 200px rgba(200,168,78,0.8),0 0 300px rgba(200,168,78,0.3);transform:scale(1.15);opacity:0}
 }
-@keyframes waxShard{
-  0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}
-  100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(0.15)}
+@keyframes sealDissolve{
+  0%{opacity:1;transform:scale(1)}
+  30%{opacity:.8;transform:scale(1.1);filter:blur(0)}
+  60%{opacity:.3;transform:scale(1.2);filter:blur(4px)}
+  100%{opacity:0;transform:scale(1.3);filter:blur(8px)}
 }
-@keyframes sealStamp{
-  0%{transform:translate(-50%,-50%) scale(0.2) rotate(-25deg);opacity:0}
-  35%{transform:translate(-50%,-50%) scale(1.25) rotate(5deg);opacity:1}
-  55%{transform:translate(-50%,-50%) scale(0.92) rotate(-3deg)}
-  75%{transform:translate(-50%,-50%) scale(1.06) rotate(2deg)}
-  100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);opacity:1}
+@keyframes sparkleFloat{
+  0%{transform:translate(0,0) scale(0) rotate(0deg);opacity:1}
+  40%{opacity:.9}
+  100%{transform:translate(var(--sx),var(--sy)) scale(0.2) rotate(180deg);opacity:0}
 }
-@keyframes burstParticle{
-  0%{transform:translate(-50%,-50%) scale(0);opacity:1}
-  60%{opacity:0.9}
-  100%{transform:translate(var(--bx),var(--by)) scale(0);opacity:0}
+@keyframes cardReveal{
+  0%{transform:translateY(80px) scale(0.85);opacity:0;filter:blur(10px)}
+  40%{filter:blur(0)}
+  100%{transform:translateY(0) scale(1);opacity:1}
 }
 
 .seal-envelope-wrap{
@@ -435,27 +433,36 @@ body.no-cursor{cursor:none}
 .seal-wax-outer{
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-78%);z-index:20;
-  transition:all 1.2s var(--ease-out-expo);
-  animation:sealStamp 1.4s var(--ease-spring) forwards;
+  transition:all .8s var(--ease-out-expo);
+  animation:sealGlow 1.6s var(--ease-out-expo) forwards;
 }
-.seal-wax-outer .seal-wax{width:clamp(44px,7vw,64px);height:clamp(44px,7vw,64px);animation:pulseGlow 3s ease-in-out infinite;animation-delay:1.2s}
-.seal-envelope.open .seal-wax-outer{opacity:0;transform:translate(-50%,-78%) scale(0.35) rotate(30deg);transition-delay:.05s}
+.seal-wax-outer .seal-wax{width:clamp(44px,7vw,64px);height:clamp(44px,7vw,64px)}
+.seal-envelope.open .seal-wax-outer{opacity:0;transform:translate(-50%,-78%) scale(0.35);transition-delay:.05s}
 
-.seal-crack-overlay{
+.seal-glow-overlay{
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-78%);z-index:25;
   width:clamp(44px,7vw,64px);height:clamp(44px,7vw,64px);
   border-radius:50%;pointer-events:none;
-  opacity:0;transition:opacity .2s;
+  opacity:0;
 }
-.seal-crack-overlay.cracking{opacity:1;animation:waxCrack .9s ease-out forwards}
-.seal-crack-overlay.cracked{opacity:0;transition:opacity .6s ease}
+.seal-glow-overlay.glowing{opacity:1;animation:sealGlow 1.2s ease-out forwards}
+.seal-glow-overlay.dissolved{opacity:0;transition:opacity .4s ease}
 
-.seal-wax-shard{
-  position:absolute;width:12px;height:12px;
-  background:radial-gradient(circle at 40% 35%,#c8b8b0 0%,#a89e98 60%,#8a807c 100%);
-  border-radius:2px;z-index:30;pointer-events:none;opacity:0;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+.seal-wax-dissolve{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-78%);z-index:26;
+  width:clamp(44px,7vw,64px);height:clamp(44px,7vw,64px);
+  border-radius:50%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,rgba(200,168,78,0.4),rgba(200,168,78,0.1) 40%,transparent 70%);
+}
+.seal-wax-dissolve.active{opacity:1;animation:sealDissolve 1s ease-out forwards}
+
+.seal-sparkle{
+  position:absolute;width:4px;height:4px;
+  background:var(--gold);border-radius:50%;z-index:30;
+  pointer-events:none;opacity:0;
+  box-shadow:0 0 6px rgba(200,168,78,0.6),0 0 12px rgba(200,168,78,0.3);
 }
 
 .seal-hint{
@@ -469,16 +476,11 @@ body.no-cursor{cursor:none}
 .seal-hint-visible .seal-hint{opacity:1;animation:pulseHint 3s ease-in-out infinite}
 @keyframes pulseHint{0%,100%{opacity:.2;transform:translateX(-50%) translateY(0)}50%{opacity:.5;transform:translateX(-50%) translateY(6px)}}
 
-.seal-burst{position:absolute;width:6px;height:6px;background:radial-gradient(circle,var(--gold-light),transparent);border-radius:50%;z-index:40;pointer-events:none;opacity:0}
-.seal-overlay.breaking .seal-envelope-wrap{animation:envelopeShake .9s ease forwards}
-@keyframes envelopeShake{
+.seal-starglow{position:absolute;width:8px;height:8px;background:radial-gradient(circle,var(--gold-light),transparent);border-radius:50%;z-index:40;pointer-events:none;opacity:0;filter:blur(1px)}
+.seal-overlay.breaking .seal-envelope-wrap{animation:envelopeReveal .6s var(--ease-out-expo) forwards}
+@keyframes envelopeReveal{
   0%{transform:translateY(0) scale(1)}
-  10%{transform:translateY(-12px) scale(1.02)}
-  22%{transform:translateY(6px) scale(0.98)}
-  35%{transform:translateY(-7px) scale(1.008)}
-  48%{transform:translateY(4px) scale(0.993)}
-  62%{transform:translateY(-3px) scale(1.002)}
-  80%{transform:translateY(1px) scale(0.998)}
+  40%{transform:translateY(-6px) scale(1.01)}
   100%{transform:translateY(0) scale(1)}
 }
 
@@ -601,6 +603,17 @@ body.no-cursor{cursor:none}
   background:rgba(255,255,255,0.25);
   backdrop-filter:blur(8px);
 }
+
+.hero-love-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(200,168,78,0.12);border:1px solid rgba(200,168,78,0.15);
+  color:var(--gold);font-size:1.1rem;cursor:pointer;
+  transition:all .4s var(--ease-spring);position:relative;
+}
+.hero-love-btn:hover{background:rgba(200,168,78,0.2);border-color:var(--gold);transform:scale(1.12);box-shadow:0 0 30px rgba(200,168,78,0.1)}
+.hero-love-btn .tooltip{position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-lighter);opacity:0;transition:opacity .3s;pointer-events:none}
+.hero-love-btn:hover .tooltip{opacity:1}
 
 .hero-actions{
   display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
@@ -1048,6 +1061,63 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.65rem;color:var(--text-l
 @keyframes fadeInDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
 
+/* ─── Love Stars ─── */
+.love-star{
+  position:fixed;pointer-events:none;z-index:9997;
+  font-size:0;opacity:0;
+  animation:loveStarFall linear forwards;
+}
+@keyframes loveStarFall{
+  0%{transform:translateY(0) translateX(0) rotate(0deg) scale(1);opacity:1}
+  30%{opacity:.9}
+  60%{opacity:.5;transform:translateY(calc(var(--ls-fall,60px)*0.6)) translateX(calc(var(--ls-drift,0px))) rotate(30deg) scale(0.6)}
+  100%{transform:translateY(calc(var(--ls-fall,60px))) translateX(calc(var(--ls-drift,0px)*1.5)) rotate(60deg) scale(0.1);opacity:0}
+}
+.love-star::before,.love-star::after{
+  content:'';position:absolute;top:50%;left:50%;
+  width:var(--star-size,6px);height:var(--star-size,6px);
+  background:var(--gold);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.love-star::after{transform:translate(-50%,-50%) scale(.5);opacity:.5;filter:blur(2px)}
+.love-star::before{transform:translate(-50%,-50%)}
+
+/* ─── Love Quote ─── */
+.love-quote-popup{
+  position:fixed;top:50%;left:50%;z-index:10001;
+  transform:translate(-50%,-50%) scale(0.85);
+  max-width:420px;width:90%;padding:40px 32px 36px;
+  background:linear-gradient(145deg,var(--ivory),var(--cream));
+  border:1px solid rgba(200,168,78,0.15);
+  box-shadow:0 40px 120px rgba(0,0,0,0.15),0 0 80px rgba(200,168,78,0.06);
+  text-align:center;
+  opacity:0;pointer-events:none;
+  transition:all .6s var(--ease-spring);
+}
+.love-quote-popup.open{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.love-quote-popup .lq-flourish{font-size:.7rem;color:var(--gold);letter-spacing:10px;margin-bottom:6px}
+.love-quote-popup .lq-text{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-style:italic;color:var(--text);line-height:1.7;margin-bottom:16px}
+.love-quote-popup .lq-author{font-family:'Montserrat',sans-serif;font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:var(--text-light)}
+.love-quote-popup .lq-close{
+  position:absolute;top:12px;right:16px;background:none;border:none;
+  font-size:1.4rem;color:var(--text-lighter);cursor:pointer;padding:4px;
+  transition:color .3s;line-height:1;
+}
+.love-quote-popup .lq-close:hover{color:var(--burgundy)}
+.love-quote-overlay{
+  position:fixed;inset:0;z-index:10000;
+  background:rgba(15,10,12,0.4);
+  backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease;
+}
+.love-quote-overlay.open{opacity:1;pointer-events:auto}
+.love-quote-trigger{
+  display:inline-block;cursor:pointer;
+  transition:all .3s ease;
+}
+.love-quote-trigger:hover{opacity:.7}
+
 /* ─── Music Toggle ─── */
 .music-btn{
   position:fixed;bottom:30px;right:30px;z-index:9001;
@@ -1096,6 +1166,7 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.65rem;color:var(--text-l
   .admin-panel{padding:30px 16px}
   .rsvp-btn{font-size:.6rem}
   .hero-btn{padding:10px 18px;font-size:.55rem}
+  .hero-love-btn{width:38px;height:38px;font-size:.95rem}
   .hero-date{font-size:.85rem}
 }
 @media(max-width:400px){
@@ -1137,14 +1208,15 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.65rem;color:var(--text-l
   <div class="seal-envelope-wrap">
     <div class="seal-envelope-shadow"></div>
 
-    <div class="seal-envelope" id="sealEnvelope">
-      <div class="seal-envelope-body"></div>
-      <div class="seal-border-inner"></div>
-      <div class="seal-envelope-lining"></div>
-      <div class="seal-flap-edge"></div>
-      <div class="seal-envelope-flap-edge-bottom"></div>
-      <div class="seal-envelope-flap"></div>
-      <div class="seal-crack-overlay" id="sealCrack"></div>
+      <div class="seal-envelope" id="sealEnvelope">
+        <div class="seal-envelope-body"></div>
+        <div class="seal-border-inner"></div>
+        <div class="seal-envelope-lining"></div>
+        <div class="seal-flap-edge"></div>
+        <div class="seal-envelope-flap-edge-bottom"></div>
+        <div class="seal-envelope-flap"></div>
+        <div class="seal-glow-overlay" id="sealGlow"></div>
+        <div class="seal-wax-dissolve" id="sealDissolve"></div>
 
       <div class="seal-card" id="sealCard">
         <div class="seal-card-corner seal-card-corner-tl"></div>
@@ -1281,6 +1353,7 @@ function doPost(e) {
       <a href="#rsvp" class="hero-btn hero-btn-primary">&#x2709; Potvrdi dolazak</a>
       <a href="https://maps.google.com/?q=Nacionalno+svetiste+sv+Josipa+Karlovac" target="_blank" class="hero-btn hero-btn-secondary">&#x1F4CD; Misa</a>
       <a href="https://maps.google.com/?q=Restoran+Zrinski+Dom+HV+Karlovac" target="_blank" class="hero-btn hero-btn-secondary">&#x1F37D; Večera</a>
+      <button class="hero-love-btn love-quote-trigger" onclick="showLoveQuote()" aria-label="Ljubavni citat">&#x2661;<span class="tooltip">Ljubavni citat</span></button>
     </div>
   </div>
   <div class="scroll-indicator">
@@ -1598,6 +1671,14 @@ function doPost(e) {
   <p style="margin-top:16px;letter-spacing:4px;font-size:.7rem;">Veselimo se vašem dolasku!</p>
 </footer>
 
+<div class="love-quote-overlay" id="loveQuoteOverlay" onclick="closeLoveQuote()"></div>
+<div class="love-quote-popup" id="loveQuotePopup">
+  <button class="lq-close" onclick="closeLoveQuote()">&times;</button>
+  <div class="lq-flourish">&#x2736;</div>
+  <p class="lq-text" id="lqText">"Ljubav nije gledanje jedno u drugo, već gledanje zajedno u istom smjeru."</p>
+  <p class="lq-author" id="lqAuthor">Antoine de Saint-Exupéry</p>
+</div>
+
 <audio id="bgMusic" loop preload="none">
   <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/bkSejUIn16rStHrC7NHp4j4DhWGKd1ICwI5DPDvw.mp3" type="audio/mpeg">
 </audio>
@@ -1674,6 +1755,83 @@ window.addEventListener('scroll',()=>{
   document.getElementById('backToTop').classList.toggle('visible',window.scrollY>500);
 });
 
+// ─── Love Stars on Hover ───
+(function(){
+  function spawnStars(x,y,count=12){
+    for(let i=0;i<count;i++){
+      setTimeout(()=>{
+        const star=document.createElement('div'); star.className='love-star';
+        star.style.left=(x+(-50+Math.random()*100))+'px';
+        star.style.top=(y+(-30+Math.random()*60))+'px';
+        star.style.setProperty('--ls-fall',(50+Math.random()*100)+'px');
+        star.style.setProperty('--ls-drift',(-30+Math.random()*60)+'px');
+        star.style.animationDuration=(0.8+Math.random()*0.8)+'s';
+        const size=3+Math.random()*6;
+        star.style.setProperty('--star-size',size+'px');
+        document.body.appendChild(star);
+        setTimeout(()=>star.remove(),2000);
+      },i*40);
+    }
+  }
+  const loveTriggers=document.querySelectorAll('.hero-title,.seal-names,.love-quote-trigger,.section-title,.names,.hero-btn,.detail-card,.nav-dot,.countdown-item,.gallery-grid img');
+  loveTriggers.forEach(el=>{
+    el.addEventListener('mouseenter',(e)=>{
+      const rect=el.getBoundingClientRect();
+      spawnStars(rect.left+rect.width/2,rect.top+rect.height/2);
+    });
+  });
+  // Gentle continuous stars on hero
+  let heroInterval;
+  const hero=document.getElementById('sec-hero');
+  if(hero){
+    hero.addEventListener('mouseenter',()=>{
+      heroInterval=setInterval(()=>{
+        const rect=hero.getBoundingClientRect();
+        spawnStars(rect.left+Math.random()*rect.width,rect.top+Math.random()*rect.height,4);
+      },800);
+    });
+    hero.addEventListener('mouseleave',()=>{clearInterval(heroInterval)});
+  }
+})();
+
+// ─── Love Quotes ───
+const loveQuotes=[
+  {text:'"Ljubav nije gledanje jedno u drugo, već gledanje zajedno u istom smjeru."',author:'Antoine de Saint-Exupéry'},
+  {text:'"Gdje god te ljubav vodi, tu ti je dom."',author:'Denis & Ivana'},
+  {text:'"Najljepše je kad nađeš nekoga tko te voli baš ovakvog kakav jesi."',author:'Poslovica'},
+  {text:'"Ljubav je jedina stvar koja raste kada je dijeliš."',author:'Antoine de Saint-Exupéry'},
+  {text:'"U tvojim očima vidim cijelu svoju budućnost."',author:'Denis & Ivana'},
+  {text:'"Neka svaki dan bude prvi dan zajedničkog života."',author:'Stara izreka'},
+  {text:'"Sretni su oni koji ljubav nose u srcu."',author:'Hrvatska poslovica'},
+  {text:'"Ljubav je kad dvije osobe dišu istim ritmom."',author:'Denis & Ivana'},
+];
+let currentQuote=0;
+function showLoveQuote(){
+  const overlay=document.getElementById('loveQuoteOverlay');
+  const popup=document.getElementById('loveQuotePopup');
+  const q=loveQuotes[currentQuote%loveQuotes.length];
+  document.getElementById('lqText').textContent=q.text;
+  document.getElementById('lqAuthor').textContent=q.author;
+  overlay.classList.add('open');
+  popup.classList.add('open');
+  currentQuote++;
+}
+function closeLoveQuote(){
+  document.getElementById('loveQuoteOverlay').classList.remove('open');
+  document.getElementById('loveQuotePopup').classList.remove('open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLoveQuote()});
+// Trigger love quote on hover (with delay) or click
+let lqTimer=null;
+document.querySelectorAll('.hero-title,.seal-names,.hero-btn-primary,.love-quote-trigger').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    clearTimeout(lqTimer);
+    lqTimer=setTimeout(showLoveQuote,1500);
+  });
+  el.addEventListener('mouseleave',()=>{clearTimeout(lqTimer)});
+  el.addEventListener('click',showLoveQuote);
+});
+
 // ─── Floating Gold Particles ───
 (function(){
   const canvas=document.getElementById('particles-canvas');
@@ -1725,43 +1883,36 @@ window.addEventListener('scroll',()=>{
   });
 })();
 
-// ─── Open envelope ───
-function createWaxShards(container){
-  const count=10;
+// ─── Open envelope (elegant redesign) ───
+function createSparkles(container,count=40){
   for(let i=0;i<count;i++){
-    const shard=document.createElement('div'); shard.className='seal-wax-shard';
-    const angle=(i/count)*360;
-    const rad=angle*Math.PI/180;
-    const dist=40+Math.random()*70;
-    shard.style.setProperty('--dx',(Math.cos(rad)*dist)+'px');
-    shard.style.setProperty('--dy',(Math.sin(rad)*dist-30)+'px');
-    shard.style.setProperty('--rot',(Math.random()*360-180)+'deg');
-    shard.style.left='50%'; shard.style.top='50%';
-    shard.style.width=(5+Math.random()*10)+'px';
-    shard.style.height=(5+Math.random()*10)+'px';
-    shard.style.background=`radial-gradient(circle at 40% 35%, #c8b8b0 0%, ${['#a89e98','#9c928e','#b0a6a0','#8a807c','#a09088'][i%5]} 60%, #7c726e 100%)`;
-    shard.style.borderRadius=Math.random()>0.5?'2px':'50%';
-    shard.style.animation=`waxShard ${0.5+Math.random()*0.5}s ease-out forwards`;
-    shard.style.animationDelay=(0.1+Math.random()*0.25)+'s';
-    container.appendChild(shard);
+    const s=document.createElement('div'); s.className='seal-sparkle';
+    const angle=Math.random()*360; const rad=angle*Math.PI/180;
+    const dist=30+Math.random()*100;
+    s.style.setProperty('--sx',(Math.cos(rad)*dist)+'px');
+    s.style.setProperty('--sy',(Math.sin(rad)*dist-20)+'px');
+    s.style.left='50%'; s.style.top='50%';
+    s.style.width=(2+Math.random()*5)+'px';
+    s.style.height=s.style.width;
+    s.style.background=i%3===0?'var(--gold)':i%3===1?'var(--gold-light)':'#fff';
+    s.style.animation=`sparkleFloat ${1+Math.random()*1}s ease-out forwards`;
+    s.style.animationDelay=(Math.random()*0.6)+'s';
+    container.appendChild(s);
   }
 }
-function createBurstParticles(container){
-  const count=28;
+function createStarGlows(container,count=16){
   for(let i=0;i<count;i++){
-    const p=document.createElement('div'); p.className='seal-burst';
-    const angle=(i/count)*360;
-    const rad=angle*Math.PI/180;
-    const dist=80+Math.random()*140;
-    p.style.setProperty('--bx',(Math.cos(rad)*dist)+'px');
-    p.style.setProperty('--by',(Math.sin(rad)*dist)+'px');
-    p.style.left='50%'; p.style.top='50%';
-    p.style.width=(2+Math.random()*6)+'px';
-    p.style.height=p.style.width;
-    p.style.background=i%2===0?'var(--gold)':'var(--silver)';
-    p.style.animation=`burstParticle ${0.8+Math.random()*0.8}s ease-out forwards`;
-    p.style.animationDelay=(0.3+Math.random()*0.4)+'s';
-    container.appendChild(p);
+    const g=document.createElement('div'); g.className='seal-starglow';
+    const angle=Math.random()*360; const rad=angle*Math.PI/180;
+    const dist=20+Math.random()*60;
+    g.style.setProperty('--sx',(Math.cos(rad)*dist)+'px');
+    g.style.setProperty('--sy',(Math.sin(rad)*dist)+'px');
+    g.style.left='50%'; g.style.top='50%';
+    g.style.width=(3+Math.random()*10)+'px';
+    g.style.height=g.style.width;
+    g.style.animation=`sparkleFloat ${0.8+Math.random()*0.6}s ease-out forwards`;
+    g.style.animationDelay=(0.2+Math.random()*0.4)+'s';
+    container.appendChild(g);
   }
 }
 
@@ -1769,22 +1920,26 @@ function openInvitation(){
   const seal=document.getElementById('sealOverlay');
   const env=document.getElementById('sealEnvelope');
   const hint=document.getElementById('sealHint');
-  const crack=document.getElementById('sealCrack');
+  const glow=document.getElementById('sealGlow');
+  const dissolve=document.getElementById('sealDissolve');
   if(seal.classList.contains('opened')) return;
   if(hint) hint.style.opacity='0';
-  seal.classList.add('breaking');
-  crack.classList.add('cracking');
-  createWaxShards(seal);
-  createBurstParticles(seal);
   startMusic();
+  seal.classList.add('breaking');
+  glow.classList.add('glowing');
   setTimeout(()=>{
-    document.getElementById('cinematicFlash').classList.add('fire');
-    setTimeout(()=>{document.getElementById('cinematicFlash').classList.remove('fire')},2000);
-  },400);
+    createSparkles(seal);
+    createStarGlows(seal);
+    setTimeout(()=>{
+      dissolve.classList.add('active');
+      glow.classList.add('dissolved');
+    },200);
+  },300);
   setTimeout(()=>{
     env.classList.add('open');
-    crack.classList.add('cracked');
     seal.classList.remove('breaking');
+    document.getElementById('cinematicFlash').classList.add('fire');
+    setTimeout(()=>{document.getElementById('cinematicFlash').classList.remove('fire')},2000);
   },700);
   setTimeout(()=>{
     seal.classList.add('opened');
@@ -1792,8 +1947,9 @@ function openInvitation(){
   },1600);
   setTimeout(()=>{
     seal.classList.add('hidden');
-    document.querySelectorAll('.seal-wax-shard,.seal-burst').forEach(el=>el.remove());
-    crack.classList.remove('cracking','cracked');
+    document.querySelectorAll('.seal-sparkle,.seal-starglow').forEach(el=>el.remove());
+    glow.classList.remove('glowing','dissolved');
+    dissolve.classList.remove('active');
   },3200);
 }
 
