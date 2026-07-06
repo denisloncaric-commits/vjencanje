@@ -185,6 +185,47 @@ nav .nav-cta:hover{background:var(--rose-deep);transform:translateY(-2px);box-sh
 .story-card .sa{font-family:'Montserrat',sans-serif;font-size:.45rem;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-top:10px;position:relative;z-index:1}
 @media(max-width:800px){.story-grid{grid-template-columns:1fr}}
 
+/* ─── Prednosti promocije ─── */
+.prednosti{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:30px auto 0}
+.prednost{display:flex;gap:16px;align-items:flex-start;padding:28px 24px;background:var(--bg-card);border:1px solid var(--rose-border);transition:all .4s var(--ease-spring)}
+.prednost:hover{border-color:var(--rose);transform:translateX(6px);background:var(--bg-card-hover)}
+.prednost .ic{font-size:1.8rem;color:var(--rose);flex-shrink:0;margin-top:2px}
+.prednost h4{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:500;color:var(--text);margin-bottom:4px}
+.prednost p{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-lighter);line-height:1.5}
+@media(max-width:600px){.prednosti{grid-template-columns:1fr}}
+
+/* ─── Link za članak ─── */
+.link-form{max-width:600px;margin:30px auto 0;padding:40px 36px;background:var(--bg-card);border:1px solid var(--rose-border);text-align:center}
+.link-form h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--text);margin-bottom:6px}
+.link-form p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-lighter);margin-bottom:20px}
+.link-form .lf{display:flex;gap:10px}
+.link-form .lf input{flex:1;padding:12px 16px;background:var(--bg);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text);outline:none;transition:all .3s}
+.link-form .lf input:focus{border-color:var(--rose);background:var(--bg-card-hover)}
+.link-form .lf input::placeholder{color:var(--text-muted)}
+.link-form .lf button{padding:12px 20px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--rose);color:var(--white);border:none;cursor:pointer;transition:all .4s var(--ease-spring);white-space:nowrap}
+.link-form .lf button:hover{background:var(--rose-deep);transform:translateY(-2px)}
+@media(max-width:500px){.link-form .lf{flex-direction:column}.link-form{padding:28px 20px}}
+
+/* ─── Kontakt ─── */
+.kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:700px;margin:30px auto 0}
+.kontakt-card{padding:36px 28px;background:var(--bg-card);border:1px solid var(--rose-border);text-align:center;transition:all .4s var(--ease-spring)}
+.kontakt-card:hover{border-color:var(--rose);transform:translateY(-4px);background:var(--bg-card-hover)}
+.kontakt-card .kc-icon{font-size:2rem;color:var(--rose);margin-bottom:12px}
+.kontakt-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--text);margin-bottom:4px}
+.kontakt-card p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-lighter);line-height:1.5}
+.kontakt-card a{color:var(--rose);text-decoration:none;font-weight:500;transition:color .3s}
+.kontakt-card a:hover{color:var(--rose-deep)}
+@media(max-width:600px){.kontakt-grid{grid-template-columns:1fr}}
+
+/* ─── Contact Form ─── */
+.cf{max-width:500px;margin:20px auto 0}
+.cf input,.cf textarea{width:100%;padding:12px 16px;margin-bottom:12px;background:var(--bg-card);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text);outline:none;transition:all .3s}
+.cf input:focus,.cf textarea:focus{border-color:var(--rose);background:var(--bg-card-hover)}
+.cf input::placeholder,.cf textarea::placeholder{color:var(--text-muted)}
+.cf textarea{min-height:100px;resize:vertical}
+.cf button{width:100%;padding:14px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--rose);color:var(--white);border:none;cursor:pointer;transition:all .4s var(--ease-spring)}
+.cf button:hover{background:var(--rose-deep);transform:translateY(-2px)}
+
 /* ─── Glass Card ─── */
 .glass-card{background:rgba(232,116,154,0.02);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--rose-border);padding:44px 32px;text-align:center;transition:all .4s var(--ease-spring)}
 .glass-card:hover{border-color:var(--rose);transform:translateY(-4px)}
@@ -389,8 +430,63 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
   </div>
 </section>
 
-<!-- ═══ NEWSLETTER ═══ -->
+<!-- ═══ PREDNOSTI PROMOCIJE NA WEBU ═══ -->
 <section class="section section-alt">
+  <div class="section-inner">
+    <div class="label rf text-center">Zašto web promocija?</div>
+    <h2 class="headline text-center" style="max-width:550px;margin:0 auto">Prednosti promocije <span class="rose">na webu</span></h2>
+    <p class="text text-center" style="margin:10px auto 0;max-width:600px">Web promocija nije samo opcija — danas je nužnost za svaki biznis koji želi rasti. Donosimo ključne prednosti.</p>
+    <div class="prednosti">
+      <div class="prednost"><div class="ic">🌐</div><div><h4>Globalni doseg 24/7</h4><p>Tvoja priča i ponuda dostupni su svima, svugdje, u svako doba. Web ne spava — tvoj marketing radi i dok ti spavaš.</p></div></div>
+      <div class="prednost"><div class="ic">📊</div><div><h4>Precizno targetiranje</h4><p>Dosegni upravo one koji trebaju tvoju priču. Dob, interesi, lokacija, ponašanje — svaki euro ide tamo gdje donosi povrat.</p></div></div>
+      <div class="prednost"><div class="ic">📈</div><div><h4>Mjerljivi rezultati</h4><p>Svaki klik, pregled i konverzija se mjere. Znaš točno što funkcionira i gdje trebaš optimizirati svoj storytelling.</p></div></div>
+      <div class="prednost"><div class="ic">💰</div><div><h4>Isplativost i ROI</h4><p>Web promocija je 3x jeftinija od tradicionalnog marketinga, a donosi 4.6x bolje konverzije. Veći doseg za manje novca.</p></div></div>
+      <div class="prednost"><div class="ic">🎯</div><div><h4>Personalizacija priče</h4><p>Prilagodi poruku svakom segmentu publike. Storytelling na webu omogućuje da svatko dobije priču koja rezonira s njim.</p></div></div>
+      <div class="prednost"><div class="ic">🚀</div><div><h4>Brza skalabilnost</h4><p>Kad pronađeš dobitnu priču, možeš je trenutno skalirati na tisuće ljudi. Web raste tvojim tempom.</p></div></div>
+      <div class="prednost"><div class="ic">🤝</div><div><h4>Izgradnja zajednice</h4><p>Web omogućuje dvosmjernu komunikaciju. Tvoja publika ne samo da čita priču — ona postaje njezin dio.</p></div></div>
+      <div class="prednost"><div class="ic">♾️</div><div><h4>Trajna vrijednost</h4><p>Za razliku od letaka ili oglasa koji nestanu, web sadržaj radi za tebe godinama. Tvoja priča ostaje zauvijek.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LINK ZA ČLANAK ═══ -->
+<section class="section section-bg">
+  <div class="section-inner-sm">
+    <div class="label rf text-center">Prijavi svoj članak</div>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Podijeli svoju <span class="rose">priču</span> s nama</h2>
+    <p class="text text-center" style="margin:8px auto 0;max-width:500px">Imaš članak, blog post ili priču koju želiš promovirati? Pošalji nam link i objavit ćemo ga u našem digitalnom magazinu.</p>
+    <div class="link-form rf">
+      <h3>Unesi link svog članka</h3>
+      <p>Storytelling, marketing, biznis, lifestyle — ako ima vrijednost, mi ga objavljujemo.</p>
+      <form class="lf" onsubmit="event.preventDefault();alert('Hvala! Link je zaprimljen. Javit ćemo ti se u roku 48h.');this.reset()">
+        <input type="url" placeholder="https://tvoj-clanak.com" required>
+        <button type="submit">Pošalji link</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KONTAKT ZA PRIJAVU ═══ -->
+<section class="section section-alt">
+  <div class="section-inner-sm">
+    <div class="label rf text-center">Kontakt</div>
+    <h2 class="headline text-center" style="max-width:450px;margin:0 auto">Prijavi se ili <span class="rose">kontaktiraj</span> nas</h2>
+    <p class="text text-center" style="margin:8px auto 0;max-width:500px">Želiš postati autor, prijaviti svoj biznis za storytelling kampanju ili jednostavno imaš pitanje? Tu smo za tebe.</p>
+    <div class="kontakt-grid">
+      <div class="kontakt-card"><div class="kc-icon">📧</div><h3>Email</h3><p>Pošalji nam svoju priču ili upit na</p><a href="mailto:ispricaj@svoju-pricu.com">ispricaj@svoju-pricu.com</a></div>
+      <div class="kontakt-card"><div class="kc-icon">📱</div><h3>Instagram</h3><p>Pošalji nam DM — odgovaramo u roku 24h</p><a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener">@_ispricaj_svoju_pricu_</a></div>
+    </div>
+    <form class="cf rf d2" onsubmit="event.preventDefault();alert('Poruka poslana! Odgovorit ćemo u roku 24h.');this.reset()">
+      <input type="text" placeholder="Tvoje ime" required>
+      <input type="email" placeholder="Tvoj email" required>
+      <textarea placeholder="Tvoja poruka — prijavi se za kampanju, pošalji priču, ili postavi pitanje..." required></textarea>
+      <button type="submit">Pošalji poruku</button>
+    </form>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="section section-bg">
   <div class="section-inner-sm">
     <div class="nw">
       <div class="label rf">Ne propusti priliku</div>
