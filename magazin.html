@@ -240,6 +240,28 @@ nav .nav-cta:hover{background:var(--rose-deep);transform:translateY(-2px);box-sh
 .final-btn:hover .arr{transform:translateX(6px) rotate(-45deg)}
 .final-note{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--text-muted);margin-top:20px;z-index:2;position:relative}
 
+/* ─── Admin Panel ─── */
+.admin-btn{position:fixed;bottom:20px;right:20px;z-index:9998;width:40px;height:40px;border-radius:50%;background:var(--rose);color:var(--white);border:none;font-size:1rem;cursor:pointer;opacity:.3;transition:all .3s var(--ease-spring)}
+.admin-btn:hover{opacity:1;transform:scale(1.1)}
+.admin-overlay{position:fixed;inset:0;z-index:99999;background:rgba(10,10,10,.7);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.admin-overlay.open{opacity:1;pointer-events:all}
+.admin-panel{background:var(--bg-card);border:1px solid var(--rose-border);padding:40px 36px;max-width:420px;width:90%;text-align:center}
+.admin-panel h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:4px}
+.admin-panel p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-lighter);margin-bottom:20px}
+.admin-panel input{width:100%;padding:12px 16px;margin-bottom:12px;background:var(--bg);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text);outline:none;text-align:center}
+.admin-panel input:focus{border-color:var(--rose)}
+.admin-panel button{width:100%;padding:12px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--rose);color:var(--white);border:none;cursor:pointer;transition:all .3s}
+.admin-panel button:hover{background:var(--rose-deep)}
+.admin-panel .error{color:var(--rose-deep);font-family:'Cormorant Garamond',serif;font-size:.85rem;margin-bottom:10px;display:none}
+.admin-dashboard{display:none}
+.admin-dashboard.open{display:block}
+.admin-dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.admin-stat{padding:20px 16px;background:var(--bg);border:1px solid var(--rose-border)}
+.admin-stat .val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--rose)}
+.admin-stat .lbl{font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-lighter);margin-top:2px}
+.admin-logout{margin-top:16px;background:transparent!important;color:var(--text-muted)!important;font-size:.4rem!important}
+.admin-logout:hover{color:var(--rose)!important}
+
 /* ─── Footer ─── */
 footer{padding:50px 20px;text-align:center;border-top:1px solid var(--rose-border)}
 footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--text-muted)}
@@ -443,20 +465,31 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
   </div>
 </section>
 
-<!-- ═══ NEWSLETTER ═══ -->
-<section class="section section-bg">
-  <div class="section-inner-sm">
-    <div class="nw">
-      <div class="label rf">Ne propusti priliku</div>
-      <h2 class="headline" style="text-align:center;max-width:450px;margin:0 auto">Prijavi se na <span class="rose">marketing</span> newsletter</h2>
-      <p class="text" style="text-align:center;margin:8px auto 0">Svaki tjedan šaljemo jedan storytelling savjet koji možeš odmah primijeniti.</p>
-      <form class="nf rf d3" onsubmit="event.preventDefault();alert('Hvala! Provjeri svoj email.');this.reset()">
-        <input type="email" placeholder="tvoj@email.com" required>
-        <button type="submit">Prijavi se</button>
-      </form>
+<!-- ═══ ADMIN ═══ -->
+<button class="admin-btn" id="adminBtn" title="Admin">⚙</button>
+
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div id="adminLogin">
+      <h2>Admin panel</h2>
+      <p>Unesi lozinku za pristup</p>
+      <input type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+      <p class="error" id="adminError">Pogrešna lozinka</p>
+      <button onclick="adminLogin()">Prijavi se</button>
+    </div>
+    <div class="admin-dashboard" id="adminDash">
+      <h2>📊 Statistika</h2>
+      <p>Pregled posjećenosti i podataka</p>
+      <div class="admin-dash-grid">
+        <div class="admin-stat"><div class="val" id="statVisits">0</div><div class="lbl">Posjeta</div></div>
+        <div class="admin-stat"><div class="val" id="statToday">0</div><div class="lbl">Danas</div></div>
+        <div class="admin-stat"><div class="val" id="statLinks">0</div><div class="lbl">Prijavljenih priča</div></div>
+        <div class="admin-stat"><div class="val" id="statMessages">0</div><div class="lbl">Poruka</div></div>
+      </div>
+      <button class="admin-logout" onclick="adminLogout()">Odjavi se</button>
     </div>
   </div>
-</section>
+</div>
 
 <!-- ═══ FINAL CTA ═══ -->
 <section class="final">
@@ -501,6 +534,27 @@ window.addEventListener('scroll',()=>{const s=window.scrollY,hero=document.getEl
 
 console.log('%c Ispričaj svoju priču ','background:#e8749a;color:#fff;font-size:16px;font-weight:bold;padding:8px 16px;border-radius:4px;font-family:serif;');
 console.log('%c Storytelling marketing — @_ispricaj_svoju_pricu_ ','color:#e8749a;font-size:12px;padding:4px 16px;font-family:monospace;');
+
+// ─── Admin ───
+const ADMIN_PASS='divisualis2026';
+let visitCount=parseInt(localStorage.getItem('ispricaj_visits')||'0');
+let todayCount=parseInt(localStorage.getItem('ispricaj_today')||'0');
+let linksCount=parseInt(localStorage.getItem('ispricaj_links')||'0');
+let msgsCount=parseInt(localStorage.getItem('ispricaj_msgs')||'0');
+const today=localStorage.getItem('ispricaj_date');
+
+if(today!==new Date().toDateString()){localStorage.setItem('ispricaj_date',new Date().toDateString());todayCount=1;localStorage.setItem('ispricaj_today','1')}
+const visited=sessionStorage.getItem('ispricaj_visited');
+if(!visited){visitCount++;localStorage.setItem('ispricaj_visits',String(visitCount));sessionStorage.setItem('ispricaj_visited','1')}
+
+function adminLogin(){const p=document.getElementById('adminPass');if(p.value===ADMIN_PASS){document.getElementById('adminLogin').style.display='none';const d=document.getElementById('adminDash');d.classList.add('open');document.getElementById('statVisits').textContent=visitCount;document.getElementById('statToday').textContent=todayCount;document.getElementById('statLinks').textContent=linksCount;document.getElementById('statMessages').textContent=msgsCount;p.value=''}else{document.getElementById('adminError').style.display='block'}}
+function adminLogout(){document.getElementById('adminLogin').style.display='block';document.getElementById('adminDash').classList.remove('open');document.getElementById('adminOverlay').classList.remove('open')}
+document.getElementById('adminBtn').addEventListener('click',()=>{document.getElementById('adminOverlay').classList.toggle('open')});
+document.getElementById('adminOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)document.getElementById('adminOverlay').classList.remove('open')});
+
+// Track form submissions
+document.querySelector('.lf')?.addEventListener('submit',()=>{linksCount++;localStorage.setItem('ispricaj_links',String(linksCount))});
+document.querySelector('.cf')?.addEventListener('submit',()=>{msgsCount++;localStorage.setItem('ispricaj_msgs',String(msgsCount))});
 </script>
 </body>
 </html>
