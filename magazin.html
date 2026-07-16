@@ -147,15 +147,6 @@ nav .nav-cta:hover{background:var(--rose-deep);transform:translateY(-2px);box-sh
 .case-card .result strong{color:var(--rose);font-weight:600;display:block;font-size:.85rem;font-family:'Playfair Display',serif;letter-spacing:0;text-transform:none}
 @media(max-width:800px){.case-row{grid-template-columns:1fr;gap:16px}}
 
-/* ─── Metrics Bar ─── */
-.metrics-showcase{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;max-width:900px;margin:0 auto;padding:40px 20px}
-.metric-vis{text-align:center}
-.metric-vis .bar-wrap{height:160px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:12px}
-.metric-vis .bar{width:50px;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--rose),var(--rose-light));transition:height 1.5s var(--ease-out);min-height:10px}
-.metric-vis .bar-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--rose)}
-.metric-vis .bar-label{font-family:'Montserrat',sans-serif;font-size:.45rem;letter-spacing:4px;text-transform:uppercase;color:var(--text-lighter);margin-top:4px}
-@media(max-width:600px){.metrics-showcase{grid-template-columns:1fr 1fr;gap:20px}}
-
 /* ─── Quote ─── */
 .quote-wrap{padding:80px 20px;text-align:center}
 .quote-mark{font-size:4rem;color:var(--rose-border);line-height:0;font-family:'Playfair Display',serif;display:block;margin-bottom:8px}
@@ -234,16 +225,6 @@ nav .nav-cta:hover{background:var(--rose-deep);transform:translateY(-2px);box-sh
 .glass-card .gb{display:inline-block;padding:10px 28px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;text-decoration:none;color:var(--white);background:var(--rose);transition:all .4s var(--ease-spring)}
 .glass-card .gb:hover{background:var(--rose-deep);transform:translateY(-2px)}
 
-/* ─── Newsletter ─── */
-.nw{max-width:540px;margin:0 auto;text-align:center}
-.nf{display:flex;gap:10px;max-width:440px;margin:24px auto 0}
-.nf input{flex:1;padding:14px 18px;background:var(--bg-card);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--text);outline:none;transition:all .3s}
-.nf input:focus{border-color:var(--rose);background:var(--bg-card-hover)}
-.nf input::placeholder{color:var(--text-muted)}
-.nf button{padding:14px 24px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--rose);color:var(--white);border:none;cursor:pointer;transition:all .4s var(--ease-spring)}
-.nf button:hover{background:var(--rose-deep);transform:translateY(-2px)}
-@media(max-width:500px){.nf{flex-direction:column}}
-
 /* ─── Final CTA ─── */
 .final{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;overflow:hidden;background:var(--bg)}
 .final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%, var(--rose-glow) 0%, transparent 50%);pointer-events:none}
@@ -276,7 +257,6 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
   .mkt-card{min-height:240px;padding:36px 20px 50px}
   .case-card{padding:28px 20px}
   .story-card{min-height:260px;padding:50px 20px 60px}
-  .metrics-showcase{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -307,11 +287,6 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
       <h1 class="hero-title"><span class="rose">priču</span> i pokreni biznis</h1>
     </div>
     <p class="hero-sub">Storytelling nije samo umjetnost — on je najmoćniji marketinški alat koji pretvara promatrače u kupce, a kupce u zajednicu.</p>
-    <div class="hero-metrics">
-      <div class="hero-metric"><div class="hero-metric-num">83%</div><div class="hero-metric-label">Veći angažman</div></div>
-      <div class="hero-metric"><div class="hero-metric-num">4.6x</div><div class="hero-metric-label">Više konverzija</div></div>
-      <div class="hero-metric"><div class="hero-metric-num">70%</div><div class="hero-metric-label">Bolji brand recall</div></div>
-    </div>
     <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="hero-cta">
       <span>Započni svoju priču</span><span class="arr">↗</span>
     </a>
@@ -348,7 +323,7 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
     <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Od priče do <span class="rose">profita</span> u 3 koraka</h2>
   </div>
   <div class="steps">
-    <div class="step"><div class="step-num">01</div><h3>Autentična priča</h3><p>Kreiramo narativ koji rezonira s tvojom publikom — bez prodajnih pritisaka, sa stvarnom vrijednošću.</p></div>
+    <div class="step"><div class="step-num">01</div><h3>Autentična priča</h3><p>Stvaram narativ koji rezonira s tvojom publikom — bez prodajnih pritisaka, sa stvarnom vrijednošću.</p></div>
     <div class="step"><div class="step-num">02</div><h3>Distribucija i doseg</h3><p>Tvoja priča dolazi do prave publike kroz ciljani storytelling marketing na društvenim mrežama.</p></div>
     <div class="step"><div class="step-num">03</div><h3>Konverzija i rast</h3><p>Publika koja vjeruje tvojoj priči postaje zajednica — a zajednica donosi održiv rast.</p></div>
   </div>
@@ -409,9 +384,9 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
 <section class="section section-bg">
   <div class="section-inner-sm">
     <div class="label rf text-center">Što kažu klijenti</div>
-    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Stvarne <span class="rose">recenzije</span></h2>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto"><span class="rose">Recenzije</span></h2>
     <div class="story-grid">
-      <div class="story-card"><div class="si">♡</div><h3>Le Dori Studio</h3><p>"Predivna suradnja! Dijana je profesionalna, kreativna i zaista se trudi razumjeti tvoj brend. Preporučam svima koji žele ispričati svoju priču na autentičan način."</p><span class="sa">— Petra Tičić</span></div>
+      <div class="story-card"><div class="si">♡</div><h3>Le Dori Studio</h3><p>"Predivna suradnja! Dijana je profesionalna, kreativna i zaista se trudi razumjeti tvoj brend. Preporučam svima koji žele ispričati svoju priču na autentičan način."</p><span class="sa">— Petra Žalac</span></div>
       <div class="story-card"><div class="si">✧</div><h3>Candles&more</h3><p>"Dijana je svojim radom i trudom uspjela u potpunosti dočarati moju priču i ono što Candles&more zaista jest. Izuzetno sam zadovoljna suradnjom i toplo preporučujem!"</p><span class="sa">— Kornelija Skolan</span></div>
       <div class="story-card"><div class="si">✦</div><h3>Marijeta Martić</h3><p>"Intervju s Dijanom bio je predivno iskustvo. Osjećala sam se ugodno i opušteno, a rezultat je priča koja savršeno odražava ono što jesam i što radim."</p><span class="sa">— Marijeta Martić</span></div>
     </div>
@@ -423,15 +398,10 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
   <div class="section-inner">
     <div class="label rf text-center">Zašto web promocija?</div>
     <h2 class="headline text-center" style="max-width:550px;margin:0 auto">Prednosti promocije <span class="rose">na webu</span></h2>
-    <p class="text text-center" style="margin:10px auto 0;max-width:600px">Web promocija nije samo opcija — danas je nužnost za svaki biznis koji želi rasti. Donosimo ključne prednosti.</p>
+    <p class="text text-center" style="margin:10px auto 0;max-width:600px">Web promocija nije samo opcija — danas je nužnost za svaki biznis koji želi rasti. Donosim ključne prednosti.</p>
     <div class="prednosti">
-      <div class="prednost"><div class="ic">🌐</div><div><h4>Globalni doseg 24/7</h4><p>Tvoja priča i ponuda dostupni su svima, svugdje, u svako doba. Web ne spava — tvoj marketing radi i dok ti spavaš.</p></div></div>
-      <div class="prednost"><div class="ic">📊</div><div><h4>Precizno targetiranje</h4><p>Dosegni upravo one koji trebaju tvoju priču. Dob, interesi, lokacija, ponašanje — svaki euro ide tamo gdje donosi povrat.</p></div></div>
-      <div class="prednost"><div class="ic">📈</div><div><h4>Mjerljivi rezultati</h4><p>Svaki klik, pregled i konverzija se mjere. Znaš točno što funkcionira i gdje trebaš optimizirati svoj storytelling.</p></div></div>
-      <div class="prednost"><div class="ic">💰</div><div><h4>Isplativost i ROI</h4><p>Web promocija je 3x jeftinija od tradicionalnog marketinga, a donosi 4.6x bolje konverzije. Veći doseg za manje novca.</p></div></div>
-      <div class="prednost"><div class="ic">🎯</div><div><h4>Personalizacija priče</h4><p>Prilagodi poruku svakom segmentu publike. Storytelling na webu omogućuje da svatko dobije priču koja rezonira s njim.</p></div></div>
-      <div class="prednost"><div class="ic">🚀</div><div><h4>Brza skalabilnost</h4><p>Kad pronađeš dobitnu priču, možeš je trenutno skalirati na tisuće ljudi. Web raste tvojim tempom.</p></div></div>
-      <div class="prednost"><div class="ic">🤝</div><div><h4>Izgradnja zajednice</h4><p>Web omogućuje dvosmjernu komunikaciju. Tvoja publika ne samo da čita priču — ona postaje njezin dio.</p></div></div>
+      <div class="prednost"><div class="ic">🎯</div><div><h4>Personalizacija priče</h4><p>Prilagođavam poruku svakom segmentu publike. Storytelling na webu omogućuje da svatko dobije priču koja rezonira s njim.</p></div></div>
+      <div class="prednost"><div class="ic">🤝</div><div><h4>Izgradnja zajednice</h4><p>Web omogućuje dvosmjernu komunikaciju — tvoja publika ne samo da čita priču, nego postaje njezin dio.</p></div></div>
       <div class="prednost"><div class="ic">♾️</div><div><h4>Trajna vrijednost</h4><p>Za razliku od letaka ili oglasa koji nestanu, web sadržaj radi za tebe godinama. Tvoja priča ostaje zauvijek.</p></div></div>
     </div>
   </div>
@@ -441,14 +411,14 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
 <section class="section section-bg">
   <div class="section-inner-sm">
     <div class="label rf text-center">Prijavi svoj članak</div>
-    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Podijeli svoju <span class="rose">priču</span> s nama</h2>
-    <p class="text text-center" style="margin:8px auto 0;max-width:500px">Imaš članak, blog post ili priču koju želiš promovirati? Pošalji nam link i objavit ćemo ga u našem digitalnom magazinu.</p>
+    <h2 class="headline text-center" style="max-width:500px;margin:0 auto">Podijeli svoju <span class="rose">priču</span> sa svijetom</h2>
+    <p class="text text-center" style="margin:8px auto 0;max-width:550px">Imaš brend, biznis ili priču vrijednu dijeljenja? Pošalji mi link svog članka ili blog posta — objavit ću ga u digitalnom magazinu i ispričati tvoju priču publici koja želi čuti autentične poduzetničke priče.</p>
     <div class="link-form rf">
-      <h3>Unesi link svog članka</h3>
-      <p>Storytelling, marketing, biznis, lifestyle — ako ima vrijednost, mi ga objavljujemo.</p>
-      <form class="lf" onsubmit="event.preventDefault();alert('Hvala! Link je zaprimljen. Javit ćemo ti se u roku 48h.');this.reset()">
-        <input type="url" placeholder="https://tvoj-clanak.com" required>
-        <button type="submit">Pošalji link</button>
+      <h3>Prijavi se da ispričam tvoju priču</h3>
+      <p>Storytelling, marketing, biznis, lifestyle — ako ima vrijednost, ja je objavljujem.</p>
+      <form class="lf" onsubmit="event.preventDefault();alert('Hvala! Link je zaprimljen. Javit ću ti se u roku 48h.');this.reset()">
+        <input type="url" placeholder="https://tvoja-stranica.com" required>
+        <button type="submit">Prijavi priču</button>
       </form>
     </div>
   </div>
@@ -458,16 +428,16 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
 <section class="section section-alt">
   <div class="section-inner-sm">
     <div class="label rf text-center">Kontakt</div>
-    <h2 class="headline text-center" style="max-width:450px;margin:0 auto">Prijavi se ili <span class="rose">kontaktiraj</span> nas</h2>
-    <p class="text text-center" style="margin:8px auto 0;max-width:500px">Želiš postati autor, prijaviti svoj biznis za storytelling kampanju ili jednostavno imaš pitanje? Tu smo za tebe.</p>
+    <h2 class="headline text-center" style="max-width:450px;margin:0 auto">Prijavi se ili <span class="rose">kontaktiraj</span> me</h2>
+    <p class="text text-center" style="margin:8px auto 0;max-width:500px">Želiš da ispričam tvoju priču, prijaviti svoj biznis za storytelling kampanju ili jednostavno imaš pitanje? Tu sam za tebe.</p>
     <div class="kontakt-grid">
-      <div class="kontakt-card"><div class="kc-icon">📧</div><h3>Email</h3><p>Pošalji nam svoju priču ili upit na</p><a href="mailto:ispricaj@svoju-pricu.com">ispricaj@svoju-pricu.com</a></div>
-      <div class="kontakt-card"><div class="kc-icon">📱</div><h3>Instagram</h3><p>Pošalji nam DM — odgovaramo u roku 24h</p><a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener">@_ispricaj_svoju_pricu_</a></div>
+      <div class="kontakt-card"><div class="kc-icon">📧</div><h3>Email</h3><p>Pošalji mi svoju priču ili upit na</p><a href="mailto:ispricaj@svoju-pricu.com">ispricaj@svoju-pricu.com</a></div>
+      <div class="kontakt-card"><div class="kc-icon">📱</div><h3>Instagram</h3><p>Pošalji mi DM — odgovaram u roku 24h</p><a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener">@_ispricaj_svoju_pricu_</a></div>
     </div>
-    <form class="cf rf d2" onsubmit="event.preventDefault();alert('Poruka poslana! Odgovorit ćemo u roku 24h.');this.reset()">
+    <form class="cf rf d2" onsubmit="event.preventDefault();alert('Poruka poslana! Odgovorit ću u roku 24h.');this.reset()">
       <input type="text" placeholder="Tvoje ime" required>
       <input type="email" placeholder="Tvoj email" required>
-      <textarea placeholder="Tvoja poruka — prijavi se za kampanju, pošalji priču, ili postavi pitanje..." required></textarea>
+      <textarea placeholder="Prijavi se za kampanju, pošalji svoju priču ili postavi pitanje..." required></textarea>
       <button type="submit">Pošalji poruku</button>
     </form>
   </div>
@@ -496,7 +466,7 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
     Tvoj biznis <span class="rose">priča</span> se<br>
     <span style="font-weight:300;font-style:italic">čekala.</span>
   </h2>
-  <p class="final-sub rf d3">Pridruži se brandovima koji su kroz storytelling transformirali svoj marketing i povećali prihode.</p>
+  <p class="final-sub rf d3">Pridruži se brendovima kojima sam kroz storytelling pomogla da transformiraju svoj marketing.</p>
   <a href="https://www.instagram.com/_ispricaj_svoju_pricu_" target="_blank" rel="noopener" class="final-btn rs d4">
     <span>Započni svoju priču</span><span class="arr">↗</span>
   </a>
@@ -522,20 +492,12 @@ window.addEventListener('scroll',()=>{nav.style.background=window.scrollY>80?'rg
 const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('vis')})},{threshold:.1});
 document.querySelectorAll('.rf,.rs,.rl,.rr').forEach(el=>io.observe(el));
 
-// Animated bars
-const barObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const bar=en.target;bar.style.height=bar.getAttribute('data-h')+'px';barObs.unobserve(bar)}})});
-document.querySelectorAll('.bar').forEach(el=>barObs.observe(el));
-
 // Magazine stagger
 const mgObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all .9s cubic-bezier(0.16,1,0.3,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';mgObs.unobserve(en.target)}})},{threshold:.05});
 document.querySelectorAll('.mkt-card,.story-card,.step,.case-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';mgObs.observe(el)});
 
 // Hero parallax
 window.addEventListener('scroll',()=>{const s=window.scrollY,hero=document.getElementById('hero');if(hero){const g=hero.querySelector('.hero-glow');if(g)g.style.transform=`translate(-50%,calc(-50% + ${s*0.06}px)) scale(${1+s*0.0006})`}});
-
-// Metric stagger
-const metObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.transition='all .8s cubic-bezier(0.34,1.56,0.64,1)';en.target.style.opacity='1';en.target.style.transform='translateY(0)';metObs.unobserve(en.target)}})},{threshold:.2});
-document.querySelectorAll('.hero-metric').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';metObs.observe(el)});
 
 console.log('%c Ispričaj svoju priču ','background:#e8749a;color:#fff;font-size:16px;font-weight:bold;padding:8px 16px;border-radius:4px;font-family:serif;');
 console.log('%c Storytelling marketing — @_ispricaj_svoju_pricu_ ','color:#e8749a;font-size:12px;padding:4px 16px;font-family:monospace;');
