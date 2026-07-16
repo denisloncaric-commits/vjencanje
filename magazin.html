@@ -241,26 +241,70 @@ nav .nav-cta:hover{background:var(--rose-deep);transform:translateY(-2px);box-sh
 .final-note{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--text-muted);margin-top:20px;z-index:2;position:relative}
 
 /* ─── Admin Panel ─── */
-.admin-btn{position:fixed;bottom:20px;right:20px;z-index:9998;width:40px;height:40px;border-radius:50%;background:var(--rose);color:var(--white);border:none;font-size:1rem;cursor:pointer;opacity:.6;transition:all .3s var(--ease-spring)}
-.admin-btn:hover{opacity:1;transform:scale(1.1)}
-.admin-overlay{position:fixed;inset:0;z-index:99999;background:rgba(10,10,10,.7);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.admin-btn{position:fixed;bottom:24px;right:24px;z-index:9998;width:44px;height:44px;border-radius:50%;background:var(--rose);color:var(--white);border:1px solid rgba(255,255,255,.15);font-size:1.05rem;cursor:pointer;opacity:.35;transition:all .4s var(--ease-spring);box-shadow:0 2px 12px rgba(232,116,154,0.15)}
+.admin-btn:hover{opacity:1;transform:scale(1.08);box-shadow:0 4px 20px rgba(232,116,154,0.3)}
+.admin-overlay{position:fixed;inset:0;z-index:99999;background:rgba(8,4,6,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease}
 .admin-overlay.open{opacity:1;pointer-events:all}
-.admin-panel{background:var(--bg-card);border:1px solid var(--rose-border);padding:40px 36px;max-width:420px;width:90%;text-align:center}
-.admin-panel h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:4px}
-.admin-panel p{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-lighter);margin-bottom:20px}
-.admin-panel input{width:100%;padding:12px 16px;margin-bottom:12px;background:var(--bg);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text);outline:none;text-align:center}
-.admin-panel input:focus{border-color:var(--rose)}
-.admin-panel button{width:100%;padding:12px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--rose);color:var(--white);border:none;cursor:pointer;transition:all .3s}
-.admin-panel button:hover{background:var(--rose-deep)}
-.admin-panel .error{color:var(--rose-deep);font-family:'Cormorant Garamond',serif;font-size:.85rem;margin-bottom:10px;display:none}
-.admin-dashboard{display:none}
-.admin-dashboard.open{display:block}
-.admin-dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-.admin-stat{padding:20px 16px;background:var(--bg);border:1px solid var(--rose-border)}
-.admin-stat .val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--rose)}
-.admin-stat .lbl{font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-lighter);margin-top:2px}
-.admin-logout{margin-top:16px;background:transparent!important;color:var(--text-muted)!important;font-size:.4rem!important}
-.admin-logout:hover{color:var(--rose)!important}
+
+/* ─── Admin Login ─── */
+.admin-login-wrap{max-width:400px;width:90%;text-align:center;padding:48px 36px;background:linear-gradient(145deg,rgba(254,248,250,.98),rgba(253,245,247,.95));border:1px solid var(--rose-border);position:relative}
+.admin-login-wrap::before{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(232,116,154,.2),transparent,rgba(232,116,154,.1));z-index:-1}
+.admin-login-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--rose-deep));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.6rem;color:var(--white);box-shadow:0 8px 24px rgba(232,116,154,.25)}
+.admin-login-wrap h2{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--text);font-weight:600}
+.admin-login-wrap .sub{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--text-lighter);margin:4px 0 24px;font-style:italic}
+.admin-login-wrap .input-group{position:relative;margin-bottom:16px}
+.admin-login-wrap .input-group input{width:100%;padding:14px 16px 14px 44px;background:var(--bg);border:1px solid var(--rose-border);font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--text);outline:none;transition:all .3s;letter-spacing:2px}
+.admin-login-wrap .input-group input:focus{border-color:var(--rose);background:var(--bg-card-hover);box-shadow:0 0 0 3px var(--rose-glow)}
+.admin-login-wrap .input-group .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:1rem;pointer-events:none}
+.admin-login-wrap .error{color:var(--rose-deep);font-family:'Cormorant Garamond',serif;font-size:.85rem;margin-bottom:12px;display:none;padding:8px 12px;background:rgba(212,80,120,.06);border-radius:4px}
+.admin-login-wrap .login-btn{width:100%;padding:14px;font-family:'Montserrat',sans-serif;font-size:.5rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:var(--white);border:none;cursor:pointer;transition:all .4s var(--ease-spring);position:relative;overflow:hidden}
+.admin-login-wrap .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,116,154,.25)}
+.admin-login-wrap .login-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.admin-login-wrap .login-btn .spinner{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto}
+.admin-login-wrap .login-btn.loading .spinner{display:block}
+.admin-login-wrap .login-btn.loading span{display:none}
+.admin-login-wrap .login-hint{font-family:'Montserrat',sans-serif;font-size:.35rem;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);margin-top:16px;opacity:.5}
+
+/* ─── Admin Dashboard ─── */
+.admin-dash{display:none;max-width:800px;width:95%;max-height:90vh;overflow-y:auto;padding:40px 36px;background:linear-gradient(145deg,rgba(254,248,250,.98),rgba(253,245,247,.95));border:1px solid var(--rose-border);position:relative}
+.admin-dash::before{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(232,116,154,.15),transparent,rgba(232,116,154,.08));z-index:-1}
+.admin-dash.open{display:block}
+.admin-dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--rose-border)}
+.admin-dash-header h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);font-weight:600}
+.admin-dash-header h2 span{color:var(--rose)}
+.admin-dash-header .dash-user{font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-lighter)}
+.admin-dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.admin-stat{position:relative;padding:22px 16px;background:var(--bg);border:1px solid var(--rose-border);text-align:center;overflow:hidden;transition:all .3s}
+.admin-stat:hover{border-color:var(--rose)}
+.admin-stat .stat-bar{position:absolute;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--rose-light),var(--rose));transition:width 1s var(--ease-out)}
+.admin-stat .val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--rose);line-height:1}
+.admin-stat .lbl{font-family:'Montserrat',sans-serif;font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-lighter);margin-top:6px}
+.admin-stat .trend{font-family:'Montserrat',sans-serif;font-size:.35rem;letter-spacing:2px;color:var(--text-muted);margin-top:4px}
+.admin-stat.up .trend{color:#4caf50}
+.admin-stat .trend .arrow{display:inline-block;margin-right:2px}
+
+.admin-dash-sections{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.admin-section{background:var(--bg);border:1px solid var(--rose-border);padding:18px 16px}
+.admin-section h4{font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:4px;text-transform:uppercase;color:var(--text-lighter);margin-bottom:10px}
+.admin-section table{width:100%;border-collapse:collapse}
+.admin-section table td{padding:6px 0;font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-light);border-bottom:1px solid var(--rose-border)}
+.admin-section table td:last-child{text-align:right;font-family:'Playfair Display',serif;font-weight:600;color:var(--text)}
+.admin-section table tr:last-child td{border-bottom:none}
+.admin-section .empty{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-muted);font-style:italic;padding:10px 0}
+
+.admin-dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.admin-dash-actions button{flex:1;min-width:120px;padding:10px 16px;font-family:'Montserrat',sans-serif;font-size:.4rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:var(--bg);color:var(--text-light);border:1px solid var(--rose-border);cursor:pointer;transition:all .3s}
+.admin-dash-actions button:hover{background:var(--rose);color:var(--white);border-color:var(--rose)}
+.admin-dash-actions button.danger:hover{background:var(--rose-deep)}
+
+.admin-dash-footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--rose-border)}
+.admin-dash-footer .dash-time{font-family:'Montserrat',sans-serif;font-size:.35rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)}
+.admin-logout-btn{padding:8px 20px;font-family:'Montserrat',sans-serif;font-size:.38rem;letter-spacing:3px;text-transform:uppercase;background:transparent;color:var(--text-muted);border:1px solid var(--rose-border);cursor:pointer;transition:all .3s}
+.admin-logout-btn:hover{color:var(--rose-deep);border-color:var(--rose-deep)}
+.admin-toast{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);padding:10px 20px;background:var(--text);color:var(--white);font-family:'Montserrat',sans-serif;font-size:.4rem;letter-spacing:2px;text-transform:uppercase;opacity:0;transition:all .4s;pointer-events:none;white-space:nowrap}
+.admin-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:700px){.admin-dash-grid{grid-template-columns:1fr 1fr}.admin-dash-sections{grid-template-columns:1fr}.admin-dash{padding:28px 20px}.admin-login-wrap{padding:36px 24px}}
+@media(max-width:450px){.admin-dash-grid{grid-template-columns:1fr}}
 
 /* ─── Footer ─── */
 footer{padding:50px 20px;text-align:center;border-top:1px solid var(--rose-border)}
@@ -466,28 +510,85 @@ footer p{font-family:'Montserrat',sans-serif;font-size:.45rem;font-weight:300;le
 </section>
 
 <!-- ═══ ADMIN ═══ -->
-<button class="admin-btn" id="adminBtn" title="Admin">⚙</button>
+<button class="admin-btn" id="adminBtn" title="Admin panel">⚙</button>
 
 <div class="admin-overlay" id="adminOverlay">
-  <div class="admin-panel">
-    <div id="adminLogin">
-      <h2>Admin panel</h2>
-      <p>Unesi lozinku za pristup</p>
-      <input type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
-      <p class="error" id="adminError">Pogrešna lozinka</p>
-      <button onclick="adminLogin()">Prijavi se</button>
+  <div class="admin-login-wrap" id="adminLogin">
+    <div class="admin-login-icon">🔐</div>
+    <h2>Admin panel</h2>
+    <p class="sub">Digitalni magazin — Ispričaj svoju priču</p>
+    <div class="input-group">
+      <span class="input-icon">🔑</span>
+      <input type="password" id="adminPass" placeholder="Administratorska lozinka" autocomplete="off">
     </div>
-    <div class="admin-dashboard" id="adminDash">
-      <h2>📊 Statistika</h2>
-      <p>Pregled posjećenosti i podataka</p>
-      <div class="admin-dash-grid">
-        <div class="admin-stat"><div class="val" id="statVisits">0</div><div class="lbl">Posjeta</div></div>
-        <div class="admin-stat"><div class="val" id="statToday">0</div><div class="lbl">Danas</div></div>
-        <div class="admin-stat"><div class="val" id="statLinks">0</div><div class="lbl">Prijavljenih priča</div></div>
-        <div class="admin-stat"><div class="val" id="statMessages">0</div><div class="lbl">Poruka</div></div>
+    <p class="error" id="adminError">Pogrešna lozinka. Pokušaj ponovno.</p>
+    <button class="login-btn" id="adminLoginBtn" onclick="adminLogin()">
+      <span>Prijavi se</span>
+      <div class="spinner"></div>
+    </button>
+    <p class="login-hint">Samo za vlasnika stranice</p>
+  </div>
+
+  <div class="admin-dash" id="adminDash">
+    <div class="admin-dash-header">
+      <h2>📊 <span>Admin</span> dashboard</h2>
+      <span class="dash-user">Dijana ● Divisualis</span>
+    </div>
+
+    <div class="admin-dash-grid">
+      <div class="admin-stat" id="stat1">
+        <div class="stat-bar"></div>
+        <div class="val" id="statVisits">0</div>
+        <div class="lbl">Ukupno posjeta</div>
+        <div class="trend"><span class="arrow">▲</span>od početka</div>
       </div>
-      <button class="admin-logout" onclick="adminLogout()">Odjavi se</button>
+      <div class="admin-stat" id="stat2">
+        <div class="stat-bar"></div>
+        <div class="val" id="statToday">0</div>
+        <div class="lbl">Posjeta danas</div>
+        <div class="trend" id="trendToday"><span class="arrow">●</span>danas</div>
+      </div>
+      <div class="admin-stat" id="stat3">
+        <div class="stat-bar"></div>
+        <div class="val" id="statLinks">0</div>
+        <div class="lbl">Prijave priča</div>
+        <div class="trend"><span class="arrow">✎</span>ukupno prijava</div>
+      </div>
+      <div class="admin-stat" id="stat4">
+        <div class="stat-bar"></div>
+        <div class="val" id="statMessages">0</div>
+        <div class="lbl">Poruke</div>
+        <div class="trend"><span class="arrow">✉</span>ukupno poruka</div>
+      </div>
     </div>
+
+    <div class="admin-dash-sections">
+      <div class="admin-section">
+        <h4>📋 Zadnje prijavljene priče</h4>
+        <div id="recentLinks">
+          <p class="empty">Još nema prijavljenih priča.</p>
+        </div>
+      </div>
+      <div class="admin-section">
+        <h4>✉ Zadnje poruke</h4>
+        <div id="recentMessages">
+          <p class="empty">Još nema poruka.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-dash-actions">
+      <button onclick="adminResetVisits()">Resetiraj posjete</button>
+      <button onclick="adminExportData()">Izvezi podatke</button>
+      <button class="danger" onclick="adminClearAll()">Obriši sve</button>
+    </div>
+
+    <div class="admin-dash-footer">
+      <span class="dash-time" id="dashTime">—</span>
+      <button class="admin-logout-btn" onclick="adminLogout()">Odjavi se</button>
+    </div>
+
+    <div class="admin-toast" id="adminToast"></div>
   </div>
 </div>
 
@@ -537,24 +638,128 @@ console.log('%c Storytelling marketing — @_ispricaj_svoju_pricu_ ','color:#e87
 
 // ─── Admin ───
 const ADMIN_PASS='divisualis2026';
-let visitCount=parseInt(localStorage.getItem('ispricaj_visits')||'0');
-let todayCount=parseInt(localStorage.getItem('ispricaj_today')||'0');
-let linksCount=parseInt(localStorage.getItem('ispricaj_links')||'0');
-let msgsCount=parseInt(localStorage.getItem('ispricaj_msgs')||'0');
-const today=localStorage.getItem('ispricaj_date');
+const LS={visits:'ispricaj_visits',today:'ispricaj_today',date:'ispricaj_date',links:'ispricaj_links',msgs:'ispricaj_msgs',linkLog:'ispricaj_link_log',msgLog:'ispricaj_msg_log',firstVisit:'ispricaj_first'};
 
-if(today!==new Date().toDateString()){localStorage.setItem('ispricaj_date',new Date().toDateString());todayCount=1;localStorage.setItem('ispricaj_today','1')}
+let visitCount=parseInt(localStorage.getItem(LS.visits)||'0');
+let todayCount=parseInt(localStorage.getItem(LS.today)||'0');
+let linksCount=parseInt(localStorage.getItem(LS.links)||'0');
+let msgsCount=parseInt(localStorage.getItem(LS.msgs)||'0');
+let firstDate=localStorage.getItem(LS.firstVisit)||new Date().toISOString().split('T')[0];
+if(!localStorage.getItem(LS.firstVisit))localStorage.setItem(LS.firstVisit,firstDate);
+
+const savedDate=localStorage.getItem(LS.date);
+const now=new Date();
+if(savedDate!==now.toDateString()){localStorage.setItem(LS.date,now.toDateString());todayCount=1;localStorage.setItem(LS.today,'1')}
 const visited=sessionStorage.getItem('ispricaj_visited');
-if(!visited){visitCount++;localStorage.setItem('ispricaj_visits',String(visitCount));sessionStorage.setItem('ispricaj_visited','1')}
+if(!visited){visitCount++;localStorage.setItem(LS.visits,String(visitCount));sessionStorage.setItem('ispricaj_visited','1')}
 
-function adminLogin(){const p=document.getElementById('adminPass');if(p.value===ADMIN_PASS){document.getElementById('adminLogin').style.display='none';const d=document.getElementById('adminDash');d.classList.add('open');document.getElementById('statVisits').textContent=visitCount;document.getElementById('statToday').textContent=todayCount;document.getElementById('statLinks').textContent=linksCount;document.getElementById('statMessages').textContent=msgsCount;p.value=''}else{document.getElementById('adminError').style.display='block'}}
-function adminLogout(){document.getElementById('adminLogin').style.display='block';document.getElementById('adminDash').classList.remove('open');document.getElementById('adminOverlay').classList.remove('open')}
-document.getElementById('adminBtn').addEventListener('click',()=>{document.getElementById('adminOverlay').classList.toggle('open')});
-document.getElementById('adminOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)document.getElementById('adminOverlay').classList.remove('open')});
+document.getElementById('adminPass')?.addEventListener('keydown',e=>{if(e.key==='Enter')adminLogin()});
 
-// Track form submissions
-document.querySelector('.lf')?.addEventListener('submit',()=>{linksCount++;localStorage.setItem('ispricaj_links',String(linksCount))});
-document.querySelector('.cf')?.addEventListener('submit',()=>{msgsCount++;localStorage.setItem('ispricaj_msgs',String(msgsCount))});
+function adminLogin(){
+  const p=document.getElementById('adminPass');
+  const btn=document.getElementById('adminLoginBtn');
+  if(p.value!==ADMIN_PASS){document.getElementById('adminError').style.display='block';p.value='';p.focus();return}
+  document.getElementById('adminError').style.display='none';
+  btn.classList.add('loading');
+  setTimeout(()=>{
+    document.getElementById('adminLogin').style.display='none';
+    const d=document.getElementById('adminDash');
+    d.classList.add('open');
+    updateDashboard();
+    btn.classList.remove('loading');
+    p.value='';
+  },400)
+}
+
+function updateDashboard(){
+  document.getElementById('statVisits').textContent=visitCount.toLocaleString();
+  document.getElementById('statToday').textContent=todayCount;
+  document.getElementById('statLinks').textContent=linksCount;
+  document.getElementById('statMessages').textContent=msgsCount;
+
+  // trend bars
+  document.querySelectorAll('.admin-stat').forEach(el=>{const b=el.querySelector('.stat-bar');if(b){const v=parseInt(el.querySelector('.val')?.textContent||'0');b.style.width=Math.min(v*3,100)+'%'}});
+
+  // today trend
+  const td=document.getElementById('trendToday');
+  if(todayCount>0){td.innerHTML='<span class="arrow">▲</span>'+todayCount+' danas'}else{td.innerHTML='<span class="arrow">●</span>nema posjeta'}
+
+  // clock
+  document.getElementById('dashTime').textContent=new Date().toLocaleString('hr-HR',{weekday:'long',hour:'2-digit',minute:'2-digit'});
+
+  // recent links
+  const rl=document.getElementById('recentLinks');
+  try{const log=JSON.parse(localStorage.getItem(LS.linkLog)||'[]');rl.innerHTML=log.length?log.slice(-5).reverse().map(l=>'<table><tr><td>'+l.link+'</td><td>'+l.time+'</td></tr></table>').join(''):'<p class="empty">Još nema prijavljenih priča.</p>'}catch(e){rl.innerHTML='<p class="empty">Još nema prijavljenih priča.</p>'}
+
+  // recent messages
+  const rm=document.getElementById('recentMessages');
+  try{const log=JSON.parse(localStorage.getItem(LS.msgLog)||'[]');rm.innerHTML=log.length?log.slice(-5).reverse().map(l=>'<table><tr><td>'+l.name+' — '+l.email+'</td><td>'+l.time+'</td></tr></table>').join(''):'<p class="empty">Još nema poruka.</p>'}catch(e){rm.innerHTML='<p class="empty">Još nema poruka.</p>'}
+}
+
+function adminLogout(){
+  document.getElementById('adminLogin').style.display='block';
+  document.getElementById('adminDash').classList.remove('open');
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.getElementById('adminPass').value='';
+}
+
+function adminToast(msg){
+  const t=document.getElementById('adminToast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500)
+}
+
+function adminResetVisits(){
+  if(!confirm('Resetirati broj posjeta? Ova radnja se ne može poništiti.'))return;
+  visitCount=0;todayCount=0;
+  localStorage.setItem(LS.visits,'0');localStorage.setItem(LS.today,'0');
+  updateDashboard();adminToast('Posjete resetirane ✓')
+}
+
+function adminClearAll(){
+  if(!confirm('Izbrisati SVE podatke (posjete, prijave, poruke)?\nOvo se ne može poništiti.'))return;
+  if(!confirm('Jesi li sigurna?'))return;
+  [LS.visits,LS.today,LS.links,LS.msgs,LS.linkLog,LS.msgLog,LS.date].forEach(k=>localStorage.removeItem(k));
+  visitCount=0;todayCount=0;linksCount=0;msgsCount=0;
+  firstDate=new Date().toISOString().split('T')[0];localStorage.setItem(LS.firstVisit,firstDate);
+  updateDashboard();adminToast('Svi podaci izbrisani ✓')
+}
+
+function adminExportData(){
+  const data={datum_izvoza:new Date().toISOString(),prva_posjeta:firstDate,ukupno_posjeta:visitCount,posjeta_danas:todayCount,prijavljene_price:linksCount,poruke:msgsCount};
+  try{data.zadnje_price=JSON.parse(localStorage.getItem(LS.linkLog)||'[]');data.zadnje_poruke=JSON.parse(localStorage.getItem(LS.msgLog)||'[]')}catch(e){}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='admin-export-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  URL.revokeObjectURL(a.href);adminToast('Podaci izvezeni ✓')
+}
+
+document.getElementById('adminBtn').addEventListener('click',()=>{
+  const o=document.getElementById('adminOverlay');
+  o.classList.toggle('open');
+  if(o.classList.contains('open')){document.getElementById('adminPass')?.focus();if(document.getElementById('adminDash').classList.contains('open'))updateDashboard()}
+});
+document.getElementById('adminOverlay').addEventListener('click',e=>{
+  if(e.target===e.currentTarget)document.getElementById('adminOverlay').classList.remove('open')
+});
+
+// Track form submissions with details
+document.querySelector('.lf')?.addEventListener('submit',function(){
+  const input=this.querySelector('input[type="url"]');
+  const link=input?.value||'nepoznato';
+  linksCount++;localStorage.setItem(LS.links,String(linksCount));
+  const log=JSON.parse(localStorage.getItem(LS.linkLog)||'[]');
+  log.push({link:link,time:new Date().toLocaleString('hr-HR')});
+  localStorage.setItem(LS.linkLog,JSON.stringify(log));
+});
+
+document.querySelector('.cf')?.addEventListener('submit',function(){
+  const name=this.querySelector('input[type="text"]')?.value||'nepoznato';
+  const email=this.querySelector('input[type="email"]')?.value||'nepoznato';
+  msgsCount++;localStorage.setItem(LS.msgs,String(msgsCount));
+  const log=JSON.parse(localStorage.getItem(LS.msgLog)||'[]');
+  log.push({name:name,email:email,time:new Date().toLocaleString('hr-HR')});
+  localStorage.setItem(LS.msgLog,JSON.stringify(log));
+});
 </script>
 </body>
 </html>
